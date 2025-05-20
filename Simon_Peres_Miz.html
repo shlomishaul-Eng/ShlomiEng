@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שמעון פרס והשאלה המזרחית: מבט היסטורי וחברתי</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; 
+            max-height: 400px; 
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .section-title {
+            font-size: 2.25rem; 
+            font-weight: 700;
+            margin-bottom: 1.5rem; 
+            color: #0F766E; 
+            text-align: center;
+            padding-top: 2rem; 
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+            padding: 1.5rem; 
+            margin-bottom: 1.5rem; 
+        }
+        .stat-value {
+            font-size: 3rem; 
+            font-weight: 700;
+            color: #06B6D4; 
+        }
+        .stat-label {
+            font-size: 1.125rem; 
+            color: #475569; 
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem; 
+        }
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        .timeline-item::before { 
+            content: '';
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem; 
+            width: 2px;
+            height: 100%;
+            background-color: #06B6D4; 
+        }
+        .timeline-item:last-child::before {
+            height: calc(100% - 2rem); 
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 0.5rem;
+            left: 0;
+            width: 1rem; 
+            height: 1rem; 
+            background-color: #F97316; 
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .timeline-date {
+            font-weight: 600;
+            color: #0F766E; 
+        }
+        .text-wrap-balance {
+            text-wrap: balance;
+        }
+        .gemini-button {
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background-color: #14B8A6; /* teal-500 */
+            color: white;
+            font-weight: 600;
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+            transition: background-color 0.15s ease-in-out;
+            cursor: pointer;
+        }
+        .gemini-button:hover {
+            background-color: #0D9488; /* teal-600 */
+        }
+        .gemini-button .sparkle {
+            margin-right: 0.5rem; /* Adjusted for RTL, will be overridden by rtl:ml-2 */
+            font-size: 1.2em;
+        }
+        .gemini-response-area {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #F0F9FF; /* cyan-50 */
+            border: 1px solid #A5F3FC; /* cyan-200 */
+            border-radius: 0.375rem; /* rounded-md */
+            color: #0E7490; /* cyan-700 */
+        }
+        .absorption-sub-card {
+            border: 1px solid #E5E7EB; /* slate-200 */
+            min-height: 180px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .absorption-sub-card h3 {
+            display: flex;
+            align-items: center;
+        }
+        .absorption-sub-card .icon {
+            font-size: 1.75rem; 
+            margin-left: 0.5rem; 
+        }
+        .report-link-button {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #F97316; /* orange-500 */
+            color: white;
+            font-weight: 600;
+            border-radius: 0.375rem; /* rounded-md */
+            text-decoration: none;
+            transition: background-color 0.15s ease-in-out;
+        }
+        .report-link-button:hover {
+            background-color: #EA580C; /* orange-600 */
+        }
+        #fullReportContainer {
+            background-color: #f8fafc; /* slate-50 */
+            border: 1px solid #e2e8f0; /* slate-200 */
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            max-height: 500px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+        #fullReportContainer pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Assistant', sans-serif; /* Friendly font for the report */
+            font-size: 0.95rem; /* Slightly larger for readability */
+            color: #334155; /* slate-700 */
+        }
+        .report-h1 {
+            font-size: 1.5em; /* Relative to pre's font size */
+            font-weight: 700;
+            color: #06B6D4; /* cyan-500 */
+            text-decoration: underline;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+        .report-h2 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #14B8A6; /* teal-500 */
+            text-decoration: underline;
+            margin-top: 0.8em;
+            margin-bottom: 0.4em;
+        }
+         .report-h3 {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #0F766E; /* teal-700 */
+            text-decoration: underline;
+            margin-top: 0.7em;
+            margin-bottom: 0.3em;
+        }
+        .video-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            margin-top: 1.5rem; /* mb-6 */
+            border-radius: 0.375rem; /* rounded-md */
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800">
+
+    <div id="loadingIndicator" class="hidden fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-lg shadow-xl z-[100]">
+        <div class="flex items-center justify-center">
+            <svg class="animate-spin -ml-1 mr-3 h-10 w-10 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span class="text-lg text-teal-600 font-semibold">מעבד בקשה...</span>
+        </div>
+    </div>
+
+    <header class="bg-teal-700 text-white py-10 shadow-xl">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold leading-tight">שמעון פרס והשאלה המזרחית</h1>
+            <p class="mt-3 text-xl md:text-2xl text-teal-100">מבט היסטורי, חברתי וביקורתי על מערכת יחסים מורכבת</p>
+        </div>
+    </header>
+
+    <nav class="sticky top-0 bg-white shadow-md z-50 py-3">
+        <div class="container mx-auto px-4">
+            <ul class="flex flex-wrap justify-center space-x-4 rtl:space-x-reverse text-sm md:text-base">
+                <li><a href="#intro" class="text-teal-600 hover:text-orange-500 font-semibold py-2 px-3 rounded-md">מבוא</a></li>
+                <li><a href="#full-report-access" class="text-teal-600 hover:text-orange-500 font-semibold py-2 px-3 rounded-md">הדוח המלא</a></li>
+                <li><a href="#timeline" class="text-teal-600 hover:text-orange-500 font-semibold py-2 px-3 rounded-md">ציר זמן</a></li>
+                <li><a href="#absorption" class="text-teal-600 hover:text-orange-500 font-semibold py-2 px-3 rounded-md">שנות העיצוב</a></li>
+                <li><a href="#policy" class="text-teal-600 hover:text-orange-500 font-semibold py-2 px-3 rounded-md">החלטות מפתח</a></li>
+                <li><a href="#discourse" class="text-teal-600 hover:text-orange-500 font-semibold py-2 px-3 rounded-md">שיח הפילוג</a></li>
+                <li><a href="#legacy" class="text-teal-600 hover:text-orange-500 font-semibold py-2 px-3 rounded-md">מורשת ולקחים</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <section id="intro" class="mb-12">
+            <h2 class="section-title">מבוא: הצגת הנושא והקשרו הרחב</h2>
+            <div class="card">
+                <p class="text-lg leading-relaxed text-wrap-balance">
+                    דמותו של שמעון פרס שזורה עמוקות בהיסטוריה של מדינת ישראל. לאורך קריירה פוליטית ארוכת שנים, הוא מילא תפקידים מרכזיים בצמתי קבלת החלטות שהשפיעו על כלל אזרחי המדינה. מדינת ישראל הצעירה, שקמה מתוך חזון של בית לאומי לעם היהודי, עשתה מאמצים כבירים לקלוט גלי עלייה מכל קצוות תבל ולסייע ליהודים ברחבי העולם. תהליך בניית המדינה והחברה לא היה חף מקשיים ואתגרים, ולא הכל היה מושלם. על רקע זה, נוצרו גם מתחים, ובכללם כאלו הקשורים לקליטת העולים מארצות האסלאם. חשוב לזכור את היחס החיובי והסולידריות ששררו בדרך כלל בין הקבוצות השונות בעם, ואת הרצון המשותף לבנות חברה טובה יותר. 
+                </p>
+                <p class="mt-4 text-lg leading-relaxed text-wrap-balance">
+                    אתר זה, המבוסס על אינפוגרפיקה ודוח מקיף, נועד להאיר היבטים מרכזיים במערכת היחסים המורכבת והטעונה בין פרס לבין יהודי ארצות האסלאם וצאצאיהם בישראל. המטרה אינה להגביר את השסע, אלא לנסות ולהבין את שורשיו, לבחון פגמים שנוצרו מתוך כוונה לתקנם, ולהכיר בכך שמאז אותן שנים ראשונות, דברים רבים השתנו והתפתחו בחברה הישראלית. נבחן ציוני דרך, החלטות מדיניות, התבטאויות פומביות, והתפיסה הציבורית של פרס בקרב מזרחים, במטרה להבין את מורשתו בהקשר זה ואת הלקחים העולים ממנה לחברה הישראלית כיום.
+                </p>
+            </div>
+        </section>
+
+        <section id="full-report-access" class="mb-12">
+            <h2 class="section-title">עיון בדוח המלא</h2>
+            <div class="card text-center">
+                <p class="text-lg mb-4 text-wrap-balance">
+                    לעיון מעמיק ומפורט בנושא, ניתן לקרוא את הדוח המלא שעליו מבוסס אתר זה. הדוח כולל ניתוח היסטורי, מקורות ודיון נרחב בסוגיות המוצגות.
+                </p>
+                <button id="toggleReportBtn" class="report-link-button">הצג/הסתר את הדוח המלא</button>
+                <div id="fullReportContainer" class="hidden text-right mt-6">
+                    <pre id="fullReportContent">טוען את תוכן הדוח...</pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline" class="mb-12">
+            <h2 class="section-title">ציר זמן: הקריירה של פרס והקשר לשאלה המזרחית</h2>
+            <div class="card">
+                <p class="mb-6 text-lg leading-relaxed text-wrap-balance">
+                    הקריירה הפוליטית של שמעון פרס השתרעה על פני למעלה משישה עשורים, במהלכם היה שותף פעיל, במישרין או בעקיפין, להחלטות שהשפיעו על הקהילה המזרחית. ציר זמן זה מדגיש מספר ציוני דרך מרכזיים הרלוונטיים לנושא.
+                </p>
+                <div class="space-y-4">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">1953–1959</p>
+                        <h3 class="text-xl font-semibold text-slate-700">מנכ"ל משרד הביטחון</h3>
+                        <p class="text-slate-600 text-wrap-balance">תקופת העלייה ההמונית וקליטתה הראשונית. חלק מממסד בן-גוריון המעצב את מדיניות המדינה.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">1959</p>
+                        <h3 class="text-xl font-semibold text-slate-700">אירועי ואדי סאליב</h3>
+                        <p class="text-slate-600 text-wrap-balance">התפרצות זעם מזרחי על רקע קיפוח. פרס ממונה לסגן שר הביטחון בנובמבר. הממסד רואה במפגינים "פורעי חוק".</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">1969</p>
+                        <h3 class="text-xl font-semibold text-slate-700">שר העלייה והקליטה</h3>
+                        <p class="text-slate-600 text-wrap-balance">אחריות על קליטת עלייה ופיתוח כלכלי ב"שטחים המוחזקים".</p>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">1981</p>
+                        <h3 class="text-xl font-semibold text-slate-700">תקרית בית שמש</h3>
+                        <p class="text-slate-600 text-wrap-balance">התבטאות שנויה במחלוקת ("תנועות מזרחיות") במהלך עצרת בחירות סוערת.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">1984–1986</p>
+                        <h3 class="text-xl font-semibold text-slate-700">ראש הממשלה (כהונה ראשונה)</h3>
+                        <p class="text-slate-600 text-wrap-balance">הובלת תוכנית הייצוב הכלכלית, שזכתה לשבחים אך גם לביקורת על הרחבת פערים חברתיים.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">2005–2007</p>
+                        <h3 class="text-xl font-semibold text-slate-700">השר לפיתוח הנגב והגליל</h3>
+                        <p class="text-slate-600 text-wrap-balance">תפקיד שנועד לחזק את הפריפריה, בה מתגוררת אוכלוסייה מזרחית גדולה.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="timeline-date">2007–2014</p>
+                        <h3 class="text-xl font-semibold text-slate-700">נשיא המדינה</h3>
+                        <p class="text-slate-600 text-wrap-balance">קריאות לאחדות העם וגישור על פערים, אך ללא התייחסות עומק ספציפית לעוולות העבר כלפי מזרחים.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="absorption" class="mb-12">
+            <h2 class="section-title">שנות העיצוב: מדיניות הקליטה והשלכותיה</h2>
+            <div class="card">
+                <p class="mb-6 text-lg leading-relaxed text-wrap-balance">
+                    שנות ה-50 וה-60, תקופת העלייה ההמונית מארצות האסלאם, התאפיינו במדיניות קליטה שיצרה מציאות קשה לרבים מהעולים והניחה תשתית לשסע העדתי. פרס, כחלק מהממסד דאז, פעל בתוך הקשר זה. נבחן את מרכיבי המדיניות והשפעותיהם:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="absorption-sub-card bg-blue-50 p-4 rounded-lg shadow">
+                        <div>
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2">
+                                <span class="icon rtl:ml-2">🌍</span> גלי העלייה הגדולים
+                            </h3>
+                            <p class="text-sm text-slate-600 text-wrap-balance">מאות אלפי יהודים הגיעו מארצות ערב וצפון אפריקה (עיראק, מרוקו, תימן, מצרים ועוד), מונעים מציונות ומרדיפות. הם נתקלו במציאות שונה מאוד מזו שציפו לה, ובממסד שלא תמיד הבין את תרבותם וצרכיהם.</p>
+                        </div>
+                    </div>
+                    <div class="absorption-sub-card bg-cyan-50 p-4 rounded-lg shadow">
+                        <div>
+                            <h3 class="text-xl font-semibold text-cyan-700 mb-2">
+                                <span class="icon rtl:ml-2">🏘️</span> מדיניות "פיזור האוכלוסין"
+                            </h3>
+                            <p class="text-sm text-slate-600 text-wrap-balance">שיכון המוני במעברות בתנאים ירודים (פחונים, אוהלים), ולאחר מכן בעיירות פיתוח מרוחקות בפריפריה. מדיניות זו נועדה לשרת יעדים ביטחוניים ודמוגרפיים, אך התעלמה לעיתים מההשלכות החברתיות על העולים.</p>
+                        </div>
+                    </div>
+                    <div class="absorption-sub-card bg-orange-50 p-4 rounded-lg shadow">
+                        <div>
+                            <h3 class="text-xl font-semibold text-orange-700 mb-2">
+                                <span class="icon rtl:ml-2">🛠️</span> קשיי תעסוקה ופרנסה
+                            </h3>
+                            <p class="text-sm text-slate-600 text-wrap-balance">הפנייה ל"עבודות דחק" יזומות (ייעור, סלילת כבישים), ללא התחשבות בכישורים, ניסיון קודם או מעמד חברתי קודם. אבטלה גבוהה וחוסר אופק כלכלי אפיינו רבים, והובילו לתלות בממסד.</p>
+                        </div>
+                    </div>
+                    <div class="absorption-sub-card bg-blue-50 p-4 rounded-lg shadow">
+                         <div>
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2">
+                                <span class="icon rtl:ml-2">🏛️</span> יחס הממסד הפטרוני
+                            </h3>
+                            <p class="text-sm text-slate-600 text-wrap-balance">תפיסה מתנשאת של "כור היתוך" כופה, שראתה בתרבות המזרחית נחותה ופרימיטיבית. הממסד שאף "לעצב מחדש" את העולים ברוח החלוציות האשכנזית, תוך התעלמות ממורשתם העשירה ומאורחות חייהם.</p>
+                        </div>
+                    </div>
+                    <div class="absorption-sub-card bg-cyan-50 p-4 rounded-lg shadow">
+                        <div>
+                            <h3 class="text-xl font-semibold text-cyan-700 mb-2">
+                                <span class="icon rtl:ml-2">💔</span> השלכות חברתיות ונפשיות
+                            </h3>
+                            <p class="text-sm text-slate-600 text-wrap-balance">תחושות עמוקות של קיפוח, אפליה על רקע עדתי, ניכור ועלבון. פגיעה בכבוד העצמי, במעמד המשפחה המסורתית ובסמכות ההורים. סטריאוטיפים משפילים הודבקו לעולים והונצחו לאורך שנים.</p>
+                        </div>
+                    </div>
+                    <div class="absorption-sub-card bg-orange-50 p-4 rounded-lg shadow">
+                        <div>
+                            <h3 class="text-xl font-semibold text-orange-700 mb-2">
+                                <span class="icon rtl:ml-2">🔗</span> הנחת היסודות לשסע העדתי
+                            </h3>
+                            <p class="text-sm text-slate-600 text-wrap-balance">מדיניות הקליטה הבעייתית, היחס הממסדי והפערים שנוצרו, הניחו את התשתית לפערים חברתיים-כלכליים ותרבותיים עמוקים. השסע העדתי הפך למאפיין מרכזי בחברה הישראלית, והשפעותיו ניכרות עד היום.</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-8 text-center text-md text-slate-700 font-semibold text-wrap-balance">
+                    מדיניות זו, גם אם נבעה בחלקה ממגבלות אובייקטיביות של מדינה צעירה במצור, הותירה צלקות עמוקות והניחה את התשתית למחאות ולמתחים חברתיים עתידיים, כמו אירועי ואדי סאליב ב-1959.
+                </p>
+            </div>
+        </section>
+
+        <section id="policy" class="mb-12">
+            <h2 class="section-title">פרס בשלטון: החלטות מפתח והשפעתן</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">תוכנית הייצוב הכלכלית (1985)</h3>
+                    <p class="mb-4 text-slate-600 leading-relaxed text-wrap-balance">
+                        בהיותו ראש ממשלה, הוביל פרס את תוכנית הייצוב הכלכלית שבלמה היפר-אינפלציה. התוכנית נחשבה להצלחה מאקרו-כלכלית, אך גררה ביקורת על פגיעה בשכבות החלשות והרחבת פערים חברתיים, שרבים מהם מזרחים נפגעו ממנה עקב קיצוצים בסובסידיות ושירותים.
+                    </p>
+                    <div class="chart-container h-64 md:h-80 max-h-[320px]">
+                        <canvas id="economicPlanChart"></canvas>
+                    </div>
+                    <p class="mt-2 text-xs text-slate-500 text-center">התרשים להמחשה בלבד, מבוסס על הנרטיב בדוח.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">השר לפיתוח הנגב והגליל (2005-2007)</h3>
+                    <p class="mb-4 text-slate-600 leading-relaxed text-wrap-balance">
+                        פרס ראה חשיבות רבה בתפקיד זה, שמטרתו קידום הפריפריה בה מתגוררת אוכלוסייה מזרחית גדולה. עם זאת, קיים מידע מועט על יוזמות קונקרטיות שלו שהובילו לשינוי מהותי באזורים אלו.
+                    </p>
+                    <div class="text-center py-8">
+                        <div class="stat-value">❓</div>
+                        <div class="stat-label mt-2">השפעה ממשית על הפריפריה?</div>
+                        <p class="mt-4 text-slate-600 text-wrap-balance">הפער בין הפוטנציאל למימוש מעלה תהיות לגבי סדרי עדיפויות והשפעה קונקרטית.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="discourse" class="mb-12">
+            <h2 class="section-title">שיח הפילוג: התבטאויות ותפיסות</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">תקרית בית שמש (1981)</h3>
+                    <p class="mb-4 text-slate-600 leading-relaxed text-wrap-balance">
+                        במהלך עצרת בחירות סוערת, התבטא פרס באופן שנוי במחלוקת שפגע ברבים מהציבור המזרחי ונצרב בזיכרון הקולקטיבי:
+                    </p>
+                    <blockquote class="bg-orange-50 border-r-4 border-orange-500 text-orange-700 p-4 rounded">
+                        <p id="peresQuote" class="font-semibold text-wrap-balance">"...לא מהפשיזם, ולא מהחומייניזם, ולא מהתנועות המזרחיות שלכם... עם תנועות מזרחיות תנצחו בבחירות?!..."</p>
+                    </blockquote>
+                    <p class="mt-4 text-slate-600 text-wrap-balance">
+                        אמירה זו נתפסה כמתנשאת, מכלילה ופוגענית, וסימלה עבור רבים את הניכור של האליטה האשכנזית.
+                    </p>
+                    <button id="analyzeQuoteBtn" class="gemini-button">
+                        <span class="sparkle rtl:ml-2">✨</span>נתחו את הציטוט בעזרת AI
+                    </button>
+                    <div id="quoteAnalysisResult" class="gemini-response-area hidden"></div>
+                    <div class="mt-6">
+                        <h4 class="text-lg font-semibold text-slate-700 mb-2">צפו בקטע מהעצרת:</h4>
+                        <div class="video-container bg-slate-200 flex items-center justify-center">
+                           <iframe width="560" height="315" src="https://www.youtube.com/embed/ap1TRcRXBf8?si=kAJnAu9pTuMxhmAM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                 <div class="card">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">כיצד מזרחים תפסו את פרס?</h3>
+                    <p class="mb-4 text-slate-600 leading-relaxed text-wrap-balance">
+                        התפיסה הרווחת הייתה שפרס הוא חלק מהאליטה האשכנזית המנכרת. ניסיונותיו "לחזר" אחרי המזרחים נתפסו לעיתים כלא אותנטיים.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="p-3 bg-slate-100 rounded">
+                            <p class="text-slate-700 text-wrap-balance">🗣️ <span class="font-semibold">"לא היתה לו בשורה אליהם."</span> (על ניסיונות החיזור)</p>
+                        </div>
+                        <div class="p-3 bg-slate-100 rounded">
+                             <p class="text-slate-700 text-wrap-balance">🗣️ <span class="font-semibold">חנניה דהאן:</span> "שמעון... אתה לא יודע לנגן על המיתרים [המזרחיים] כמו בגין."</p>
+                        </div>
+                        <div class="p-3 bg-slate-100 rounded">
+                            <p class="text-slate-700 text-wrap-balance">🗣️ סירובו לבקש "סליחה קולקטיבית" התפרש כחוסר רגישות או הכחשת אחריות ממסדית.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="legacy" class="mb-12">
+            <h2 class="section-title">מורשת ולקחים: השאלה האתנית הבלתי פתורה</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">השפעה ארוכת טווח ופערים מתמשכים</h3>
+                    <p class="mb-4 text-slate-600 leading-relaxed text-wrap-balance">
+                        קשה להצביע על חותם חיובי ברור של מדיניות פרס על מעמד המזרחים. פערים בהשכלה ובהכנסה ממשיכים להתקיים. מורשתו בהקשר זה נתפסת לעיתים קרובות כהחמצה.
+                    </p>
+                    <div class="chart-container h-64 md:h-80 max-h-[320px]">
+                        <canvas id="socialGapsChart"></canvas>
+                    </div>
+                     <p class="mt-2 text-xs text-slate-500 text-center">התרשים להמחשה בלבד, מבוסס על הנרטיב בדוח.</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-teal-600 mb-3">לקחים לחברה הישראלית</h3>
+                    <p class="mb-4 text-slate-600 leading-relaxed text-wrap-balance">
+                        מערכת היחסים המורכבת בין פרס לציבור המזרחי והמשך קיומו של השסע העדתי טומנים בחובם לקחים חשובים:
+                    </p>
+                    <ul id="lessonsList" class="space-y-3 list-inside">
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2 rtl:ml-2 rtl:mr-0">✔</span>
+                            <span class="text-slate-700 text-wrap-balance">התעלמות או טיפול שטחי בבעיות חברתיות עמוקות אינם פותרים אותן.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2 rtl:ml-2 rtl:mr-0">✔</span>
+                            <span class="text-slate-700 text-wrap-balance">נדרשת מחויבות אמיתית לצדק חברתי והכרה בעוולות העבר.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2 rtl:ml-2 rtl:mr-0">✔</span>
+                            <span class="text-slate-700 text-wrap-balance">חיוני לקיים דיאלוג כן, אמיץ ומכבד בין הקבוצות השונות בחברה.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-orange-500 mr-2 rtl:ml-2 rtl:mr-0">✔</span>
+                            <span class="text-slate-700 text-wrap-balance">יש לשאוף לבניית חוזה חברתי חדש ומכיל יותר, בו זהות עדתית אינה מקור לפער.</span>
+                        </li>
+                    </ul>
+                    <button id="suggestIdeasBtn" class="gemini-button">
+                        <span class="sparkle rtl:ml-2">✨</span>הצע רעיונות נוספים לגישור בעזרת AI
+                    </button>
+                    <div id="ideasResult" class="gemini-response-area hidden">
+                        <h4 class="font-semibold mb-2">רעיונות נוספים מבוססי AI לגישור על פערים:</h4>
+                        <ul id="geminiIdeasList" class="list-disc pl-5 space-y-1"></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="conclusion" class="mb-12">
+            <h2 class="section-title">סיכום: מורשת מורכבת</h2>
+            <div class="card">
+                <p class="text-lg leading-relaxed text-wrap-balance">
+                    יחסיו של שמעון פרס עם הקהילה המזרחית היו מורכבים וטעונים, ומשקפים אתגרים עמוקים בחברה הישראלית. מורשתו בהקשר זה היא במידה רבה מורשת של החמצה, אך גם תזכורת לחשיבות המתמשכת של התמודדות עם השסע העדתי, הכרה בכאבים ובפערים, ושאיפה לתיקון ולבניית חברה צודקת ושוויונית יותר לכל אזרחיה.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-slate-300 py-8 text-center">
+        <p>© 2024 אתר זה נוצר להמחשה, על בסיס דוח אודות שמעון פרס והשאלה המזרחית.</p>
+        <p class="text-sm">אין בתוכן כדי לייצג עמדה רשמית או מחקר אקדמי ממצה. ניתוחי AI מסופקים על ידי Gemini.</p>
+    </footer>
+
+    <script>
+        const fullReportText = `
+# שמעון פרס והשאלה המזרחית: דו"ח חברתי על מנהיגות, מורשת ולקחים
+
+## I. מבוא: שמעון פרס והשאלה המזרחית בישראל
+
+### א. סקירה קצרה של הקריירה הפוליטית הארוכה של שמעון פרס
+
+שמעון פרס, דמות שהטביעה חותם עמוק ורב-שנים על הפוליטיקה והחברה הישראלית, ניצב במרכזו של דוח זה. הקריירה הפוליטית שלו, שהחלה עוד בשנותיה הראשונות של המדינה ונמשכה עד לעשור השני של המאה ה-21, הציבה אותו בצמתים מרכזיים של קבלת החלטות. החל מתפקידו כמנכ"ל משרד הביטחון בשנות ה-50, דרך כהונות כשר במשרדים בעלי השפעה מכרעת – ביטחון, חוץ, אוצר, קליטה, והמשרד לפיתוח הנגב והגליל – ועד לשתי כהונות כראש ממשלה ולבסוף כנשיא המדינה. אורך הקריירה הזו, והיותו חלק בלתי נפרד מהממסד המפא"יניקי וממשיכיו, ממקמים אותו בעמדה ייחודית. הוא לא היה רק עד לעיצוב מדיניות הקליטה והיחס לעולים מארצות האסלאם, אלא גם שותף פעיל, במישרין או בעקיפין, להחלטות שהשפיעו עליהם לאורך תקופות מפתח. עובדה זו מחייבת בחינה מעמיקה של יחסו והשפעתו על סוגיות חברתיות מתמשכות, ובראשן "השסע העדתי".
+
+### ב. הקהילה המזרחית והקונטקסט ההיסטורי של "השסע העדתי"
+
+המונח "מזרחים", כפי שהוא רווח בשיח הישראלי, מתייחס ליהודים יוצאי ארצות המזרח התיכון וצפון אפריקה ולצאצאיהם. גלי העלייה הגדולים מארצות האסלאם, בעיקר בשנות ה-50 וה-60 של המאה ה-20, הביאו מאות אלפי יהודים לישראל הצעירה. עלייה זו, שהונעה הן מתוך תחושת גאולה ומשיכה לציון והן כתוצאה מהרעה ביחס השלטונות בארצות מוצאם, נתקלה באתגרי קליטה עצומים. מדיניות הקליטה של אותן שנים, שכללה שיכון במעברות, בעיירות פיתוח ובשכונות מצוקה בפריפריה, יצרה מציאות של קשיים כלכליים, שירותים ירודים ותחושות קיפוח. על רקע זה התפתח והעמיק "השסע העדתי" – מונח המתאר את הפערים החברתיים, הכלכליים, התרבותיים והפוליטיים בין יהודים ממוצא אשכנזי (יוצאי אירופה ואמריקה) לבין יהודים ממוצא מזרחי. השאילתה הנוכחית, המבקשת דוח שיהיה גם "אישי נגד שמעון פרס, או כלפי הציבור המזרחי", מעידה על כך שהנושא עודנו טעון ורגיש, וכי דמותו של פרס, כמי שנתפס לעיתים כסמל של האליטה הוותיקה, עדיין מעוררת אמוציות חזקות בהקשר המזרחי.
+
+### ג. מטרת הדוח
+
+דוח זה נועד לבחון באופן ביקורתי ומעמיק את מערכת היחסים המורכבת, ולעיתים קרובות טעונה, בין שמעון פרס לבין הקהילה המזרחית בישראל. הבחינה תתבסס על החלטות מדיניות שקיבל בתפקידיו השונים, על התבטאויות פומביות שלו, על האופן שבו נתפס על ידי הציבור המזרחי, ועל המורשת שהותיר בהקשר זה. הדוח ישאף למלא את בקשת המשתמש ולהיות "דוח חברתי", המשלב ניתוח היסטורי-סוציולוגי עם רפלקציה ביקורתית על התמורות והלקחים העולים ממערכת יחסים זו עבור החברה הישראלית כולה.
+
+**טבלה 1: ציוני דרך מרכזיים בקריירה הפוליטית של שמעון פרס**
+| תפקיד | שנים | אחריות עיקרית/הקשר רלוונטי לשאילתה |
+| :--- | :--- | :--- |
+| מנכ"ל משרד הביטחון | 1953–1959 | ביסוס קשרים ביטחוניים עם צרפת, פיתוח התעשייה האווירית, הקמת הכור בדימונה. תקופת העלייה ההמונית וקליטתה הראשונית. |
+| סגן שר הביטחון | 1959–1965 | המשך עיסוק בנושאים ביטחוניים, בתקופה שלאחר אירועי ואדי סאליב. |
+| שר העלייה והקליטה | 1969 | אחריות על קליטת עלייה ופיתוח כלכלי ב"שטחים המוחזקים". |
+| שר הביטחון | 1974–1977 | שיקום צה"ל לאחר מלחמת יום הכיפורים, תמיכה ב"פשרה פונקציונלית" בשטחים. |
+| ראש הממשלה (כהונה ראשונה) | 1984–1986 | הובלת תוכנית הייצוב הכלכלית, שיפור יחסי ישראל-מצרים. |
+| סגן ראש הממשלה ושר האוצר | 1988–1990 | ניהול כלכלת המדינה. |
+| שר החוץ | 1992–1995 | הובלת תהליך אוסלו, חתן פרס נובל לשלום. |
+| ראש הממשלה (כהונה שנייה) | 1995–1996 | לאחר רצח רבין. |
+| המשנה לראש הממשלה והשר לפיתוח הנגב והגליל | 2005–2007 | קידום הפריפריה, מתוך ראייה של המשך מורשת בן-גוריון. |
+| נשיא מדינת ישראל | 2007–2014 | תפקיד ממלכתי, קריאה לאחדות העם. |
+
+## II. שנות העיצוב: עלייה מזרחית, קליטה, וממסד מפא"י
+
+### א. הקשר: מדיניות המדינה כלפי עולים מזרחים בשנות ה-50 וה-60
+
+שנות ה-50 וה-60, תקופת העלייה ההמונית, היו שנים מכוננות בעיצוב דמותה של החברה הישראלית, ובפרט ביצירת התשתית לשסע העדתי. מדיניות הקליטה, שהתאפיינה בשיכון המוני במעברות, הקמת עיירות פיתוח בפריפריה והפניית עולים לעבודות דחק, יצרה מציאות קשה עבור רבים מעולי ארצות האסלאם. תנאי הדיור היו ירודים, השירותים הציבוריים לקו בחסר, והאבטלה, או תעסוקה ללא אופק קידום, היו נפוצים. מדיניות זו לא נבעה רק ממחסור במשאבים במדינה הצעירה, אלא גם שיקפה, כפי שנטען במחקרים, תפיסות עולם פטרוניות והיררכיות של הממסד האשכנזי הדומיננטי כלפי העולים המזרחים.
+
+העולים המזרחים, שהגיעו לעיתים קרובות עם השכלה פורמלית נמוכה יותר, משפחות גדולות יותר, וללא נכסים או רשתות קשרים חברתיות כשל העולים האשכנזים או הוותיקים, מצאו עצמם בעמדת נחיתות. נוסף על הקשיים האובייקטיביים, הם חוו את מה שתואר כ"עלבון הקשה של האידאולוגיה הפטרונית והסטריאוטיפים המשפילים". הממסד נטה לראות בהם "דור המדבר" או "נחשלים" שיש "לעצבם" ברוח החזון הציוני-חלוצי, תוך שלילת אורחות חייהם ומסורותיהם. גם מניעיהם הציוניים של עולי המזרח, שלעיתים היו שזורים בתפיסות דתיות-לאומיות עמוקות או בחיפוש אחר מקלט בטוח, לא תמיד הובנו או הוערכו על ידי הממסד החילוני-סוציאליסטי ברובו.
+
+### ב. תפקידיו המוקדמים של פרס והקשרם למדיניות הקליטה
+
+שמעון פרס, בתפקידו כמנכ"ל משרד הביטחון בין השנים 1953 ל-1959, היה חלק אינטגרלי מממסד בן-גוריון שעיצב את מדיניות המדינה באותן שנים קריטיות של עלייה וקליטה. אף שתפקידו לא היה קשור ישירות לקליטה האזרחית, עמדותיו והשקפותיו עוצבו, קרוב לוודאי, ברוח התקופה והמפלגה השלטת, מפא"י. פרויקטים לאומיים גדולים שפרס היה ממוביליהם, כמו הידוק הברית הביטחונית עם צרפת והקמת הכור הגרעיני בדימונה, דרשו משאבים ותשומת לב לאומית עצומים. ניתן לשער כי התמקדות זו בפרויקטים ביטחוניים אסטרטגיים, חיוניים ככל שהיו, באה במידה מסוימת על חשבון הקצאת משאבים ותשומת לב מספקת לטיפול מעמיק בבעיות החברתיות והכלכליות של העולים, ובפרט העולים המזרחים. פרשת "העסק הביש" (1954-1955), זעזעה את המערכת הפוליטית והצבאית והשפיעה על יחסי הכוחות בתוך מפא"י, אך לא נראה שהייתה לה השפעה ישירה על מדיניות הקליטה.
+
+### ג. אירועי ואדי סאליב (1959) ותגובת הממסד
+
+אירועי ואדי סאליב, שפרצו בחיפה ביולי 1959, היוו התפרצות ראשונה ודרמטית של זעם ותסכול מצד עולים מזרחים, בעיקר מצפון אפריקה, על רקע תחושות קשות של קיפוח, אפליה ויחס מתנשא מצד הממסד הנשלט על ידי מפא"י. שמעון פרס כיהן באותה עת כמנכ"ל משרד הביטחון, ובנובמבר 1959 מונה לסגן שר הביטחון. המידע הזמין אינו מצביע על תגובה ספציפית או מעורבות ישירה שלו באירועים עצמם. עם זאת, העמדה הממשלתית הרשמית, כפי שהשתקפה גם בקרב מדריכי נוער באותה תקופה, ראתה במפגינים "פורעי חוק" שיש להענישם. היעדר התייחסות ייחודית של פרס לאירועים, או חריגה מהקו הממסדי, עשוי להצביע על כך שהנושא לא נתפס על ידו, או על ידי הממסד הקרוב אליו, כבעל חשיבות מרכזית הדורשת התייחסות שונה מהגינוי הכללי והניסיון להכיל את המהומות. אירועי ואדי סאליב העלו לראשונה לתודעה הציבורית הרחבה את מצוקתם של המזרחים, אך מפא"י, מפלגתו של פרס, הצליחה לבלום את הנזק התדמיתי בטווח הקצר. דפוסי הקליטה והיחס לעולים המזרחים בשנות ה-50 וה-60, כפי שתוארו, יצרו תשתית של ניכור ותחושת קיפוח שילוו את הקהילה המזרחית ואת יחסיה עם מפלגת העבודה (שפרס היה ממנהיגיה) לאורך עשורים, ויבואו לידי ביטוי חריף באירועים מאוחרים יותר, כמו תקרית בית שמש ב-1981.
+
+## III. פרס בשלטון: החלטות ומדיניות שהשפיעו על מזרחים
+
+במהלך הקריירה הפוליטית הארוכה שלו, החזיק שמעון פרס במספר תפקידים מיניסטריאליים ובראשות הממשלה, שבהם קיבל החלטות בעלות פוטנציאל השפעה ישיר או עקיף על הציבור המזרחי, על הפריפריה ועל שכבות מוחלשות.
+
+### א. כשר הקליטה (1969 ואילך)
+
+בשנת 1969 מונה שמעון פרס לשר העלייה והקליטה, תפקיד במסגרתו היה אחראי גם על הפיתוח הכלכלי של "השטחים המוחזקים". תקופה זו אופיינה בהמשך קליטת עלייה, אך גם בהתמודדות עם הפערים החברתיים-כלכליים שנוצרו בעקבות גלי העלייה הגדולים של שנות ה-50 וה-60. המקורות הקיימים אינם מפרטים יוזמות ספציפיות של פרס כשר קליטה שהתמקדו בטיפול בפערים אלו או בשיפור מצבם של עולים ותיקים מזרחים. נשאלת השאלה האם מדיניותו שיקפה שינוי תפיסתי ביחס למזרחים או שהמשיכה את הדפוסים הממסדיים הקיימים.
+
+### ב. כשר לפיתוח הנגב והגליל (2005-2007)
+
+בשנים 2005-2007 כיהן פרס כשר הראשון במשרד לפיתוח הנגב והגליל, תפקיד שראה בו חשיבות רבה ואף כממשיך מורשתו של דוד בן-גוריון. אזורים אלו, המהווים את הפריפריה הגיאוגרפית והחברתית של ישראל, מאופיינים בריכוז גבוה של אוכלוסייה מזרחית. למרות הצהרות על חשיבות התפקיד, המידע הזמין אינו מפרט יוזמות קונקרטיות ומשמעותיות שקידם פרס בתפקיד זה, אשר הובילו לשינוי מהותי בתשתיות, בתעסוקה, בחינוך או בדיור עבור הקהילות המזרחיות באזורים אלו. אמנם קיימת שכונה על שמו בנהריה, "שכונת שמעון פרס", אך זוהי התפתחות מאוחרת יותר (2023) וקשה לקשור אותה ישירות למדיניותו כשר. השיח הכללי על מדיניות "חיזוק הפריפריה" בישראל אף מצביע על כישלון מתמשך בפתרון מצוקותיה, מבלי לקשור זאת ישירות לפרס. הפער בין הפוטנציאל הגלום בתפקידים אלו לבין מיעוט המידע על הישגים קונקרטיים עבור האוכלוסייה המזרחית מעלה תהיות לגבי סדרי העדיפויות וההשפעה הממשית של פרס בתחומים אלו.
+
+### ג. תוכנית הייצוב הכלכלית (1985) והשלכותיה
+
+אחד המהלכים הכלכליים המשמעותיים ביותר שפרס הוביל כראש ממשלה (1984-1986) היה "תוכנית הייצוב הכלכלית" של 1985. התוכנית, שנועדה לבלום את ההיפר-אינפלציה שאייימה על יציבות המשק הישראלי, כללה צעדים דרסטיים כגון קיצוץ נרחב בהוצאות הממשלה, פיטורי עובדים במגזר הציבורי, הקטנת סובסידיות למוצרי יסוד ושירותים, והקפאת מחירים ושכר. במישור המאקרו-כלכלי, התוכנית נחשבה להצלחה גדולה והיוותה נקודת מפנה במדיניות הכלכלית של ישראל, ממעורבות ממשלתית גבוהה לכיוון ליברלי וקפיטליסטי יותר.
+
+עם זאת, לצד ההצלחה הכלכלית, נמתחה על התוכנית ביקורת חריפה על כך שהיא היוותה קו פרשת מים שלאחריו התרחבו באופן משמעותי הפערים החברתיים-כלכליים בישראל. הקיצוצים בשירותים החברתיים ובסובסידיות פגעו באופן לא פרופורציונלי בשכבות החלשות, שחלק גדול מהן היו מזרחים, במיוחד תושבי עיירות הפיתוח ושכונות המצוקה שהיו תלויים יותר בשירותים ובסובסידיות אלו. העובדה שההסתדרות, שהייתה אמורה לייצג את העובדים, הייתה "קשורה במחויבות פוליטית לממשלה" באותה עת, מנעה ממנה להשמיע קול זעקה משמעותי נגד הקיצוצים הצפויים בשכר הריאלי. תוכנית הייצוב, על אף חיוניותה הכלכלית, עלולה הייתה להעמיק את תחושת הניכור של הציבור המזרחי ממפלגת העבודה ומהשמאל הכלכלי-חברתי, שנתפסו כמובילי מהלך שפגע בהם ישירות, בעוד שהתוכנית נתפסה כמהלך של "האליטה" הכלכלית והפוליטית.
+
+### ד. תפקידים מיניסטריאליים רלוונטיים אחרים
+
+פרס כיהן גם כשר האוצר (1988-1990), אך המקורות אינם מספקים מידע מפורט על מדיניות ספציפית שלו בתפקיד זה והשפעתה הישירה על הפריפריה והשכבות החלשות. גם במסגרת תפקידו כשר לשיתוף פעולה אזורי, וחזונו ל"מזרח תיכון חדש", לא ברור האם היו תוכניות קונקרטיות לפיתוח אזורי פנים-ישראלי שהיטיבו עם אוכלוסיות מזרחיות. נראה כי ההתמקדות בחוץ, בשלום ובשיתוף פעולה אזורי, לא תורגמה בהכרח לתפיסה של "מזרחיות חדשה" בתוך ישראל, או לטיפול שורש בפערים העדתיים. ייתכן שההתמקדות בנושאי חוץ וביטחון באה על חשבון תשומת לב מספקת לפתרון בעיות הפנים, ובפרט לשסע העדתי.
+
+**טבלה 2: החלטות מדיניות מרכזיות של שמעון פרס והשפעתן הפוטנציאלית על קהילות מזרחיות**
+| מדיניות/החלטה | שנה/שנים | תפקידו של פרס | מטרה מוצהרת | השפעה מתועדת/נתפסת על מזרחים (חיובית/שלילית/מעורבת) |
+| :--- | :--- | :--- | :--- | :--- |
+| שר העלייה והקליטה | 1969 | שר | קליטת עלייה, פיתוח כלכלי בשטחים | מידע מוגבל על יוזמות ספציפיות לטיפול בפערים קיימים של מזרחים. |
+| תוכנית הייצוב הכלכלית | 1985 | ראש ממשלה | בלימת היפר-אינפלציה, ייצוב המשק | הצלחה מאקרו-כלכלית; ביקורת על הרחבת פערים חברתיים-כלכליים, פגיעה בשכבות חלשות (רבים מהם מזרחים) עקב קיצוצים בסובסידיות ושירותים. |
+| הקמת המשרד לפיתוח הנגב והגליל | 2005 | המשנה לראש הממשלה והשר לפיתוח הנגב והגליל | חיזוק הפריפריה, יישוב הנגב והגליל | הצהרות על חשיבות; מידע חסר על יוזמות קונקרטיות והשפעתן הממשית על שיפור מצבם של מזרחים בפריפריה. |
+| חזון "מזרח תיכון חדש" | שנות ה-90 ואילך | שר חוץ, ראש ממשלה | שלום ושיתוף פעולה כלכלי אזורי | התמקדות במישור הבינלאומי; לא ברור אם תורגם לשיפור מעמד המזרחים או לטיפול בפערים פנים-ישראליים. |
+
+## IV. שיח הפילוג: התבטאויותיו של פרס והתפיסה הציבורית
+
+התבטאויות פומביות של מנהיגים, ובמיוחד אלו הנוגעות לסוגיות רגישות כמו השסע העדתי, מעצבות תודעה ומשפיעות על האופן שבו הם נתפסים על ידי קבוצות שונות בחברה. במקרה של שמעון פרס, מספר התבטאויות, ובראשן "תקרית בית שמש", הטביעו חותם עמוק על יחסיו עם הציבור המזרחי.
+
+### א. ניתוח התבטאויות פומביות של פרס
+
+בחינה של נאומיו של פרס, במיוחד בתפקידיו הממלכתיים כנשיא, חושפת קריאות לאחדות ולגישור על פערים. בנאום השבעתו כנשיא, למשל, דיבר על "חוטי אריג עדינים השוזרים אותנו יחד כאומה" ועל התמסרותו ל"מאחד". גם בנאומים אחרים, כמו בפני הוותיקן, קרא לשלום "בין העדות". עם זאת, קשה למצוא בנאומים אלו התייחסות ישירה, מעמיקה וספציפית למצוקות ההיסטוריות של הקהילה המזרחית או להכרה בעוולות שנעשו כלפיה. חזונו המפורסם על "מזרח תיכון חדש", שהיה בעיקרו מדיני וכלכלי-אזורי, לא לווה בהכרח בחזון פנים-ישראלי מקביל של "מזרחיות חדשה" או שילוב תרבותי עמוק יותר.
+
+### ב. תקרית בית שמש (1981): "תנועות מזרחיות"
+
+ההתבטאות הזכורה והשנויה ביותר במחלוקת של פרס בהקשר המזרחי אירעה במהלך עצרת בחירות סוערת בבית שמש בשנת 1981. מערכת בחירות זו התאפיינה בקיטוב פוליטי ועדתי חריף, כפי שבא לידי ביטוי גם ב"נאום הצ'חצ'חים" של דודו טופז באותה תקופה. בעימות עם קהל עוין, שכלל פעילי ליכוד, קרא פרס: "אנחנו לא מפחדים מכם. לא מהפשיזם, ולא מהחומייניזם, ולא מהתנועות המזרחיות שלכם... עם תנועות מזרחיות תנצחו בבחירות?! עם תנועות מזרחיות, ככה?! מי שלא רוצה שישראל תיהפך למדינה ערבית, אל יצביע בעד החבר'ה הנלהבים האלה!".
+
+ניתוח הציטוט חושף שימוש במונח "תנועות מזרחיות" בהקשר שלילי מובהק, תוך קישורו ל"חומייניזם" (איום חיצוני ודתי קיצוני באותה תקופה) ולחשש מהפיכת ישראל ל"מדינה ערבית". אמירה זו, בין אם נאמרה מתוך כעס ותסכול רגעיים ובין אם שיקפה תפיסה עמוקה יותר, נתפסה כמתנשאת, מכלילה ופוגענית ביותר על ידי רבים בציבור המזרחי. היא סימלה עבורם את הזלזול והניכור של האליטה האשכנזית כלפיהם. המקורות הקיימים אינם מפרטים תגובות ספציפיות של אישים מזרחים לאמירה זו, אך אין ספק שהיא נצרבה בזיכרון הקולקטיבי והעמיקה את הקרע. תקרית בית שמש לא הייתה אירוע מבודד, אלא שיא של מערכת יחסים טעונה ושל חוסר הבנה הדדי עמוק בין פרס, כמייצג המערך, לבין חלקים גדולים בציבור המזרחי.
+
+### ג. כיצד מזרחים תפסו את פרס
+
+התפיסה הרווחת בקרב רבים מהמזרחים הייתה שפרס הוא חלק בלתי נפרד מהאליטה האשכנזית המנכרת של מפא"י ומפלגת העבודה. למרות ניסיונותיו החוזרים ונשנים "לחזר אחרי המזרחים", כפי שתואר, הדבר "לא עבד, כי לא היתה לו בשורה אליהם". סירובו של פרס, כפי שדווח, לבקש "סליחה קולקטיבית" מהמזרחים על עוולות העבר, באומרו "זה לא אני", התפרש כחוסר רגישות או כהכחשה של אחריות ממסדית. האמירה המפורסמת של הפעיל החברתי חנניה דהאן לפרס: "שמעון, במקום שלכם, האשכנזים, יש לב, לנו הספרדים יש מיתרים. ואתה לא יודע לנגן על המיתרים כמו בגין", ממחישה את הפער התרבותי והתקשורתי העמוק. ייתכן שההתמקדות של פרס ב"מזרח תיכון חדש" ובנושאי חוץ וביטחון לאורך רוב הקריירה שלו, באה על חשבון פיתוח "שפה" ו"בשורה" רלוונטיות לציבור המזרחי בישראל. בעודו איש חזון בתחומים מסוימים, הוא התקשה לתרגם חזון זה למענה למצוקות הפנים-עדתיות.
+
+### ד. התבטאויות שנאמרו *על* פרס בהקשר המזרחי
+
+מעבר לתפיסות הכלליות, קיימות גם התבטאויות ספציפיות של אישים מזרחים על פרס. הכתבה ב"ישראל היום" מביאה עדויות על האופן שבו נתפס על ידי פעילים מזרחים במפלגתו שלו, שהצביעו על הקושי שלו להתחבר רגשית ותרבותית. השמועה שהופצה על ידי חמ"ל הליכוד לפיה "אמו של פרס ערבייה", והפגיעה העמוקה שגרמה לו, מוסיפה מימד אירוני ומורכב לסיפור יחסיו עם הזהות המזרחית והערבית. המקורות הקיימים אינם מספקים ביקורות מפורטות של אינטלקטואלים מזרחים בולטים כמו סמי שלום שטרית או ויקי שירן ישירות על פרס, אך הביקורת הכללית שלהם על הממסד ועל היחס למזרחים בהחלט רלוונטית להבנת ההקשר שבו פעל פרס. האמירות והתפיסות שנקשרו בפרס, ובמיוחד תקרית בית שמש, תרמו להנצחת הדימוי של מפלגת העבודה כמפלגה אליטיסטית ומנוכרת לציבור המזרחי, והשפיעו על דפוסי הצבעה עדתיים הנמשכים במידה רבה עד היום.
+
+## V. ביקורת ומחלוקת: מטבע דו-צדדי
+
+מערכת היחסים בין שמעון פרס לציבור המזרחי הייתה רצופה ביקורת ומחלוקות, המשקפות פערים עמוקים בתפיסות, בחוויות ובאינטרסים. הביקורת לא נגעה רק להחלטות מדיניות ספציפיות, אלא גם לסגנונו, לשפתו, ולתחושה שהוא מייצג עולם ערכים ותפיסות שאינם מכירים או מעריכים מספיק את החוויה והתרבות המזרחית.
+
+### א. ביקורות על מדיניותו ועמדותיו של פרס מנקודת מבט מזרחית
+
+הביקורת המזרחית על פרס נשענה במידה רבה על הביקורת הכללית כלפי מפא"י ומפלגת העבודה, שנתפסו כאחראיות ל"יחס חשדני עד עוין" כלפי העולים מארצות האסלאם, ל"כישלונות הקליטה" ול"יחס מזלזל ומתנשא" שהרחיקו אותם ואת צאצאיהם מהשמאל הפוליטי. החלטות מדיניות ספציפיות, כמו תוכנית הייצוב הכלכלית של 1985, שהובילה לקיצוצים נרחבים בשירותים החברתיים, נתפסו כפוגעניות כלפי שכבות מוחלשות, שרבות מהן היו מזרחיות. התחושה הרווחת הייתה שלמרות ניסיונותיו של פרס "לחזר" אחרי הקהילה המזרחית, הוא לא באמת הבין את מצוקותיה ולא הציע לה "בשורה" אמיתית שתיתן מענה לצרכיה ולתחושות הקיפוח שלה. בנוסף, עלתה ביקורת, גם אם לא תמיד הופנתה ישירות כלפי פרס, על היעדר התייחסות מספקת לתרבות המזרחית והכרה בנכסיה מצד הממסד התרבותי והפוליטי הדומיננטי.
+
+### ב. ניסיונותיו של פרס (או היעדרם) לגשר על הפער או להתייחס לתלונות מזרחיות
+
+למרות הביקורת, עדויות מצביעות על כך שפרס אכן ניסה, בדרכו, להתקרב לציבור המזרחי. ה"חיזור" המתמיד אחרי קולות המזרחים, גם אם לא צלח, מעיד על מודעות מסוימת לחשיבותם הפוליטית. עם זאת, סירובו, כפי שדווח, לבקש "סליחה קולקטיבית" על עוולות העבר, יכול להתפרש כחוסר הבנה של עומק הפגיעה ההיסטורית או כתפיסה שהאחריות אינה רובצת עליו אישית. נאומיו כנשיא, שקראו לאחדות העם, יכולים להיתפס כניסיונות מאוחרים לגשר על פערים, אם כי לעיתים נתפסו כאמירות כלליות מדי, ללא התייחסות ספציפית מספקת לשסע העדתי ולשורשיו.
+
+קשר מעניין בהקשר זה הוא מערכת היחסים שפיתח פרס עם הרב עובדיה יוסף, מנהיגה הרוחני של ש"ס ודמות בעלת השפעה עצומה על הציבור המזרחי-דתי. דווח כי פרס, בתקופתו כראש ממשלה, נהג לבקר בביתו של הרב יוסף וללמוד עמו. קשר זה יכול להתפרש כניסיון פרגמטי ליצור ברית פוליטית או לשפר את תדמיתו בקרב ציבור זה. עם זאת, אין עדויות לכך שקשר זה הוביל לשינוי עמוק בתפיסותיו הבסיסיות של פרס או במדיניות הכוללת שלו כלפי הציבור המזרחי הרחב, מעבר ליחסים האישיים או להסכמות פוליטיות נקודתיות.
+
+### ג. ההיבט ה"אישי": האם גישתו של פרס שיקפה דעות אישיות או עמדות ממסדיות רחבות יותר?
+
+השאלה האם גישתו של פרס כלפי המזרחים נבעה מדעות קדומות אישיות או שיקפה בעיקר את העמדות הממסדיות של האליטה האשכנזית-מפא"יניקית שאליה השתייך, היא שאלה מורכבת. "חוסר היכולת לנגן על המיתרים" המזרחיים יכול היה להיות מאפיין אישי, אך גם ביטוי לבעיה רחבה יותר של מנהיגות מפלגת העבודה והשמאל הישראלי. הדרישה המובלעת בשאילתה לדוח שיהיה "אישי נגד שמעון פרס" מצביעה על הנטייה לייחס לו אחריות אישית. עם זאת, ניתוח מעמיק יותר מצביע על כך שפרס פעל בתוך מסגרת ממסדית ותרבותית רחבה יותר, שעיצבה במידה רבה את תפיסותיו ופעולותיו. הדיון המתמשך על "האחריות האישית" של פרס מול "האחריות הממסדית" לשסע העדתי ממשיך להזין את השיח הציבורי בישראל. ההתמקדות בפרס כאישיות עלולה לעיתים להסיט את הדיון מהניתוח המערכתי של דפוסי אפליה והדרה שהיו נטועים עמוק במבנה החברה והמדינה בשנותיה הראשונות, ושפרס היה חלק מהנהגתן, גם אם כמנהיג בכיר נשא באחריות גדולה יותר.
+
+## VI. מורשת: פרס, מזרחים, והשאלה האתנית הבלתי פתורה
+
+הערכת מורשתו של שמעון פרס בהקשר של יחסיו עם הקהילה המזרחית והשפעתו על השאלה האתנית בישראל היא משימה מורכבת, החושפת פרדוקסים וסתירות. מצד אחד, הוא נתפס לעיתים קרובות כמייצג הממסד האשכנזי הישן, שרבים בקהילה המזרחית ראו בו אחראי לקיפוחם ההיסטורי. מצד שני, בתפקידיו המאוחרים יותר, ובמיוחד כשר לפיתוח הנגב והגליל וכנשיא המדינה, הוא הרבה לדבר על אחדות העם וניסה לקדם את הפריפריה, גם אם התוצאות המעשיות של ניסיונות אלו שנויות במחלוקת.
+
+### א. השפעתו ארוכת הטווח של פרס על קהילות מזרחיות ומעמדן בחברה הישראלית
+
+קשה להצביע על חותם חיובי ברור ומתמשך של מדיניות פרס על מעמדן של קהילות מזרחיות. תוכנית הייצוב הכלכלית, למשל, על אף חשיבותה למשק, נתפסת על ידי מבקריה כמי שהרחיבה פערים חברתיים. גם בתפקידו כשר לפיתוח הנגב והגליל, לא ניכר שינוי דרמטי במצב הפריפריה, שבה מתגוררים מזרחים רבים. לא ברור אם פועלו תרם לשינוי בתפיסות הסטריאוטיפיות כלפי מזרחים; תקרית בית שמש, למשל, נותרה ככתם המעיד דווקא על חיזוק סטריאוטיפים שליליים. בהצהרותיו על מורשתו, פרס הדגיש את פועלו לביצור ישראל, הפיכתה למעצמת מדע וטכנולוגיה, ומחויבותו למוסר ולשלום. השאלה האם "מוסר" זה כלל גם מחויבות עמוקה לצדק חברתי עדתי נותרה פתוחה. הפערים בהשכלה ובהכנסה בין אשכנזים למזרחים, הממשיכים להתקיים גם בדור השלישי, מעידים על כך שהבעיה רחוקה מפתרון.
+
+### ב. האם פעולותיו/מחדליו תרמו להנצחת או להקלת השסע העדתי?
+
+במבט כולל על הקריירה הארוכה של פרס, נראה כי האיזון נוטה יותר לכיוון של החמצה מאשר להקלה משמעותית של השסע העדתי. התבטאויות פוגעניות, מדיניות כלכלית שפגעה בשכבות חלשות, ותחושה כללית של ניכור וחוסר הבנה, תרמו ככל הנראה להנצחת הפערים והמתחים. ניסיונותיו המאוחרים יותר לגשר, בעיקר ברמה הרטורית, לא הצליחו למחוק את משקעי העבר. ייתכן שההתמקדות של פרס ב"חדשנות" וב"עתיד" – טכנולוגיה, מדע, "מזרח תיכון חדש" – הייתה גם דרך, מודעת או לא, להתעלם או לעקוף את "פצעי העבר" של החברה הישראלית, כולל השסע העדתי, במקום להתמודד איתם ישירות ובאומץ. "הסתכלות קדימה" זו באה, אולי, על חשבון "חשבון נפש" מעמיק על מה שהיה.
+
+### ג. יחסיו עם דמויות מזרחיות מרכזיות
+
+מערכת היחסים של פרס עם הרב עובדיה יוסף היא דוגמה בולטת למורכבות. מצד אחד, היא יכולה להעיד על ניסיון כן להתקרב ולהבין, או לפחות לשתף פעולה פוליטית. מצד שני, היא לא בהכרח שיקפה שינוי מהותי ביחסו של פרס או של מפלגתו לסוגיות הליבה של הקהילה המזרחית. מעבר לרב יוסף, המקורות מזכירים מפגשים עם פעילים מזרחים כמו חנניה דהאן, אך לא מצביעים על קשרים עמוקים ומתמשכים עם קשת רחבה של הנהגה מזרחית אינטלקטואלית או חברתית. השאלה האתנית בישראל נותרה "בלתי פתורה" במידה רבה גם לאחר עשרות שנות פעילותו של פרס. מורשתו בהקשר זה היא אולי יותר בגדר תזכורת למורכבות הבעיה ולכישלון המתמשך של ההנהגות השונות (ולא רק פרס) לספק לה פתרון מלא, מאשר מורשת של פתרונות והצלחות.
+
+## VII. תמורות ולקחים: החוויה המזרחית מאז פרס
+
+העידן הפוליטי שבו פעל שמעון פרס הסתיים, אך השאלות הנוגעות למעמדם של המזרחים בחברה הישראלית, ולשסע העדתי בכללותו, ממשיכות להעסיק את השיח הציבורי, האקדמי והפוליטי. למרות עשורים של "כור היתוך" וניסיונות אינטגרציה, ולמרות התמורות שחלו, השסע העדתי לא נעלם אלא שינה צורה והוא ממשיך להיות גורם משמעותי בעיצוב החברה, הכלכלה והפוליטיקה הישראלית.
+
+### א. שינויים חברתיים במעמדם ובתפיסתם של מזרחים
+
+מאז שנות פעילותו המרכזיות של פרס, חלו שינויים מסוימים. מחקרים עדכניים מצביעים על המשך קיומם של פערים בהשכלה ובהכנסה בין אשכנזים למזרחים, גם בקרב בני הדור השלישי. עם זאת, גברה המודעות הציבורית והאקדמית לחשיבות איסוף נתונים על מוצא עדתי גם בדורות מתקדמים, מתוך הבנה שהסוגיה עדיין רלוונטית. במקביל, התפתחו והתבססו תנועות מחאה מזרחיות חדשות, וצמח שיח מזרחי ביקורתי ונוכח באקדמיה, בתרבות ובפוליטיקה. עלייתה של מפלגת ש"ס, למשל, נתפסת לא רק כביטוי לכוח פוליטי מזרחי-חרדי, אלא גם כעדות להמשך תחושת הקיפוח והצורך בייצוג נפרד.
+
+### ב. אתגרים מתמשכים
+
+למרות התמורות, אתגרים רבים נותרו בעינם. פערים סוציו-אקונומיים בתחומי החינוך, התעסוקה, הדיור והבריאות עדיין מאפיינים את החברה הישראלית, ונוטים להיות בעלי מתאם עדתי. תת-ייצוג של מזרחים במוקדי כוח והשפעה מסוימים, כמו באקדמיה הבכירה, בתקשורת המרכזית ובעולם ההון, ממשיך להיות סוגיה כואבת. המאבק על הכרה תרבותית, על הנרטיבים ההיסטוריים של קליטת העלייה מארצות האסלאם, ועל מקומם הראוי של המזרחים בסיפור הישראלי הכולל, עודנו בעיצומו. גם הקשר המובהק בין מוצא אתני לדפוסי הצבעה פוליטיים מעיד על כך שהזהות העדתית ממשיכה לשחק תפקיד מרכזי בזירה הפוליטית. הדרישה המובלעת בשאילתה לדוח "אישי" וביקורתי על פרס והמזרחים, היא כשלעצמה ביטוי לתחושת הדחיפות והכאב המתמשכים סביב הסוגיה המזרחית, והיא מקשרת את מורשת פרס ישירות למאבקים העכשוויים.
+
+### ג. לקחים לחברה הישראלית העכשווית ולהנהגתה
+
+מערכת היחסים המורכבת בין שמעון פרס לציבור המזרחי, והמשך קיומו של השסע העדתי, טומנים בחובם לקחים חשובים לחברה הישראלית ולהנהגתה כיום. הלקח המרכזי הוא שהתעלמות או טיפול שטחי בבעיות חברתיות עמוקות, בתחושות קיפוח ובצורך בהכרה, אינם מביאים לפתרונן, אלא עלולים להנציח אותן ואף להחריפן. נדרשת מחויבות אמיתית לצדק חברתי, להכרה בעוולות העבר (גם אם לא ניתן לתקן את כולן), ולפעולה נחושה לצמצום פערים ולהבטחת שוויון הזדמנויות אמיתי. הסכנה שבהתעלמות מקולות מחאה, גם אם הם נשמעים צורמים או מאתגרים, היא גדולה. יש צורך חיוני בדיאלוג כן, אמיץ ומכבד בין הקבוצות השונות בחברה הישראלית, ובניסיון מתמיד לבנות חוזה חברתי חדש ומכיל יותר, כזה שבו הזהות העדתית לא תהיה מקור לפער, אפליה או ניכור, אלא חלק עשיר ומגוון מהפסיפס הישראלי.
+
+## VIII. סיכום: מורשת מורכבת ושנויה במחלוקת
+
+יחסיו של שמעון פרס עם הקהילה המזרחית בישראל היו רב-גוניים, מורכבים, ולעיתים קרובות טעונים. הוא פעל כאיש ממסד מפא"י בשנים שבהן עוצבו דפוסי הקליטה הבעייתיים של עולי ארצות האסלאם; כמנהיג פוליטי שניסה, לא תמיד בהצלחה, להתחבר לציבור המזרחי ולזכות בתמיכתו; וכדמות שנתפסה באופן אמביוולנטי, ולעיתים אף שלילי, על ידי רבים בקהילה זו. הפער בין חזונו הגדול ל"מזרח תיכון חדש" לבין המציאות הפנים-ישראלית של שסע עדתי עמוק ומתמשך, הוא אולי אחד הפרדוקסים המרכזיים במורשתו בהקשר זה.
+
+מורשתו של פרס ביחס למזרחים היא במידה רבה מורשת של החמצה. הייתה זו החמצה של הזדמנות היסטורית מצד מנהיג כה מרכזי ורב-השפעה להבין לעומק את החוויה המזרחית, להכיל את כאביה, ולפעול באופן משמעותי, עקבי ואמיץ לתיקון עוולות העבר ולגישור על הפערים החברתיים והתרבותיים. במקום זאת, נותרו בזיכרון הקולקטיבי בעיקר התבטאויות פוגעניות, מדיניות שנתפסה כמנכרת, ותחושה של אי-הבנה הדדית.
+
+הדרישה ל"דוח חברתי" ביקורתי על פרס והמזרחים, כפי שבאה לידי ביטוי בשאילתה שהניעה מחקר זה, משקפת צורך עמוק ומתמשך בחברה הישראלית להמשיך ולעבד את טראומות העבר ואת השסעים החברתיים, ולא "לטאטא אותם מתחת לשטיח" בשם האחדות או ההתמקדות בעתיד. השאלה המזרחית אינה "בעיה" של המזרחים בלבד, אלא אתגר מרכזי של החברה הישראלית כולה.
+
+הלקח החשוב ביותר העולה מניתוח זה הוא שההיסטוריה של יחסי אשכנזים-מזרחים בישראל, כפי שהיא משתקפת גם דרך דמותו ופועלו של שמעון פרס, מחייבת את החברה הישראלית כיום לא רק להכיר בעבר ולהבין את מורכבותו, אלא גם לפעול באופן אקטיבי ונחוש לבניית עתיד שבו הזהות העדתית לא תהיה עוד מקור לפער, לאפליה או לניכור. עתיד כזה דורש הנהגה קשובה, אמיצה ומחויבת לצדק חברתי, ושיח ציבורי כן המכיר בכאבים ובפערים, ושואף לרפא אותם מתוך כבוד הדדי והכרה בערך הרב של כלל הקבוצות המרכיבות את הפסיפס הישראלי.
+`;
+
+        function styleReportHeadings() {
+            const reportContentEl = document.getElementById('fullReportContent');
+            if (reportContentEl && reportContentEl.textContent.startsWith('#')) { // Check if content is the report
+                const lines = reportContentEl.textContent.split('\n');
+                const styledLines = lines.map(line => {
+                    if (line.startsWith('### ')) {
+                        return `<span class="report-h3">${line.substring(4)}</span>`;
+                    } else if (line.startsWith('## ')) {
+                        return `<span class="report-h2">${line.substring(3)}</span>`;
+                    } else if (line.startsWith('# ')) {
+                        return `<span class="report-h1">${line.substring(2)}</span>`;
+                    }
+                    // Basic bolding for table headers or similar patterns if needed
+                    if (line.startsWith('| :---') || line.startsWith('| תפקיד') || line.startsWith('| מדיניות/החלטה')) {
+                        return `<strong>${line}</strong>`;
+                    }
+                    return line;
+                });
+                reportContentEl.innerHTML = styledLines.join('\n');
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const fullReportContentEl = document.getElementById('fullReportContent');
+            if (fullReportContentEl) {
+                fullReportContentEl.textContent = fullReportText.trim(); // Load text first
+                styleReportHeadings(); // Then style
+            }
+
+            const toggleReportBtn = document.getElementById('toggleReportBtn');
+            const fullReportContainer = document.getElementById('fullReportContainer');
+
+            if (toggleReportBtn && fullReportContainer) {
+                toggleReportBtn.addEventListener('click', () => {
+                    const isHidden = fullReportContainer.classList.toggle('hidden');
+                    if (!isHidden) {
+                        toggleReportBtn.textContent = 'הסתר את הדוח המלא';
+                        // Ensure styling is applied if report was hidden and now shown
+                        if (fullReportContentEl.innerHTML.includes('\n')) { // Check if it's still plain text
+                             styleReportHeadings();
+                        }
+                    } else {
+                        toggleReportBtn.textContent = 'הצג את הדוח המלא';
+                    }
+                });
+            }
+        });
+
+        const processLabel = (label) => {
+            if (typeof label === 'string' && label.length > 16) {
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = '';
+                for (const word of words) {
+                    if ((currentLine + word).length > 16 && currentLine.length > 0) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                }
+                if (currentLine.trim().length > 0) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            }
+            return label;
+        };
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const economicPlanCtx = document.getElementById('economicPlanChart');
+        if (economicPlanCtx) {
+            new Chart(economicPlanCtx, {
+                type: 'bar',
+                data: {
+                    labels: [processLabel('מדדי מאקרו (אינפלציה, יציבות)'), processLabel('מדדים חברתיים (פערים, שירותים)')],
+                    datasets: [{
+                        label: 'השפעה נתפסת',
+                        data: [75, -40], 
+                        backgroundColor: ['#06B6D4', '#F97316'],
+                        borderColor: ['#0891B2', '#EA580C'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { callback: function(value) { return value + '%'; }}},
+                        x: { ticks: { callback: function(value) { return this.getLabelForValue(value); }}}
+                    },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback, label: function(context) { let label = context.dataset.label || ''; if (label) { label += ': '; } if (context.parsed.y !== null) { label += context.parsed.y + '% שינוי (הערכה)'; } return label; }}}}
+                }
+            });
+        }
+
+        const socialGapsCtx = document.getElementById('socialGapsChart');
+        if (socialGapsCtx) {
+            new Chart(socialGapsCtx, {
+                type: 'bar',
+                data: {
+                    labels: [processLabel('הכנסה ממוצעת (אשכנזים)'), processLabel('הכנסה ממוצעת (מזרחים)'), processLabel('ייצוג באקדמיה (אשכנזים)'), processLabel('ייצוג באקדמיה (מזרחים)')],
+                    datasets: [{
+                        label: 'פערים חברתיים (המחשה)',
+                        data: [100, 70, 80, 50], 
+                        backgroundColor: ['#06B6D4', '#F97316', '#06B6D4', '#F97316'],
+                        borderColor: ['#0891B2', '#EA580C', '#0891B2', '#EA580C'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+                     scales: {
+                        x: { beginAtZero: true, ticks: { callback: function(value) { return value + ' (יחסי)'; }}},
+                        y: { ticks: { callback: function(value) { return this.getLabelForValue(value); }}}
+                    },
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { title: tooltipTitleCallback, label: function(context) { let label = context.dataset.label || ''; if (label) { label += ': '; } if (context.parsed.x !== null) { label += context.parsed.x + ' (ערך יחסי)'; } return label; }}}}
+                }
+            });
+        }
+
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navHeight = document.querySelector('nav').offsetHeight;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navHeight - 20; 
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
+            });
+        });
+
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        async function callGeminiApi(promptText) {
+            loadingIndicator.classList.remove('hidden');
+            let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
+            const payload = { contents: chatHistory };
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    console.error("Gemini API Error HTTP Status:", response.status, errorBody);
+                    throw new Error(`בקשת Gemini API נכשלה עם סטטוס ${response.status}`);
+                }
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                     console.error("Unexpected Gemini API response structure:", result);
+                     let errorMessage = "לא נמצא תוכן בתגובת Gemini API או מבנה לא צפוי.";
+                     if (result.promptFeedback && result.promptFeedback.blockReason) {
+                        errorMessage = `בקשת Gemini API נחסמה: ${result.promptFeedback.blockReason}`;
+                        if (result.promptFeedback.safetyRatings) {
+                            errorMessage += ` סיבות חסימה: ${result.promptFeedback.safetyRatings.map(r => `${r.category} - ${r.probability}`).join(', ')}`;
+                        }
+                     }
+                    throw new Error(errorMessage);
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return `שגיאה בפנייה ל-API: ${error.message}. אנא נסה שוב מאוחר יותר.`;
+            } finally {
+                loadingIndicator.classList.add('hidden');
+            }
+        }
+
+        const analyzeQuoteBtn = document.getElementById('analyzeQuoteBtn');
+        const quoteAnalysisResult = document.getElementById('quoteAnalysisResult');
+        const peresQuoteTextEl = document.getElementById('peresQuote');
+        
+        if(analyzeQuoteBtn && peresQuoteTextEl) {
+            const peresQuoteText = peresQuoteTextEl.innerText;
+            analyzeQuoteBtn.addEventListener('click', async () => {
+                quoteAnalysisResult.innerHTML = '<p>טוען ניתוח...</p>'; 
+                quoteAnalysisResult.classList.remove('hidden');
+                const prompt = `ניתוח הציטוט הבא של שמעון פרס מ-1981, בהקשר של יחסי אשכנזים-מזרחים בישראל: "${peresQuoteText}". מה היו ההשלכות האפשריות של אמירה זו? כיצד היא נתפסה בציבור המזרחי באותה תקופה ומהי משמעותה ההיסטורית? אנא ספק ניתוח תמציתי ומאוזן בן 2-3 פסקאות.`;
+                const analysis = await callGeminiApi(prompt);
+                quoteAnalysisResult.innerHTML = `<p>${analysis.replace(/\n/g, '<br>')}</p>`;
+            });
+        }
+
+        const suggestIdeasBtn = document.getElementById('suggestIdeasBtn');
+        const ideasResult = document.getElementById('ideasResult');
+        const geminiIdeasList = document.getElementById('geminiIdeasList');
+        
+        if(suggestIdeasBtn) {
+            suggestIdeasBtn.addEventListener('click', async () => {
+                if (geminiIdeasList) geminiIdeasList.innerHTML = '<li>טוען רעיונות...</li>';
+                if (ideasResult) ideasResult.classList.remove('hidden');
+                
+                const lessonsElements = document.querySelectorAll('#lessonsList li span:last-child');
+                let existingLessonsTexts = [];
+                lessonsElements.forEach(el => existingLessonsTexts.push(el.innerText));
+                const existingLessonsString = existingLessonsTexts.join(". ");
+
+                const prompt = `בהתחשב בלקחים הבאים מהשסע העדתי בישראל: "${existingLessonsString}". ובהתחשב בצורך המתמשך בגישור על פערים חברתיים וקידום לכידות, הצע 3-4 רעיונות קונקרטיים, יצירתיים ומעשיים נוספים שניתן ליישם בישראל כיום. הצג כל רעיון כנקודה נפרדת ברשימה (התחל כל נקודה ב-*).`;
+                
+                const suggestionsText = await callGeminiApi(prompt);
+                
+                if (geminiIdeasList) geminiIdeasList.innerHTML = ''; // Clear loading message
+                const suggestionsArray = suggestionsText.split('*').map(s => s.trim()).filter(s => s.length > 0);
+                
+                if (suggestionsArray.length > 0) {
+                    suggestionsArray.forEach(suggestion => {
+                        const li = document.createElement('li');
+                        li.textContent = suggestion;
+                        if (geminiIdeasList) geminiIdeasList.appendChild(li);
+                    });
+                } else {
+                    if (geminiIdeasList) geminiIdeasList.innerHTML = '<li>לא התקבלו הצעות מה-AI כרגע.</li>';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
