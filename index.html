@@ -3,589 +3,1605 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>התיאוריה האתנו-סימבולית של הלאומיות</title>
+    <title>בטון לבנייה - חלק ב': בטון קשוי ובדיקות</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Visualization & Content Choices:
-        - Core Concepts (Ethnie, Myth-Symbol Complex, etc.): Goal: Inform/Organize. Method: Interactive HTML/CSS accordion elements (details/summary). Interaction: Click to reveal detailed text. Justification: Breaks down complex definitions for better digestion, saves space. Library: Vanilla JS for enhanced accordion behavior if needed (not strictly necessary with <details>).
-        - Comparative Table (Table 1 from report): Goal: Compare. Method: HTML table styled with Tailwind. Interaction: Hover effects for readability. Justification: Clear, direct comparison of theories. Library: None.
-        - Comparative Theories Details: Goal: Compare/Inform. Method: Tabbed interface for each major competing theory. Interaction: Click tab to show content. Justification: Allows focused exploration of each theory in relation to ethno-symbolism. Library: Vanilla JS for tab functionality.
-        - Key Thinkers/Examples: Goal: Inform. Method: Card-like sections. Interaction: Static presentation. Justification: Provides concrete illustrations of the theory. Library: None.
-        - LLM Integration (New): Goal: Summarize sections. Method: Button to trigger API call. Interaction: Click button, display summary. Justification: Enhances user understanding by providing concise summaries of complex sections. Library: Gemini API (gemini-2.0-flash) via vanilla JS fetch.
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        html {
+            scroll-behavior: smooth; 
+        }
         body {
-            font-family: 'Assistant', sans-serif;
-            scroll-behavior: smooth;
+            font-family: 'Arial', sans-serif; 
+            background-color: #0f172a; 
+            color: #e2e8f0; 
+            line-height: 1.7; 
+            font-size: 1.125rem; 
         }
-        .active-nav {
-            color: #0284c7; /* sky-600 */
-            font-weight: 700;
-            border-bottom: 2px solid #0284c7;
+        .main-section { 
+            background-color: #1e293b; 
+            padding: 1.5rem; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 12px 25px -8px rgba(0,0,0,0.3), 0 5px 8px -3px rgba(0,0,0,0.15); 
+            margin-bottom: 2.5rem; 
+            border-width: 2px; 
+            border-color: #334155; 
         }
-        .nav-item {
-            transition: color 0.3s ease, border-color 0.3s ease;
+        h1, h2, h3, h4, h5 {
+            font-weight: bold;
         }
-        .nav-item:hover {
-            color: #0369a1; /* sky-700 */
+        
+        /* Header Styling */
+        .animated-header {
+            position: relative; 
+            padding-bottom: 1.5rem; 
         }
-        details > summary {
-            cursor: pointer;
-            padding: 1rem;
-            background-color: #f5f5f4; /* stone-100 */
-            border-radius: 0.5rem;
+        .animated-header h1 {
+            font-size: 4rem; 
+            font-weight: 900; 
+            background-image: linear-gradient(to right, #c026d3, #9333ea, #7c3aed); 
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInSlideUp 1.5s ease-out forwards, subtlePulseText 6s infinite alternate 2s;
+            opacity: 0; 
+            position: relative; 
+            display: inline-block; 
+            margin-bottom: 0.75rem; 
+        }
+
+        .animated-header h1::after { 
+            content: '';
+            position: absolute;
+            width: 0%; 
+            height: 5px; 
+            bottom: -15px; 
+            right: 0; 
+            background: linear-gradient(to left, #a855f7 40%, rgba(168, 85, 247, 0.5) 70%, transparent 100%);
+            border-radius: 3px;
+            animation: expandUnderline 2.5s ease-out 1.2s forwards; 
+        }
+
+
+        .animated-header .subtitle {
+            font-size: 1.6rem; 
+            color: #d1d5db; 
+            letter-spacing: 0.06em; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6); 
+            animation: fadeIn 2s ease-out 1s forwards; 
+            opacity: 0;
+            margin-bottom: 0.35rem;
+        }
+         .animated-header .author {
+            font-size: 1.2rem; 
+            color: #a1a1aa; 
+            animation: fadeIn 2s ease-out 1.5s forwards; 
+            opacity: 0;
+        }
+
+
+        @keyframes fadeInSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(35px); 
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes subtlePulseText { 
+            0% {
+                text-shadow: 0 0 2px rgba(192, 38, 211, 0.15), 0 0 4px rgba(192, 38, 211, 0.1);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(124, 58, 237, 0.25), 0 0 10px rgba(124, 58, 237, 0.15);
+            }
+        }
+        
+        @keyframes expandUnderline {
+            0% {
+                width: 0%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* General Section Title Styling (H2) */
+        .main-section > h2 {
+            font-size: 2.5rem; 
+            margin-bottom: 1.5rem; 
+            position: relative;
+            display: inline-block; 
+            padding-bottom: 0.75rem; 
+        }
+
+        .main-section > h2::after {
+            content: '';
+            position: absolute;
+            width: 0%; 
+            height: 4px; 
+            bottom: 0;
+            right: 0;
+            border-radius: 2px;
+        }
+        .main-section.is-visible > h2::after { 
+             animation: expandUnderline 2s ease-out 0.5s forwards;
+        }
+
+
+        /* Specific H2 colors and underline gradients based on section top border */
+        #hardened-concrete-section > h2 { color: #a78bfa; } 
+        #hardened-concrete-section > h2::after { background: linear-gradient(to left, #a78bfa 50%, transparent 100%); }
+        
+        #mechanical-properties-section > h2 { color: #c084fc; } 
+        #mechanical-properties-section > h2::after { background: linear-gradient(to left, #c084fc 50%, transparent 100%); }
+
+        #comparison-section > h2 { color: #f472b6; } 
+        #comparison-section > h2::after { background: linear-gradient(to left, #f472b6 50%, transparent 100%); }
+
+        #applications-section > h2 { color: #f472b6; } 
+        #applications-section > h2::after { background: linear-gradient(to left, #f472b6 50%, transparent 100%); }
+        
+        #testing-section > h2 { color: #fb7185; } 
+        #testing-section > h2::after { background: linear-gradient(to left, #fb7185 50%, transparent 100%); }
+
+        #reinforced-concrete-principles-section > h2 { color: #67e8f9; } /* Cyan for new section */
+        #reinforced-concrete-principles-section > h2::after { background: linear-gradient(to left, #67e8f9 50%, transparent 100%); }
+
+        #summary-part2-section > h2 { color: #f87171; } 
+        #summary-part2-section > h2::after { background: linear-gradient(to left, #f87171 50%, transparent 100%); }
+
+
+        /* Sub-headers H3 and H4 styling */
+        .main-section h3 {
+            font-size: 1.6rem; 
+            font-style: italic;
+            text-decoration: underline;
+            text-decoration-color: rgba(147, 197, 253, 0.5); 
+            text-underline-offset: 4px;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+         .main-section h4 {
+            font-size: 1.4rem; 
+            font-style: italic;
+            text-decoration: underline;
+            text-decoration-color: rgba(147, 197, 253, 0.4); 
+            text-underline-offset: 3px;
+            margin-top: 1rem;
             margin-bottom: 0.5rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
         }
-        details > summary:hover {
-            background-color: #e7e5e4; /* stone-200 */
+        .info-card { 
+            background-color: #27374D; 
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #475569; 
         }
-        details[open] > summary {
-            background-color: #e7e5e4; /* stone-200 */
+        .info-card h3 { 
+            color: #a78bfa; 
+            margin-bottom: 1rem;
         }
-        .tab-button {
-            transition: background-color 0.3s ease, color 0.3s ease;
+         .info-card h4 { 
+            color: #c084fc; 
+            margin-bottom: 0.75rem;
         }
-        .active-tab {
-            background-color: #0284c7; /* sky-600 */
+        .info-card p, .info-card ul, .info-card li {
+            font-size: 1.125rem; 
+        }
+        #reinforced-concrete-principles-section .info-card h3 { color: #22d3ee; } 
+        #reinforced-concrete-principles-section .info-card h4 { color: #67e8f9; }
+
+
+        /* Specific top borders for visual separation and color progression for Part B */
+        #hardened-concrete-section { border-top: 7px solid #7c3aed; } 
+        #mechanical-properties-section { border-top: 7px solid #9333ea; } 
+        #comparison-section { border-top: 7px solid #c026d3; } 
+        #applications-section { border-top: 7px solid #db2777; } 
+        #testing-section { border-top: 7px solid #e11d48; } 
+        #reinforced-concrete-principles-section { border-top: 7px solid #0891b2; } 
+        #summary-part2-section { border-top: 7px solid #dc2626; } 
+
+        .expand-button {
+            background-color: #38bdf8; 
             color: white;
+            padding: 7px 14px; 
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+            display: inline-block;
+            margin-top: 8px; 
+            font-size: 0.95rem; 
+            border: 1px solid #0ea5e9; 
+        }
+        .expand-button:hover {
+            background-color: #0ea5e9; 
+            transform: translateY(-1px);
+        }
+        .expand-button-small { 
+            padding: 6px 12px; 
+            font-size: 0.95rem; 
+            margin-top: 8px; 
+            margin-right: 0px; 
+            background-color: #475569; 
+            border: 1px solid #6b7280; 
+            color: #e5e7eb; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+        }
+        .expand-button-small:hover {
+            background-color: #525f76; 
+            border-color: #9ca3af; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .expanded-content { 
+            display: none;
+            margin-top: 10px; 
+            padding: 12px; 
+            background-color: #334155; 
+            border-radius: 8px;
+            border: 1px solid #475569; 
+            opacity: 0;
+            transition: opacity 0.4s ease-out;
+        }
+        .expanded-content.visible { 
+            display: block;
+            opacity: 1;
+        }
+        .expanded-content p, .expanded-content ul, .expanded-content ol, .expanded-content td, .expanded-content th {
+            font-size: 1.15rem; 
+            margin-bottom: 0.5rem;
+        }
+         .definition-modal-content p, .definition-modal-content ul, .definition-modal-content ol {
+            font-size: 1.2rem; 
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 700px; /* Increased max-width for better display */
+            max-width: 700px; 
             margin-left: auto;
             margin-right: auto;
-            height: auto; /* Changed to auto for flexible content */
-            min-height: 300px; /* Minimum height for visual presence */
-            max-height: 500px; /* Max height to prevent overflow */
-            padding: 1rem;
-            border: 1px solid #d4d4d8; /* stone-300 */
-            border-radius: 0.5rem;
-            background-color: #fafaf9; /* stone-50 */
+            height: 350px; 
+            max-height: 450px; 
         }
-        .theory-box {
-            border: 2px solid;
-            padding: 0.75rem;
-            margin: 0.5rem;
-            border-radius: 0.5rem;
+        .strength-comparison-chart-container { 
+            height: 250px;
+            max-width: 400px;
+        }
+        .image-modal { 
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .modal-content-image {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            animation-name: zoom;
+            animation-duration: 0.4s;
+        }
+        #modalCaption {
+            margin-top: 15px;
+            color: #ccc;
             text-align: center;
-            min-width: 120px;
+            font-size: 1.2rem; 
+            padding: 10px;
+            width: 80%;
+            max-width: 700px;
         }
-        .summarize-button {
-            background-color: #0ea5e9; /* sky-500 */
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
+        @keyframes zoom {
+            from {transform:scale(0.1)}
+            to {transform:scale(1)}
+        }
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+         .clickable-definition {
+            text-decoration: underline;
+            cursor: pointer;
+            color: #93c5fd; 
+        }
+        .clickable-definition:hover {
+            color: #60a5fa;
+        }
+
+        .definition-modal-overlay {
+            display: none; 
+            position: fixed;
+            z-index: 1001; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7); 
+            align-items: center;
+            justify-content: center;
+        }
+        .definition-modal-content {
+            background-color: #27374D; 
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #475569; 
+            border-radius: 8px;
+            width: 90%;
+            max-width: 650px; 
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            position: relative; 
+            color: #e2e8f0; 
+        }
+        .definition-modal-content h4 {
+            color: #f59e0b; 
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .definition-modal-content img {
+            max-width: 100%;
+            height: auto;
+            max-height: 300px; 
+            object-fit: contain;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            border: 2px solid #475569;
+        }
+        .definition-modal-close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            left: 20px; 
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .definition-modal-close:hover,
+        .definition-modal-close:focus {
+            color: #e2e8f0;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
             margin-top: 1rem;
             margin-bottom: 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
         }
-        .summarize-button:hover {
-            background-color: #0284c7; /* sky-600 */
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
-        .summary-output {
-            background-color: #e0f2fe; /* sky-100 */
-            border: 1px solid #93c5fd; /* sky-300 */
-            padding: 1rem;
+        .comparison-table {
+            width: 100%;
+            margin-top: 1.5rem;
+            border-collapse: collapse;
+            font-size: 1rem; 
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #4b5563; 
+            padding: 0.6rem 0.8rem; 
+            text-align: center;
+        }
+        .comparison-table th {
+            background-color: #334155; 
+            color: #f0f9ff; 
+        }
+        .comparison-table td {
+            background-color: #27374D; 
+        }
+        .comparison-table .clickable-cell {
+            cursor: pointer;
+            color: #93c5fd; 
+            text-decoration: underline;
+        }
+        .comparison-table .clickable-cell:hover {
+            color: #60a5fa; 
+        }
+        .faq-bubble {
+            background-color: #475569;
+            padding: 0.6rem 0.85rem; 
+            border-radius: 1rem;
+            margin-bottom: 0.6rem; 
+            cursor: pointer;
+            font-size: 1rem; 
+        }
+        .faq-bubble:hover {
+            background-color: #525f76;
+        }
+        .faq-bubble .expanded-content {
+            background-color: #334155;
+            font-size: 1.1rem; 
+        }
+        .road-comparison-table-container {
+            margin-top: 1.5rem;
+            border-radius: 0.5rem; 
+            overflow: hidden; 
+        }
+        .road-comparison-image-wrapper { 
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .road-comparison-image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            max-height: 300px; 
+            border-radius: 0.375rem; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .road-comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .road-comparison-table th, .road-comparison-table td {
+            border: 1px solid #64748b; 
+            padding: 0.75rem;
+            text-align: center;
+            background-color: rgba(30, 41, 59, 0.9); 
+        }
+        .road-comparison-table th {
+            background-color: rgba(51, 65, 85, 0.95); 
+            color: #f0f9ff;
+        }
+        .application-card {
+            background-color: #27374d; 
             border-radius: 0.5rem;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #1e40af; /* blue-800 */
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #db2777; 
         }
-        .loading-spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #fff;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            animation: spin 1s linear infinite;
+        .application-card img {
+            max-width: 100%; 
+            height: 150px; 
+            object-fit: cover;
+            border-radius: 0.375rem;
+            margin-bottom: 0.75rem; 
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+         .application-card h4 {
+            min-height: 2.5em; 
         }
+        .test-procedure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 1.5rem; 
+        }
+        .test-procedure-step {
+            background-color: #334155; 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            border: 1px solid #475569; 
+        }
+        .test-procedure-step strong {
+            color: #60a5fa; 
+            display: block; 
+            margin-bottom: 0.5rem;
+        }
+        .test-procedure-step ol {
+            list-style-type: decimal;
+            margin-right: 1.5rem; 
+        }
+        .test-procedure-step li {
+            margin-bottom: 0.25rem;
+        }
+        .test-card { 
+            background-color: #27374D; 
+            border-radius: 0.5rem;
+            padding: 1.25rem; 
+            margin-bottom: 1.5rem; 
+            border: 1px solid #4b5563; 
+        }
+        .test-card h3 { 
+            color: #a78bfa; 
+            margin-bottom: 1rem;
+        }
+         .test-card h4 { 
+            color: #c084fc; 
+            margin-bottom: 0.75rem;
+        }
+        .test-card p, .test-card ul, .test-card li {
+            font-size: 1.125rem; 
+        }
+        #testing-section .test-card h3 { 
+             color: #fb7185;
+        }
+         #testing-section .test-card h4 { 
+             color: #fda4af;
+        }
+
+
+        #testing-section .main-section-title { 
+            font-size: 2rem; 
+        }
+      
+         .summary-list-item {
+            font-size: 1.2rem; 
+            margin-bottom: 0.6rem;
+        }
+         .summary-list-item span.text-xl { 
+            font-size: 1.5rem; 
+        }
+
+
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800">
+<body class="leading-relaxed"> 
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex flex-col sm:flex-row items-center justify-between py-4">
-                <h1 class="text-2xl font-bold text-sky-600 mb-2 sm:mb-0">התיאוריה האתנו-סימבולית</h1>
-                <ul class="flex flex-wrap justify-center sm:justify-start space-x-4 sm:space-x-6 text-sm sm:text-base">
-                    <li><a href="#introduction" class="nav-item pb-1">מבוא</a></li>
-                    <li><a href="#core-principles" class="nav-item pb-1">יסודות התיאוריה</a></li>
-                    <li><a href="#key-thinkers" class="nav-item pb-1">הוגים</a></li>
-                    <li><a href="#examples" class="nav-item pb-1">דוגמאות</a></li>
-                    <li><a href="#comparison" class="nav-item pb-1">השוואה</a></li>
-                    <li><a href="#critiques" class="nav-item pb-1">ביקורות</a></li>
-                    <li><a href="#conclusion" class="nav-item pb-1">מסקנות</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+        <header class="text-center mb-12 main-section animated-header"> 
+            <h1>בטון לבנייה - חלק ב'</h1>
+            <p class="subtitle">תכונות הבטון הקשוי, שימושים, השוואות ובדיקות</p>
+            <p class="author">הכין, ערך ומגיש: שלומי שאול</p>
+        </header>
 
-    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-        
-        <section id="introduction" class="mb-12 pt-16 -mt-16">
-            <h2 class="text-3xl font-bold text-stone-700 mb-6 border-b-2 border-sky-500 pb-2">1. מבוא ללימודי הלאומיות והגישה האתנו-סימבולית</h2>
-            <div class="space-y-4 text-lg leading-relaxed bg-white p-6 rounded-lg shadow">
-                <p>ברוכים הבאים למדריך האינטראקטיבי לתיאוריה האתנו-סימבולית של הלאומיות. חלק זה מציג את הרקע הכללי של לימודי הלאומיות, תחום המאופיין במורכבות ובמחלוקות, וממקם את הגישה האתנו-סימבולית בתוכו. נסקור את האתגרים בהגדרת "אומה" ו"לאומיות", וכיצד האתנו-סימבוליזם מציע פרספקטיבה ייחודית המגשרת בין תפיסות היסטוריות ומודרניות.</p>
-                <p>תחום לימודי הלאומיות מאופיין במורכבות מהותית ובמחלוקת אקדמית עמוקה, כאשר מושג הלאומיות עצמו נותר שנוי במחלוקת וחסר הגדרה מוסכמת אוניברסלית. עמימות זו מדגישה את האתגר בחקר אומות וזהויות לאומיות. הגישה האתנו-סימבולית התפתחה כביקורת על התיאוריות המודרניסטיות, ומדגישה את השורשים ההיסטוריים העמוקים והממדים התרבותיים של אומות.</p>
-                <button class="summarize-button" onclick="summarizeSection('introduction')">
-                    <span id="introduction-spinner" class="hidden loading-spinner"></span>
-                    <span id="introduction-button-text">✨ סכם קטע זה</span>
-                </button>
-                <div id="introduction-summary-output" class="mt-4 summary-output hidden"></div>
+        <section id="hardened-concrete-section" class="main-section" data-section-name="hardened">
+            <h2>4. תכונות הבטון הקשוי</h2>
+            <p class="mb-4">
+                לאחר שהבטון הטרי מתקשר ומתקשה, הוא מפתח תכונות מכאניות ופיזיקליות המגדירות את התנהגותו כחומר מבני. תכונות אלו, כגון 
+                <span class="clickable-definition" onclick="openDefinitionModal('strength')">חוזק</span>, 
+                <span class="clickable-definition" onclick="openDefinitionModal('elasticity')">מודול אלסטיות</span>, 
+                הצטמקות, זחילה, 
+                <span class="clickable-definition" onclick="openDefinitionModal('density')">צפיפות</span> ו
+                <span class="clickable-definition" onclick="openDefinitionModal('permeability')">חדירות</span>, 
+                הן קריטיות לתכנון מבנים בטוחים ועמידים לאורך זמן. הבנת הגורמים המשפיעים על כל אחת מתכונות אלו מאפשרת למהנדס לבחור או לתכנן תערובת בטון שתענה על דרישות הפרויקט הספציפיות, בין אם מדובר בגשר רחב ידיים, בניין רב קומות או רצפה תעשייתית. חשוב לזכור שהבטון הוא 
+                <span class="clickable-definition" onclick="openDefinitionModal('heterogeneous')">חומר הטרוגני</span>, 
+                ותכונותיו מושפעות מהאינטראקציה המורכבת בין מרכיביו ומתנאי הייצור, היציקה והאשפרה.
+            </p>
+            <p class="mb-4">חשוב להבין שבטון קשוי, גם כאשר הוא מתוכנן ומיושם כהלכה, אינו חומר מושלם. ברמת המיקרו-מבנה, הוא מכיל באופן טבעי סדקים זעירים (מיקרו-סדקים) ופגמים קטנים (כגון חללי אוויר כלואים או נקבים נימיים), הנובעים מתהליכי ההידרציה, הצטמקות הייבוש, והאינטראקציה בין העיסה הצמנטית לאגרגטים. סדקים אלו, יחד עם נקבוביות החומר, משפיעים על תכונותיו המכאניות (במיוחד חוזק מתיחה נמוך) ועל עמידותו לאורך זמן (חדירות). התכנון ההנדסי לוקח בחשבון את אופיו הסדוק של הבטון, ובמיוחד את חוזקו הנמוך במתיחה, ולכן משלבים בו פלדת זיון הנושאת את מאמצי המתיחה.</p>
+            
+            <div class="mt-6">
+                <h4 class="text-purple-400 mb-2">התפתחות חוזק לחיצה של בטון רגיל (ללא מוספים) לפי סוג הצמנט (ת"י 466)</h4>
+                <div class="chart-container">
+                    <canvas id="strengthDevelopmentChartTI466"></canvas>
+                </div>
+                <button class="expand-button mt-3 block mx-auto" onclick="toggleExpand('strength-dev-chart-explanation')">הסבר על הגרף ומשמעותו</button>
+                <div id="strength-dev-chart-explanation" class="expanded-content">
+                    <p>הגרף מציג את התפתחות חוזק הלחיצה היחסי (f<sub>cj</sub> / f<sub>ck</sub>) של בטון רגיל (בדרגות חוזק ב-20 עד ב-40) לאורך זמן, עבור שלושה סוגי צמנט נפוצים המוגדרים בתקן ישראלי ת"י 1. הנתונים מבוססים על טבלה 3.5 מתוך ת"י 466 חלק 1 (מהדורה קודמת), ומתייחסים לבטון שהתקשר והתקשה בטמפרטורה חיצונית ממוצעת ביממה של 20°C עד 30°C, ואושפר אשפרה רגילה (לפי סעיף 8.7 בתקן) ולאחר מכן הוחזק בתנאי לחות יחסית הגדולה מ-50%.</p>
+                    <p><strong>משמעות הנתונים:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>צמנט 52.5:</strong> מראה התפתחות חוזק מהירה יותר בגילאים מוקדמים (3 ו-7 ימים) בהשוואה לצמנט 42.5.</li>
+                        <li><strong>צמנט 42.5:</strong> מייצג התפתחות חוזק סטנדרטית.</li>
+                        <li><strong>צמנט 42.5 עם אפר פחם:</strong> מראה התפתחות חוזק איטית יותר בגילאים מוקדמים, אך עשוי להגיע לחוזק גבוה יותר בגילאים מאוחרים (90 יום ואילך) בזכות התגובה הפוצולנית של אפר הפחם.</li>
+                        <li>כל סוגי הבטון מגיעים לחוזק האופייני (f<sub>ck</sub>) בגיל 28 יום (היחס הוא 1.00).</li>
+                    </ul>
+                    <p>הבנת קצב התפתחות החוזק חשובה לתכנון לוחות זמנים לבנייה, לקביעת מועד פירוק טפסות, ולהערכת יכולת נשיאת עומסים של האלמנטים בשלבים שונים.</p>
+                </div>
             </div>
         </section>
 
-        <section id="core-principles" class="mb-12 pt-16 -mt-16">
-            <h2 class="text-3xl font-bold text-stone-700 mb-6 border-b-2 border-sky-500 pb-2">2. יסודות התיאוריה: עקרונות ליבה</h2>
-            <div class="space-y-4 bg-white p-6 rounded-lg shadow">
-                <p class="text-lg leading-relaxed mb-6">חלק זה צולל לעומק עקרונות הליבה של התיאוריה האתנו-סימבולית. נבחן את הרקע האינטלקטואלי להתפתחותה, את הגדרתה המרכזית, ואת מושגי המפתח והמנגנונים שהיא מציעה להבנת הקשר בין אתניות, סמלים, זיכרון היסטורי והיווצרות אומות מודרניות. תוכלו ללחוץ על כל מושג כדי לקרוא הרחבה.</p>
+        <section id="mechanical-properties-section" class="main-section" data-section-name="mechanical">
+            <h2>5. תכונות מכאניות עיקריות</h2>
+             <p class="mb-4">בטון קשוי מאופיין במגוון תכונות מכאניות הקובעות את יכולתו לעמוד בעומסים ובמאמצים שונים. הבנה מעמיקה של תכונות אלו חיונית לתכנון מבני בטון בטוחים ויעילים.</p>
+
+            <div class="mb-8 p-4 border border-slate-700 rounded-lg">
+                <h3>5.1 חוזק לחיצה (Compressive Strength)</h3>
+                <p class="mb-3">חוזק הלחיצה הוא התכונה המכאנית החשובה והנבדקת ביותר של בטון. הוא מייצג את יכולת הבטון להתנגד למאמצי לחיצה. הבטון חזק מאוד בלחיצה וחלש יחסית במתיחה. חוזק הלחיצה האופייני (f<sub>ck</sub>) נקבע לרוב בגיל 28 יום, ונבדק על דגמי גליל או קובייה תקניים.</p>
+                <div class="my-3 text-center">
+                    <img src="https://i.postimg.cc/wTK0y9ZK/checkcmpression.jpg" alt="בדיקת חוזק לחיצה של דגם בטון במכונת בדיקה" class="mx-auto max-w-sm w-full h-auto rounded-md shadow-md zoomable-image">
+                     <p class="text-xs text-slate-400 mt-1">איור: בדיקת חוזק לחיצה של דגם בטון גלילי במכונת בדיקה.</p>
+                </div>
+                <div class="video-container mb-4">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/t4RDdn6rOwU?si=-ELaoNw1Z-0m7-04&start=139" title="הדגמת בדיקת לחיצה לבטון" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <button class="expand-button" onclick="toggleExpand('compressive-strength-details')">גורמים משפיעים ומשמעות</button>
+                <div id="compressive-strength-details" class="expanded-content">
+                    <p><strong>גורמים עיקריים המשפיעים על חוזק הלחיצה:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>יחס מים-צמנט (w/c ratio):</strong> הגורם המשמעותי ביותר. יחס נמוך יותר מוביל לחוזק גבוה יותר.</li>
+                        <li><strong>סוג ואיכות הצמנט:</strong> הרכב הצמנט ודקות הטחינה שלו.</li>
+                        <li><strong>איכות האגרגטים:</strong> חוזק, צורה, מרקם פנים וניקיון האגרגטים.</li>
+                        <li><strong>מידת הציפוף:</strong> ציפוף טוב מפחית חללים ומגדיל חוזק.</li>
+                        <li><strong>תנאי אשפרה:</strong> אשפרה נכונה (לחות וטמפרטורה) חיונית להתפתחות חוזק מיטבית.</li>
+                        <li><strong>גיל הבטון:</strong> החוזק מתפתח עם הזמן ככל שתהליך ההידרציה נמשך.</li>
+                        <li><strong>מוספים:</strong> יכולים להשפיע על קצב התפתחות החוזק והחוזק הסופי.</li>
+                    </ul>
+                    <p class="mt-2"><strong>משמעות הנדסית:</strong> חוזק הלחיצה הוא הבסיס לתכנון רוב אלמנטי הבטון הנושאים עומסי לחיצה (עמודים, קורות, קירות).</p>
+                </div>
+                 <p class="text-xs text-slate-400 mt-3">הערה: צורת ודרך הבדיקה של חוזק לחיצה יילמדו בהרחבה בסעיף 8 (בדיקות בטון).</p>
+            </div>
+            
+            <div class="mb-8 p-4 border border-slate-700 rounded-lg">
+                <h3>5.2 חוזק מתיחה (Tensile Strength)</h3>
+                <p class="mb-3">חוזק המתיחה של בטון נמוך משמעותית מחוזק הלחיצה שלו, ונע בדרך כלל בטווח של 8% עד 15% מחוזק הלחיצה. בשל כך, בתכנון מבני בטון, לרוב לא מסתמכים על יכולת הבטון לשאת מאמצי מתיחה ישירים, ואת תפקיד זה ממלאת פלדת הזיון. עם זאת, לחוזק המתיחה יש חשיבות בהבנת התנהגות הבטון בפני סדיקה והתפתחות סדקים.</p>
+                 <div class="my-3 text-center">
+                    <img src="https://i.postimg.cc/MpzFrWWk/2025-05-30-141705.png" alt="מערך בדיקת מתיחה ישירה בבטון" class="mx-auto max-w-sm w-full h-auto rounded-md shadow-md zoomable-image">
+                     <p class="text-xs text-slate-400 mt-1">איור: מערך טיפוסי לבדיקת מתיחה ישירה בבטון (שיטה פחות נפוצה).</p>
+                </div>
+                 <div class="strength-comparison-chart-container my-4 chart-container">
+                    <canvas id="tensileVsCompressiveChart"></canvas>
+                </div>
+                <p class="text-xs text-center text-slate-400 mb-3">אינפוגרפיקה: השוואה סכמטית בין חוזק מתיחה לחוזק לחיצה של בטון (ערכים לדוגמה).</p>
+                <button class="expand-button" onclick="toggleExpand('tensile-strength-details')">שיטות בדיקה נוספות ומשמעות</button>
+                <div id="tensile-strength-details" class="expanded-content">
+                    <p><strong>שיטות בדיקה נוספות לחוזק מתיחה:</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>מבחן בקיעה (Splitting Tensile Test / Brazilian Test):</strong> השיטה הנפוצה ביותר להערכת חוזק מתיחה. גליל בטון מועמס בלחיצה לאורך שני קווי קוטר מנוגדים. הכשל מתרחש כתוצאה ממאמצי מתיחה המתפתחים בניצב לכיוון העומס.</li>
+                        <li><strong>מבחן כפיפה (Modulus of Rupture):</strong> מתואר בסעיף הבא, מספק מדד עקיף לחוזק המתיחה באזור הכפיפה.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-8 p-4 border border-slate-700 rounded-lg">
+                <h3>5.3 חוזק כפיפה (Flexural Strength / Modulus of Rupture)</h3>
+                <p class="mb-3">חוזק הכפיפה (או מודול השבירה) מייצג את יכולת הבטון להתנגד למאמצי כפיפה, והוא מדד חשוב לתכנון אלמנטים כמו רצפים, כבישים, וקורות בטון לא מזוין או מזוין קלות. ערכו גבוה יותר מחוזק המתיחה הישיר (בדרך כלל פי 1.5 עד 2), ונבדק על ידי העמסת קורת בטון בכפיפה.</p>
+                 <div class="my-3 text-center">
+                    <img src="https://i.postimg.cc/yYQxpNHt/2025-05-30-133057.png" alt="בדיקת חוזק כפיפה של קורת בטון בארבע נקודות" class="mx-auto max-w-md w-full h-auto rounded-md shadow-md zoomable-image">
+                     <p class="text-xs text-slate-400 mt-1">איור: מערך בדיקת כפיפה בארבע נקודות.</p>
+                </div>
+                <div class="video-container mb-4">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/3xw9_33uNJA?si=b_FegqD1h_n5fOkQ" title="בדיקת קורת בטון מזוינת בכפיפה בארבע נקודות" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <button class="expand-button" onclick="toggleExpand('flexural-strength-details')">שיטת בדיקה וגורמים משפיעים</button>
+                <div id="flexural-strength-details" class="expanded-content">
+                    <p><strong>שיטת בדיקה:</strong> לרוב באמצעות מבחן כפיפה בשלוש נקודות (third-point loading) או בארבע נקודות (center-point loading) על קורת בטון בעלת מידות תקניות. החוזק מחושב מהעומס המרבי שגרם לכשל.</p>
+                    <p><strong>גורמים משפיעים:</strong> בדומה לחוזק הלחיצה, גם חוזק הכפיפה מושפע מיחס מים-צמנט, איכות החומרים, אשפרה וגיל הבטון. גודל וצורת האגרגטים משפיעים גם הם.</p>
+                </div>
+            </div>
+            
+            <div class="mb-8 p-4 border border-slate-700 rounded-lg">
+                <h3>5.4 עקומת מאמץ-עיבור (Stress-Strain Curve)</h3>
+                <p class="mb-3">עקומת מאמץ-עיבור מתארת את הקשר בין המאמץ המופעל על דגם בטון לבין העיבור (שינוי הצורה היחסי) שהוא עובר. היא מספקת מידע חשוב על התנהגות הבטון תחת עומס, כולל קשיחותו, חוזקו ומידת הפריכות שלו.</p>
+                <div class="grid md:grid-cols-2 gap-4 items-center my-3">
+                    <figure class="text-center">
+                         <img src="https://i.postimg.cc/fLx9SQ1C/Stress-strain-ductile-svg.png" alt="עקומת מאמץ-עיבור אופיינית לחומר דוקטילי (פלדה)" class="mx-auto max-w-xs w-full h-auto rounded-md shadow-md zoomable-image">
+                         <figcaption class="text-xs text-slate-400 mt-1">איור: עקומת מאמץ-עיבור כללית לחומר דוקטילי (כמו פלדה), להשוואה.</figcaption>
+                    </figure>
+                     <figure class="text-center">
+                        <img src="https://i.postimg.cc/Hkn2Fj7y/e5ffda5e-2e9f-4947-9570-846d76d3f483.png" alt="עקומת מאמץ-עיבור אופיינית לבטון ופלדה" class="mx-auto max-w-xs w-full h-auto rounded-md shadow-md zoomable-image">
+                        <figcaption class="text-xs text-slate-400 mt-1">איור: עקומות מאמץ-עיבור אופייניות לבטון (אדום) ולפלדה (ירוק).</figcaption>
+                    </figure>
+                </div>
+                <button class="expand-button" onclick="toggleExpand('stress-strain-details')">מאפייני העקומה לבטון ופלדה</button>
+                <div id="stress-strain-details" class="expanded-content">
+                    <p><strong>מאפייני עקומת מאמץ-עיבור אופיינית לבטון בלחיצה (הקו האדום באיור השני):</strong></p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>תחום אלסטי התחלתי:</strong> בתחילת ההעמסה, הקשר בין מאמץ לעיבור הוא כמעט ליניארי. שיפוע הקו בתחום זה מגדיר את מודול האלסטיות.</li>
+                        <li><strong>מאמץ שיא (Peak Stress):</strong> הנקודה הגבוהה ביותר בעקומה, המייצגת את חוזק הלחיצה של הבטון. העיבור המתאים למאמץ השיא הוא לרוב בסביבות 0.002 עד 0.003 (או 0.2%-0.3%).</li>
+                        <li><strong>ענף יורד (Descending Branch):** לאחר מאמץ השיא, יכולת נשיאת העומס של הבטון יורדת בהדרגה עם הגדלת העיבור. צורת הענף היורד מושפעת מחוזק הבטון ומתנאי הבדיקה.</li>
+                        <li><strong>שבירות (Brittleness):</strong> בטון הוא חומר פריך יחסית, כלומר הוא נכשל במאמץ מתיחה נמוך ואינו מראה יכולת גדולה לשינויי צורה פלסטיים לפני שבר. עיבור השבר המרבי הוא קטן יחסית (למשל, סביב 0.0035-0.004).</li>
+                    </ul>
+                    <p class="mt-2"><strong>מאפייני עקומת מאמץ-עיבור אופיינית לפלדה (הקו הירוק באיור השני):</strong></p>
+                     <ul class="list-disc list-inside ml-4">
+                        <li><strong>תחום אלסטי:</strong> קשר ליניארי בין מאמץ לעיבור עד לגבול האלסטיות (נקודת הכניעה).</li>
+                        <li><strong>נקודת כניעה (Yield Point):</strong> המאמץ בו הפלדה מתחילה לעבור שינוי צורה פלסטי משמעותי ללא עלייה נוספת במאמץ.</li>
+                        <li><strong>תחום פלסטי (Plastic Deformation / Strain Hardening):</strong> הפלדה ממשיכה להתעוות תחת מאמץ קבוע או עולה במקצת (התקשות מעוותים).</li>
+                         <li><strong>מאמץ מרבי (Ultimate Tensile Strength):</strong> הנקודה הגבוהה ביותר בעקומה לפני תחילת היווצרות "צוואר" בדגם.</li>
+                        <li><strong>שבר (Fracture):</strong> הפלדה נשברת לאחר עיבור פלסטי גדול.</li>
+                    </ul>
+                     <p class="mt-2">צורת עקומת המאמץ-עיבור של בטון מושפעת מגורמים רבים, כולל חוזק הבטון, סוג האגרגטים, קצב ההעמסה, וגיל הבטון.</p>
+                </div>
+                <div class="mt-4">
+                    <button class="expand-button-small" onclick="toggleExpand('steel-elasticity-expand')">הדגמה: מודול אלסטיות פלדות</button>
+                    <div id="steel-elasticity-expand" class="expanded-content">
+                        <img src="https://i.postimg.cc/SQdFpgxz/2025-05-31-191648.png" alt="מודול אלסטיות של פלדות שונות" class="mx-auto max-w-md w-full h-auto rounded-md shadow-md zoomable-image">
+                        <div class="video-container mt-2">
+                             <iframe width="560" height="315" src="https://www.youtube.com/embed/DLE-ieOVFjI?si=_Aadn-a5hJVgpukZ&start=17" title="מודול אלסטיות של פלדה" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2">
+                     <button class="expand-button-small" onclick="toggleExpand('concrete-young-modulus-expand')">הרחבה: התנהגות בטון ומודול יאנג</button>
+                    <div id="concrete-young-modulus-expand" class="expanded-content">
+                        <p>בדיקת מודול יאנג (מודול האלסטיות) של בטון חיונית להבנת קשיחותו ויכולתו להתנגד לשינויי צורה תחת עומס. ת"י 466 מתייחס לסיווג בטונים גם על בסיס חוזקם, המשפיע ישירות על מודול האלסטיות. התמונות הבאות ממחישות את התנהגות הבטון ומרכיביו:</p>
+                        <img src="https://i.postimg.cc/vH8gv8Bx/5-4826-20130517-2138.jpg" alt="התנהגות בטון במודול יאנג" class="mx-auto max-w-md w-full h-auto rounded-md shadow-md zoomable-image">
+                        <p class="text-xs text-center text-slate-400 mt-1">איור המדגים את הקשר בין מאמץ לעיבור בבטון.</p>
+                        <img src="https://i.postimg.cc/7PnJ7Jxy/Stress-strain-curve-for-aggregates-concrete-and-cement-paste-1.jpg" alt="עקומות מאמץ-עיבור לאגרגטים, בטון ועיסה צמנטית" class="mx-auto max-w-md w-full h-auto rounded-md shadow-md zoomable-image mt-2">
+                        <p class="text-xs text-center text-slate-400 mt-1">איור המשווה עקומות מאמץ-עיבור של האגרגטים, העיסה הצמנטית, והבטון כמכלול.</p>
+                    </div>
+                </div>
+            </div>
+             <div class="info-card">
+                <h3><em><ins>5.5 התפתחות הכשל בבטון, חוזק אופייני ומבנה הבטון</ins></em></h3>
+                <p class="mb-3">הבטון, בהיותו <span class="clickable-definition" onclick="openDefinitionModal('heterogeneous')">חומר הטרוגני</span>, מכיל מיקרו-סדקים ופגמים עוד לפני העמסתו. **אזור המעבר הבין-מופעי (Interfacial Transition Zone - ITZ)**, הממשק הדק (בעובי של כ-20-50 מיקרון) בין האגרגטים הגסים לעיסה הצמנטית, הוא אזור חלש יחסית בבטון. הוא מאופיין בנקבוביות גבוהה יותר, ריכוז גבוה יותר של גבישי קלציום הידרוקסיד (פורטלנדיט) גדולים ופחות ג'ל סידן-סיליקט-הידרט (C-S-H) צפוף, ונוכחות מיקרו-סדקים הנוצרים מהצטמקות או ממאמצים תרמיים. ה-ITZ הוא אזור בעל חשיבות מכרעת, שכן תכונותיו משפיעות על חוזק ההדבקה בין האגרגט לעיסה, על חדירות הבטון ועל התפתחות סדקים. תחת עומס לחיצה, סדקים אלו ב-ITZ מתחילים להתפתח ולהתחבר. עם הגדלת העומס, הסדקים מתפשטים דרך העיסה הצמנטית, מחברים בין אגרגטים סמוכים, וגורמים לבסוף לכשל פריך של הבטון. חוזק אופייני של בטון רגיל נע בין 20 ל-50 מגה-פסקל (MPa), אך ניתן להגיע לחוזקים גבוהים בהרבה (מעל 100 MPa) בבטונים בעלי ביצועים גבוהים (HPC) או אולטרה-גבוהים (UHPC), באמצעות תכנון קפדני של התערובת, יחס מים-צמנט נמוך מאוד, ושימוש במוספים מתקדמים המשפרים את ה-ITZ ואת צפיפות העיסה.</p>
+                <button class="expand-button-small" onclick="toggleExpand('itz-details')">קרא עוד על אזור המעבר (ITZ)</button>
+                <div id="itz-details" class="expanded-content">
+                    <p>אזור המעבר הבין-מופעי (ITZ) הוא האזור הדק סביב כל אגרגט גס בעיסת הצמנט. הוא נוצר עקב "אפקט הדופן" של האגרגט, הגורם לשינוי באריזת חלקיקי הצמנט ובריכוז המים ליד פני האגרגט. כתוצאה מכך, ה-ITZ מאופיין בדרך כלל ב:</p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>נקבוביות גבוהה יותר:</strong> יותר חללים ונקבים נימיים בהשוואה לעיסה הצמנטית הרחוקה מהאגרגט (Bulk Paste).</li>
+                        <li><strong>ריכוז גבוה של גבישי קלציום הידרוקסיד (Ca(OH)<sub>2</sub>):</strong> גבישים אלו נוטים להיווצר ולהצטבר על פני האגרגט, והם גדולים ופחות צפופים מתוצרי הידרציה אחרים.</li>
+                        <li><strong>פחות ג'ל סידן-סיליקט-הידרט (C-S-H):</strong> הג'ל, שהוא המרכיב העיקרי התורם לחוזק, פחות צפוף ומפותח ב-ITZ.</li>
+                        <li><strong>נוכחות מיקרו-סדקים:</strong> סדקים זעירים נוצרים ב-ITZ כתוצאה מהצטמקות ייבוש של העיסה או ממאמצים תרמיים, עוד לפני העמסת הבטון.</li>
+                    </ul>
+                    <p>תכונות אלו הופכות את ה-ITZ ל"חוליה החלשה" בבטון, והוא משפיע משמעותית על חוזק המתיחה, חוזק הכפיפה, מודול האלסטיות, חדירות ועמידות הבטון. שיפור תכונות ה-ITZ (למשל, על ידי שימוש במוספים מינרליים כמו מיקרוסיליקה או אפר פחם) הוא דרך מרכזית לשיפור ביצועי הבטון.</p>
+                </div>
+                <p class="mt-3 mb-3">התקן הישראלי (ת"י 466) מבחין בין שני מצבי גבול עיקריים בתכנון מבני בטון:
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>מצב גבול של הרס (Ultimate Limit State - ULS):</strong> מתייחס לכשל של המבנה או חלק ממנו, כגון קריסה, אובדן יציבות, או שבר. התכנון למצב זה מבטיח שהמבנה יוכל לשאת את העומסים המרביים הצפויים במהלך חייו בבטיחות מספקת.</li>
+                        <li><strong>מצב גבול של שירות (Serviceability Limit State - SLS):</strong> מתייחס לתפקוד תקין של המבנה בתנאי שירות רגילים. מצב זה כולל דרישות לגבי הגבלת שקיעות, רעידות, ורוחב סדקים, כדי להבטיח נוחות שימוש, מראה אסתטי ועמידות לאורך זמן.</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="info-card"> 
+                <h3 class="text-purple-400 mb-3"><em><ins>5.6 סיווג חוזק בטון בישראל, הזמנת בטון ות"י 466</ins></em></h3>
+                <p class="mb-3">בישראל, בטונים מסווגים לפי חוזק הלחיצה האופייני שלהם בגיל 28 יום. הסימון הנפוץ הוא "ב-" ואחריו ערך החוזק במגה-פסקל (לדוגמה, ב-30 מציין בטון עם חוזק לחיצה אופייני של 30 MPa). דרגות חוזק נפוצות כוללות ב-20, ב-25, ב-30, ב-40, ב-50 וכו'.</p>
+                <button class="expand-button-small" onclick="toggleExpand('concrete-ordering-details')">פרטים על הזמנת בטון ותקינה</button>
+                <div id="concrete-ordering-details" class="expanded-content">
+                    <p>תהליך הזמנת בטון ממפעל כולל ציון מספר פרמטרים עיקריים:</p>
+                    <ul class="list-disc list-inside ml-4">
+                        <li><strong>חוזק אופייני נדרש (f<sub>ck</sub>):</strong> למשל, ב-30.</li>
+                        <li><strong>דרגת חשיפה (Exposure Class):</strong> מגדירה את תנאי הסביבה אליהם ייחשף הבטון (למשל, סביבה ימית, חשיפה לכימיקלים), ומשפיעה על דרישות העמידות (כגון יחס מים-צמנט מרבי, תכולת צמנט מינימלית, סוג צמנט).</li>
+                        <li><strong>דרגת סומך (Slump Class):</strong> למשל, S3 או S4, בהתאם לעבידות הנדרשת ליישום.</li>
+                        <li><strong>גודל אגרגט מרבי (גא"מ):</strong> נקבע בהתאם למגבלות גיאומטריות של האלמנט וצפיפות הזיון.</li>
+                        <li><strong>תכולת כלורידים מרבית:** מוגבלת במיוחד בבטון מזוין ודרוך.</li>
+                        <li><strong>דרישות מיוחדות נוספות:** כגון סוג צמנט ספציפי, שימוש במוספים מסוימים, דרישות לצבע, וכו'.</li>
+                    </ul>
+                    <p class="mt-2">התקן הישראלי המרכזי העוסק בתכנון קונסטרוקציות בטון הוא <strong>ת"י 466 – חוקת הבטון</strong>. תקן זה מורכב ממספר חלקים המכסים היבטים שונים של תכנון וביצוע, כולל: דרישות כלליות, עומסים, תכנון אלמנטים מבטון מזוין ובטון דרוך, עמידות, ביצוע, ובקרת איכות.</p>
+                </div>
+            </div>
+             </section>
+
+        <section id="comparison-section" class="main-section" data-section-name="comparison">
+            <h2>6. השוואת בטון לחומרים אחרים</h2>
+            <p class="mb-4">כדי להעריך נכונה את מקומו של הבטון בעולם הבנייה, חשוב להשוות את תכונותיו המרכזיות לאלו של חומרי בנייה נפוצים אחרים. הבחירה בחומר בנייה מסוים תלויה במגוון רחב של גורמים, כולל דרישות מבניות, תנאי סביבה, אסתטיקה, עלות ושיקולי קיימות.</p>
+            
+            <div class="overflow-x-auto">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>תכונה / פרמטר</th>
+                            <th class="clickable-cell" onclick="openDefinitionModal('compConcrete')">בטון (מזוין) 🧱</th>
+                            <th class="clickable-cell" onclick="openDefinitionModal('compSteel')">פלדה מבנית 🔩</th>
+                            <th class="clickable-cell" onclick="openDefinitionModal('compWood')">עץ (לבינוי) 🌲</th>
+                            <th class="clickable-cell" onclick="openDefinitionModal('compBrick')">לבנים/בלוקים 🧱</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold">חוזק לחיצה</td>
+                            <td>גבוה עד גבוה מאוד</td>
+                            <td>גבוה מאוד</td>
+                            <td>בינוני (תלוי בכיוון הסיבים)</td>
+                            <td>נמוך עד בינוני</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">חוזק מתיחה</td>
+                            <td>נמוך מאוד (דורש זיון)</td>
+                            <td>גבוה מאוד</td>
+                            <td>בינוני עד גבוה (בכיוון הסיבים)</td>
+                            <td>נמוך מאוד</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">צפיפות (ק"ג/מ"ק)</td>
+                            <td>כ-2400</td>
+                            <td>כ-7850</td>
+                            <td>כ-400-800 (תלוי בסוג)</td>
+                            <td>כ-600-2000 (תלוי בסוג)</td>
+                        </tr>
+                         <tr>
+                            <td class="font-semibold">יחס חוזק/משקל</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compStrengthWeightConcrete')">בינוני</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compStrengthWeightSteel')">גבוה מאוד</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compStrengthWeightWood')">גבוה</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compStrengthWeightBrick')">נמוך</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">עמידות באש 🔥</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compFireConcrete')">טובה עד טובה מאוד</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compFireSteel')">נמוכה (מאבד חוזק בטמפ' גבוהות)</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compFireWood')">נמוכה (דליק)</td>
+                            <td class="clickable-cell" onclick="openDefinitionModal('compFireBrick')">טובה מאוד</td>
+                        </tr>
+                         <tr>
+                            <td class="font-semibold">בידוד תרמי ואקוסטי 🌡️🎧</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compInsulationConcrete')">בינוני (תרמי), טוב (אקוסטי במסה)</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compInsulationSteel')">נמוך מאוד</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compInsulationWood')">טוב (תרמי), בינוני (אקוסטי)</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compInsulationBrick')">טוב עד טוב מאוד (תלוי בסוג)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">עמידות סביבתית 🐛💧</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compEnvConcrete')">טובה (תלוי בתכנון וביצוע)</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compEnvSteel')">רגישה לקורוזיה (דורש הגנה)</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compEnvWood')">רגיש ללחות, מזיקים וריקבון (דורש טיפול)</td>
+                            <td class="clickable-cell" onclick="toggleExpand('compEnvBrick')">טובה מאוד</td>
+                        </tr>
+                         <tr>
+                            <td class="font-semibold">קיימות ♻️</td>
+                             <td class="clickable-cell" onclick="toggleExpand('compSusConcrete')">בינונית (ניתן למיחזור, טביעת רגל פחמנית גבוהה בייצור צמנט)</td>
+                             <td class="clickable-cell" onclick="toggleExpand('compSusSteel')">טובה (ניתן למיחזור מלא, עתיר אנרגיה בייצור ראשוני)</td>
+                             <td class="clickable-cell" onclick="toggleExpand('compSusWood')">טובה מאוד (מקור מתחדש, קושר פחמן)</td>
+                             <td class="clickable-cell" onclick="toggleExpand('compSusBrick')">בינונית (עתיר אנרגיה בייצור, עמידות גבוהה)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                 <div id="compStrengthWeightConcrete" class="expanded-content"><p><strong>בטון - יחס חוזק/משקל:</strong> לבטון מזוין יחס חוזק לחיצה למשקל טוב, אך יחס חוזק מתיחה למשקל נמוך ללא זיון. הזיון משפר משמעותית את היחס הכולל.</p></div>
+                <div id="compStrengthWeightSteel" class="expanded-content"><p><strong>פלדה - יחס חוזק/משקל:</strong> מצוין הן בלחיצה והן במתיחה. מאפשר מבנים קלים יחסית בעלי מפתחים גדולים.</p></div>
+                <div id="compStrengthWeightWood" class="expanded-content"><p><strong>עץ - יחס חוזק/משקל:</strong> טוב מאוד בכיוון הסיבים, במיוחד במתיחה וכפיפה. משקלו הנמוך תורם ליחס זה.</p></div>
+                <div id="compStrengthWeightBrick" class="expanded-content"><p><strong>לבנים/בלוקים - יחס חוזק/משקל:</strong> נמוך יחסית, במיוחד במתיחה. משמשים בעיקר לקירות נושאי לחיצה או מילוי.</p></div>
+
+                <div id="compFireConcrete" class="expanded-content"><p><strong>בטון - עמידות באש:</strong> אינו דליק ומספק בידוד תרמי טוב יחסית, המגן על פלדת הזיון. עמידותו תלויה בעובי הכיסוי וסוג האגרגטים.</p></div>
+                <div id="compFireSteel" class="expanded-content"><p><strong>פלדה - עמידות באש:</strong> מאבדת מחוזקה באופן משמעותי בטמפרטורות גבוהות (מעל 500-600°C) ודורשת הגנה (ציפויים, בטון).</p></div>
+                <div id="compFireWood" class="expanded-content"><p><strong>עץ - עמידות באש:</strong> חומר דליק. קצב השריפה תלוי בצפיפות ובמידות. ניתן לשפר עמידות באמצעות טיפולים מעכבי בעירה או שימוש באלמנטים מסיביים.</p></div>
+                <div id="compFireBrick" class="expanded-content"><p><strong>לבנים/בלוקים - עמידות באש:</strong> חומרים קרמיים לרוב בעלי עמידות טובה מאוד לאש.</p></div>
                 
-                <details class="bg-white rounded-lg">
-                    <summary class="text-xl">רקע אינטלקטואלי והתפתחותה</summary>
-                    <div class="p-4 border-t border-stone-200 text-base leading-relaxed">
-                        <p>התיאוריה האתנו-סימבולית התפתחה כביקורת על התיאוריות המודרניסטיות, שראו באומות המצאות חדשות. אנתוני ד. סמית' הוא הדמות המרכזית, והמונח "אתנו-סימבוליזם" נטבע על ידי דניאל קונברסי. הגישה מנסה לגשר בין מודרניזם, נאו-פרניאליזם ופוסטמודרניזם, תוך הדגשת שורשים היסטוריים ותרבותיים.</p>
-                    </div>
-                </details>
+                <div id="compInsulationConcrete" class="expanded-content"><p><strong>בטון - בידוד:</strong> בידוד תרמי בינוני (מוליכות תרמית גבוהה יחסית, אך מסה תרמית טובה). בידוד אקוסטי טוב בזכות המסה הגבוהה, במיוחד לתדרים נמוכים.</p></div>
+                <div id="compInsulationSteel" class="expanded-content"><p><strong>פלדה - בידוד:</strong> בידוד תרמי ואקוסטי נמוכים מאוד (מוליך טוב של חום וקול).</p></div>
+                <div id="compInsulationWood" class="expanded-content"><p><strong>עץ - בידוד:</strong> בידוד תרמי טבעי טוב. בידוד אקוסטי בינוני, תלוי בצפיפות ובמבנה.</p></div>
+                <div id="compInsulationBrick" class="expanded-content"><p><strong>לבנים/בלוקים - בידוד:</strong> בידוד תרמי ואקוסטי טובים עד טובים מאוד, תלוי בסוג הבלוק (למשל, בלוקי איטונג מציעים בידוד תרמי מעולה).</p></div>
 
-                <details class="bg-white rounded-lg">
-                    <summary class="text-xl">הגדרת האתנו-סימבוליזם</summary>
-                    <div class="p-4 border-t border-stone-200 text-base leading-relaxed">
-                        <p>האתנו-סימבוליזם מדגיש את חשיבותם של סמלים, מיתוסים, ערכים ומסורות משותפים בהיווצרות ובהתמשכות מדינת הלאום. אומות נתפסות כקהילות עם שורשים עמוקים, המטפחות שייכות קולקטיבית באמצעות אלמנטים תרבותיים. קשר רגשי זה מסביר את עוצמת הלאומיות.</p>
-                    </div>
-                </details>
+                <div id="compEnvConcrete" class="expanded-content"><p><strong>בטון - עמידות סביבתית:</strong> עמיד יחסית, אך חדירותו עלולה לאפשר חדירת חומרים אגרסיביים. רגיש לסולפטים, כלורידים (קורוזיה של זיון) וחומצות. תכנון נכון (יחס מים-צמנט נמוך, כיסוי מספק) ואשפרה משפרים עמידות.</p></div>
+                <div id="compEnvSteel" class="expanded-content"><p><strong>פלדה - עמידות סביבתית:</strong> רגישה מאוד לקורוזיה (חלודה) בנוכחות לחות וחמצן. דורשת הגנה כגון צבע, גלוון או הגנה קתודית.</p></div>
+                <div id="compEnvWood" class="expanded-content"><p><strong>עץ - עמידות סביבתית:</strong> רגיש ללחות (ריקבון, פטריות), מזיקים (טרמיטים, חרקים) ואש. דורש טיפולי שימור והגנה מתאימים, במיוחד בחוץ.</p></div>
+                <div id="compEnvBrick" class="expanded-content"><p><strong>לבנים/בלוקים - עמידות סביבתית:</strong> לרוב בעלי עמידות טובה מאוד לתנאי סביבה, תלוי בסוג הבלוק (למשל, בלוקי איטונג רגישים יותר לרטיבות ממושכת).</p></div>
 
-                <details class="bg-white rounded-lg">
-                    <summary class="text-xl">מושג ה'אתניה' (Ethnie)</summary>
-                    <div class="p-4 border-t border-stone-200 text-base leading-relaxed">
-                        <p>'אתניה' היא קבוצת אוכלוסייה אנושית בעלת שם, מיתוס מוצא משותף, זיכרונות היסטוריים, אלמנט תרבותי משותף, קשר ל"מולדת" ותחושת סולידריות. זהו מושג מרכזי להבנת היסודות הקדם-מודרניים של אומות.</p>
-                    </div>
-                </details>
+                <div id="compSusConcrete" class="expanded-content"><p><strong>בטון - קיימות:</strong> ייצור צמנט הוא עתיר אנרגיה ופולט $CO_2$. עם זאת, בטון עמיד לאורך זמן, בעל מסה תרמית טובה, וניתן למיחזור (כאגרגט ממוחזר). שימוש במוספים מינרליים (אפר פחם, סיגים) מפחית את טביעת הרגל הפחמנית.</p></div>
+                <div id="compSusSteel" class="expanded-content"><p><strong>פלדה - קיימות:</strong> ניתן למיחזור כמעט אינסופי ללא פגיעה בתכונות. ייצור ראשוני עתיר אנרגיה, אך שימוש בפלדה ממוחזרת מפחית משמעותית את ההשפעה הסביבתית.</p></div>
+                <div id="compSusWood" class="expanded-content"><p><strong>עץ - קיימות:</strong> חומר גלם מתחדש (אם מגיע מיערות מנוהלים באופן בר-קיימא). קושר פחמן דו-חמצני במהלך צמיחתו. תהליך עיבודו לרוב פחות עתיר אנרגיה מחומרים אחרים.</p></div>
+                <div id="compSusBrick" class="expanded-content"><p><strong>לבנים/בלוקים - קיימות:</strong> ייצור לבנים שרופות עתיר אנרגיה. בלוקי בטון דומים לבטון. עמידותם הגבוהה תורמת לקיימות המבנה. חלקם ניתנים למיחזור.</p></div>
 
-                <details class="bg-white rounded-lg">
-                    <summary class="text-xl">סוגי קהילות אתניות</summary>
-                    <div class="p-4 border-t border-stone-200 text-base leading-relaxed">
-                        <p>סמית' מבחין בין שני סוגים:</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1">
-                            <li><strong>קהילות לרוחב (אריסטוקרטיות):</strong> מורכבות מאליטות, זהות משותפת מוגבלת לשכבות העליונות (לדוגמה, הנורמנים).</li>
-                            <li><strong>קהילות לאורך (דמוטיות):</strong> מכילות יותר, מקשרות בין מעמדות באמצעות תרבות והיסטוריה משותפות (לדוגמה, הקהילה הישראלית הקדומה).</li>
-                        </ul>
-                    </div>
-                </details>
+            </div>
 
-                <details class="bg-white rounded-lg">
-                    <summary class="text-xl">מנגנוני השפעה היסטורית על ההווה</summary>
-                    <div class="p-4 border-t border-stone-200 text-base leading-relaxed">
-                        <p>סמית' מציג שלוש דרכים בהן העבר משפיע על ההווה הלאומי:</p>
-                        <ul class="list-disc list-inside mt-2 space-y-1">
-                            <li><strong>הישנות צורת האומה:</strong> מושג האומה כמשאב תרבותי זמין לאורך ההיסטוריה.</li>
-                            <li><strong>המשכיות מבוססות:</strong> רכיבים תרבותיים (שמות, שפה, נופים) המתמידים ומהווים בסיס להתחדשות.</li>
-                            <li><strong>התאמה ופרשנות מחדש:</strong> דורות מאוחרים מגלים מחדש ומאמצים היבטים מהעבר האתני.</li>
-                        </ul>
-                    </div>
-                </details>
+            <div class="road-comparison-table-container mt-8">
+                 <div class="road-comparison-image-wrapper">
+                    <img src="https://i.postimg.cc/52kSq1yS/Chat-GPT-Image-May-30-2025-02-22-37-PM.png" alt="השוואת כביש בטון וכביש אספלט" class="zoomable-image">
+                    <p class="text-xs text-slate-400 mt-1">איור: המחשת כביש בטון (לרוב בהיר יותר) וכביש אספלט (כהה יותר).</p>
+                </div>
+                <h4 class="text-xl text-fuchsia-400 mb-3 text-center relative z-10 pt-2">השוואת מיסעות: בטון מול אספלט 🛣️</h4>
+                <table class="road-comparison-table">
+                     <thead>
+                        <tr>
+                            <th>פרמטר</th>
+                            <th>מיסעת בטון</th>
+                            <th>מיסעת אספלט</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold">עלות ראשונית</td>
+                            <td>גבוהה יותר</td>
+                            <td>נמוכה יותר</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">אורך חיים</td>
+                            <td>ארוך (20-40+ שנים)</td>
+                            <td>קצר יותר (10-20 שנים)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">עלויות תחזוקה</td>
+                            <td>נמוכות יותר</td>
+                            <td>גבוהות יותר (דורש ציפוי מחדש תקופתי)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">נוחות נסיעה</td>
+                            <td>טובה, משטח קשיח</td>
+                            <td>טובה מאוד, משטח גמיש יותר (בתחילה)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">רעש צמיגים</td>
+                            <td>גבוה יותר (ניתן להפחית עם גימור מיוחד)</td>
+                            <td>נמוך יותר</td>
+                        </tr>
+                         <tr>
+                            <td class="font-semibold">בטיחות (חיכוך)</td>
+                            <td>טוב, במיוחד בתנאי רטיבות (עם חספוס מתאים)</td>
+                            <td>טוב, אך עלול להיות חלק יותר ברטיבות</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold">זמן יישום ופתיחה לתנועה</td>
+                            <td>ארוך יותר (דורש זמן התקשות ואשפרה)</td>
+                            <td>קצר יותר (ניתן לפתוח לתנועה מהר יותר)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                <details class="bg-white rounded-lg">
-                    <summary class="text-xl">"מכלול המיתוס-סמל"</summary>
-                    <div class="p-4 border-t border-stone-200 text-base leading-relaxed">
-                        <p>"מכלול המיתוס-סמל" ו"זיכרונות מיתיים" (כמו "תור זהב", ייעוד, בחירה אתנית) הם כוחות פוליטיים רבי עוצמה. הם משוכפלים באמצעות טקסים ונרטיבים, ויוצרים תחושת שייכות חזקה.</p>
-                    </div>
-                </details>
-                <button class="summarize-button" onclick="summarizeSection('core-principles')">
-                    <span id="core-principles-spinner" class="hidden loading-spinner"></span>
-                    <span id="core-principles-button-text">✨ סכם קטע זה</span>
-                </button>
-                <div id="core-principles-summary-output" class="mt-4 summary-output hidden"></div>
+
+            <div class="mt-6">
+                <h4 class="text-xl text-fuchsia-400 mb-2">שאלות נפוצות - בחירת חומרים:</h4>
+                <div class="faq-bubble" onclick="toggleExpand('faq-concrete-vs-steel')">מתי עדיף בטון על פלדה, ולהיפך? 🤔</div>
+                <div id="faq-concrete-vs-steel" class="expanded-content">
+                    <p><strong>בטון</strong> עדיף לרוב כאשר נדרש חוזק לחיצה גבוה, מסה תרמית, עמידות באש או עלות נמוכה יחסית (במיוחד ליסודות ואלמנטים מסיביים). <strong>פלדה</strong> עדיפה למפתחים גדולים, מבנים קלים, בנייה מהירה, או כאשר נדרש יחס חוזק/משקל גבוה מאוד. לעיתים קרובות משלבים בין השניים (בטון מזוין, מבנים משולבים).</p>
+                </div>
+                <div class="faq-bubble" onclick="toggleExpand('faq-concrete-vs-wood')">מהם יתרונות העץ לעומת בטון? 🌲</div>
+                <div id="faq-concrete-vs-wood" class="expanded-content">
+                    <p><strong>עץ</strong> מציע יחס חוזק/משקל טוב, הוא חומר גלם מתחדש (בניהול נכון), קל לעיבוד באתר, ומספק בידוד תרמי טבעי טוב. בנייה בעץ יכולה להיות מהירה יותר. עם זאת, הוא רגיש יותר ללחות, מזיקים ואש (דורש טיפולים). <strong>בטון</strong> מציע מסה ועמידות גבוהות יותר בתנאים מסוימים.</p>
+                </div>
+                 <div class="faq-bubble" onclick="toggleExpand('faq-partition-wall')">מהם החומרים הטובים ביותר עבור מחיצה פנימית בבית? 🏠</div>
+                <div id="faq-partition-wall" class="expanded-content">
+                    <p>הבחירה תלויה בדרישות. <strong>לוחות גבס</strong> על קונסטרוקציית פח/עץ הם קלים, מהירים להתקנה, ומאפשרים בידוד אקוסטי ותרמי טוב (עם חומר בידוד מתאים). <strong>בלוקי איטונג או בלוקי גבס</strong> מציעים בידוד תרמי ואקוסטי טוב ומסה גדולה יותר. <strong>בלוקי בטון או לבנים</strong> פחות נפוצים למחיצות פנים בשל משקלם ועלותם, אך יכולים לשמש משיקולים אדריכליים או אקוסטיים ספציפיים.</p>
+                </div>
+                 <div class="faq-bubble" onclick="toggleExpand('faq-retaining-wall')">עבור קיר פיתוח גבוה המפריד בין כביש סואן לבניין, איזה חומר עדיף? 🚧</div>
+                <div id="faq-retaining-wall" class="expanded-content">
+                    <p>לרוב, <strong>בטון מזוין</strong> הוא הבחירה המועדפת לקירות פיתוח גבוהים, במיוחד בסביבה עירונית או ליד כבישים. הסיבות לכך הן חוזקו הגבוה, יכולתו לעמוד בעומסי קרקע ותנועה, עמידותו לאורך זמן, ויכולתו לספק גם בידוד אקוסטי מסוים בזכות המסה שלו. ניתן לשלב אלמנטים אסתטיים או חיפויים כדי לשפר את המראה. במקרים מסוימים, ניתן לשקול גם אלמנטים טרומיים מבטון.</p>
+                </div>
             </div>
         </section>
 
-        <section id="key-thinkers" class="mb-12 pt-16 -mt-16">
-            <h2 class="text-3xl font-bold text-stone-700 mb-6 border-b-2 border-sky-500 pb-2">3. הוגי דעות מרכזיים</h2>
-            <div class="space-y-4 bg-white p-6 rounded-lg shadow">
-                <p class="text-lg leading-relaxed mb-6">כאן נכיר את הוגי הדעות המרכזיים שעיצבו את התיאוריה האתנו-סימבולית. נתמקד בתרומתו המכוננת של אנתוני ד. סמית', הנחשב ל"דיקן" הגישה, ונסקור בקצרה הוגים נוספים שהשפיעו על התפתחותה.</p>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-stone-50 p-6 rounded-lg shadow-sm border border-stone-200">
-                        <h3 class="text-2xl font-semibold text-sky-600 mb-3">אנתוני ד. סמית'</h3>
-                        <p class="text-base leading-relaxed">סמית' (1939-2016) הוא הדמות המרכזית בפיתוח האתנו-סימבוליזם. הוא טען שאומות מודרניות נבנות על בסיס קבוצות אתניות קיימות, המוגדרות על ידי מיתוסים, זיכרונות וסמלים משותפים. הוא הבחין בין לאומיות אזרחית לאתנית על רצף, והדגיש את הליבה התרבותית של אומות. ספריו המרכזיים כוללים את "מקורותיה האתניים של אומות" ו"זהות לאומית".</p>
+        <section id="applications-section" class="main-section" data-section-name="applications">
+            <h2>7. שימושי בטון בבנייה</h2>
+            <p class="mb-4">הרבגוניות של הבטון, יחד עם תכונותיו המכאניות והפיזיקליות הניתנות להתאמה, מאפשרות את שימושו במגוון עצום של יישומים בתחום ההנדסה האזרחית והבנייה. החל ממבנים מונומנטליים ועד לאלמנטים יומיומיים, הבטון הוא חומר יסוד בתשתית המודרנית.</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="application-card">
+                    <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🏗️</span>7.1.1 יסודות</h4>
+                    <img src="https://i.postimg.cc/yxxVRwNt/1.webp" alt="יציקת יסודות בטון באתר בנייה" class="zoomable-image w-full">
+                    <p>הבטון הוא החומר הנבחר ליסודות מבנים בזכות חוזקו בלחיצה ויכולתו להעביר עומסים מהמבנה לקרקע. סוגי יסודות נפוצים כוללים כלונסאות, רפסודות, ויסודות בודדים או משולבים.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('foundations-details')">קרא עוד על יסודות</button>
+                    <div id="foundations-details" class="expanded-content">
+                        <p><strong>כלונסאות (Piles):</strong> אלמנטים אנכיים ארוכים המוחדרים לעומק הקרקע להעברת עומסים לשכבות קרקע יציבות יותר. עשויים מבטון יצוק באתר או בטון טרומי.
+                        <br><strong>רפסודות (Raft Foundations):</strong> משטח בטון רחב המכסה את כל שטח המבנה, מפזר את העומס על פני שטח גדול. מתאים לקרקעות חלשות יחסית.
+                        <br><strong>יסודות בודדים/משולבים (Isolated/Combined Footings):</strong> בסיסים מבטון מתחת לעמודים בודדים או קבוצות עמודים.</p>
                     </div>
-                    <div class="bg-stone-50 p-6 rounded-lg shadow-sm border border-stone-200">
-                        <h3 class="text-2xl font-semibold text-sky-600 mb-3">תורמים נוספים</h3>
-                        <ul class="list-disc list-inside space-y-2 text-base leading-relaxed">
-                            <li><strong>ג'ון א. ארמסטרונג:</strong> תרם להבנה שקבוצות מגדירות עצמן לעיתים קרובות באמצעות הדרה והשוואה ל"זרים". הסכים שזהות לאומית היא המצאה, אך הדגיש את קדמוניותן של המצאות מסוימות ואת מאגר המאפיינים הקיימים מראש.</li>
-                            <li><strong>דניאל קונברסי:</strong> תלמידו של סמית', טבע את המונח "גישה אתנו-סימבולית" באופן רשמי.</li>
+                </div>
+
+                <div class="application-card">
+                    <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🏢</span>7.1.2 שלד המבנה</h4>
+                     <img src="https://i.postimg.cc/1t9Rmg19/2.jpg" alt="שלד בניין מבטון מזוין בשלבי הקמה" class="zoomable-image w-full">
+                    <p>בטון מזוין ובטון דרוך הם חומרי היסוד לבניית שלדי מבנים, כולל עמודים, קורות, תקרות וקירות נושאים. הם מאפשרים גמישות תכנונית ועמידות גבוהה.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('frame-details')">קרא עוד על שלד המבנה</button>
+                    <div id="frame-details" class="expanded-content">
+                        <p><strong>עמודים וקורות:</strong> מעבירים עומסים אנכיים ואופקיים. בטון דרוך מאפשר מפתחים גדולים יותר בקורות.
+                        <br><strong>תקרות:</strong> תקרות יצוקות באתר (כמו תקרת מקשית או תקרת צלעות) או תקרות טרומיות (לוח"דים, הולוקור) מאפשרות כיסוי שטחים גדולים.
+                        <br><strong>קירות נושאים/גזירה:</strong> קירות מבטון התורמים ליציבות המבנה בפני כוחות אופקיים (רוח, רעידות אדמה).</p>
+                    </div>
+                </div>
+
+                 <div class="application-card">
+                    <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🛣️</span>7.2.1 כבישים ומיסעות</h4>
+                    <img src="https://i.postimg.cc/wMr9Q0yv/3.jpg" alt="כביש בטון מהיר עם תנועה" class="zoomable-image w-full">
+                    <p>מיסעות בטון (PCCP - Portland Cement Concrete Pavement) משמשות לכבישים, מסלולי שדות תעופה ומשטחים תעשייתיים בזכות עמידותן הגבוהה לעומסים כבדים ולאורך חיים ארוך.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('pavement-details')">קרא עוד על מיסעות בטון</button>
+                    <div id="pavement-details" class="expanded-content">
+                        <p>מיסעות בטון מציעות יתרונות כגון אורך חיים ארוך (20-40 שנים ויותר), עלויות תחזוקה נמוכות יחסית, ועמידות טובה בפני דלקים ושמנים. צבען הבהיר תורם לנראות טובה יותר בלילה ומפחית את אפקט "אי החום העירוני". חסרונותיהן כוללים עלות הקמה ראשונית גבוהה יותר וזמן יישום ארוך יותר מאספלט.</p>
+                    </div>
+                </div>
+                
+                <div class="application-card">
+                    <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🌉</span>7.2.2 גשרים ומנהרות</h4>
+                    <img src="https://i.postimg.cc/50n46xf8/4.jpg" alt="גשר בטון מרשים מעל עמק" class="zoomable-image w-full">
+                    <p>בטון מזוין ובטון דרוך הם חומרים מרכזיים בבניית גשרים ומנהרות, המאפשרים יצירת מבנים מורכבים בעלי מפתחים גדולים ועמידות גבוהה לתנאי סביבה מאתגרים.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('bridge-tunnel-details')">קרא עוד על גשרים ומנהרות</button>
+                    <div id="bridge-tunnel-details" class="expanded-content">
+                        <p><strong>גשרים:</strong> שימוש בבטון דרוך מאפשר בניית גשרים עם מפתחים ארוכים ופרופילים דקים. שיטות בנייה כוללות יציקה באתר, שימוש במקטעים טרומיים, או בנייה מאוזנת (balanced cantilever).
+                        <br><strong>מנהרות:</strong> דיפון מנהרות בבטון (יצוק באתר או מקטעים טרומיים) מספק יציבות מבנית ואטימות למים.</p>
+                    </div>
+                </div>
+
+                 <div class="application-card">
+                    <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🏭</span>7.3 אלמנטים טרומיים</h4>
+                    <img src="https://i.postimg.cc/pX9WLb4n/5.jpg" alt="מפעל לייצור אלמנטים טרומיים מבטון" class="zoomable-image w-full">
+                    <p>ייצור אלמנטים מבטון במפעל (טרום-יציקה) מאפשר בקרת איכות גבוהה, מהירות בנייה באתר, וגימור מדויק. כולל קירות, תקרות, קורות, עמודים ואלמנטים אדריכליים.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('precast-details')">קרא עוד על אלמנטים טרומיים</button>
+                    <div id="precast-details" class="expanded-content">
+                        <p><strong>יתרונות:</strong> בקרת איכות בתנאי מפעל, חיסכון בזמן בנייה באתר, הפחתת פסולת באתר, אפשרות ליצירת צורות מורכבות וגימורים מיוחדים.
+                        <br><strong>יישומים:</strong> מבני מגורים, מבני תעשייה, חניונים, גשרים, קירות תומכים, חיפויי חזיתות.</p>
+                    </div>
+                </div>
+
+                <div class="application-card">
+                    <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🎨</span>7.4 בטון אדריכלי</h4>
+                    <img src="https://i.postimg.cc/mZpZ42Xs/6.jpg" alt="מבנה עם חזית בטון חשוף אדריכלי" class="zoomable-image w-full">
+                    <p>בטון המשמש לא רק למטרות מבניות אלא גם כאלמנט עיצובי ואסתטי. כולל בטון חשוף, בטון צבעוני, בטון מוטבע, בטון מלוטש (טרצו) ועוד.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('architectural-concrete-details')">קרא עוד על בטון אדריכלי</button>
+                    <div id="architectural-concrete-details" class="expanded-content">
+                        <p><strong>טכניקות:</strong> שימוש בתבניות מיוחדות ליצירת טקסטורות, הוספת פיגמנטים ליצירת גוונים, החלקת פני השטח לרמה גבוהה, חשיפת אגרגטים, הטבעת דוגמאות.
+                        <br><strong>יישומים:</strong> חזיתות מבנים, קירות פנים, ריצופים, אלמנטים פיסוליים, ריהוט אורבני.</p>
+                    </div>
+                </div>
+                
+                <div class="application-card md:col-span-2 lg:col-span-3">
+                    <h4 class="text-xl text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">✨</span>7.5 שימושים מיוחדים נוספים</h4>
+                    <p>מעבר ליישומים הנפוצים, הבטון משמש גם למטרות ספציפיות הדורשות תכונות מיוחדות:</p>
+                    <button class="expand-button-small" onclick="toggleExpand('special-uses-details')">פירוט על שימושים מיוחדים</button>
+                    <div id="special-uses-details" class="expanded-content">
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>בטון למיגון:</strong> בניית ממ"דים, מקלטים ומבנים ממוגנים דורשת בטון בעל חוזק וצפיפות גבוהים, לעיתים עם תוספת סיבים לשיפור העמידות בפני הדף ורסיסים.</li>
+                            <li><strong>בטון רזה (Lean Concrete):</strong> תערובת בטון עם תכולת צמנט נמוכה יחסית, משמשת בעיקר כשכבת בסיס לייצוב קרקע מתחת ליסודות או ריצופים, או למילוי.</li>
+                            <li><strong>בטון קל (Lightweight Concrete):</strong> כפי שתואר בסעיף האגרגטים, משמש לבידוד תרמי ואקוסטי, ולהפחתת משקל עצמי של אלמנטים.</li>
+                            <li><strong>בטון כבד (Heavyweight Concrete):</strong> משמש למיגון מקרינה במתקנים רפואיים וגרעיניים, בזכות צפיפותו הגבוהה.</li>
+                            <li><strong>בטון בעל הידוק עצמי (Self-Compacting Concrete - SCC):</strong> בטון בעל עבידות גבוהה מאוד הזורם וממלא תבניות מורכבות ללא צורך בציפוף מכאני. דורש תכנון תערובת קפדני ושימוש במוספים מתאימים.</li>
+                            <li><strong>בטון חדיר (Pervious/Porous Concrete):</strong> בטון בעל מבנה נקבובי המאפשר למים לחלחל דרכו. משמש לריצופים בחניונים, מדרכות ושבילים, ומסייע בניהול מי נגר עירוניים והפחתת עומס על מערכות ניקוז.</li>
                         </ul>
                     </div>
                 </div>
-                <button class="summarize-button" onclick="summarizeSection('key-thinkers')">
-                    <span id="key-thinkers-spinner" class="hidden loading-spinner"></span>
-                    <span id="key-thinkers-button-text">✨ סכם קטע זה</span>
-                </button>
-                <div id="key-thinkers-summary-output" class="mt-4 summary-output hidden"></div>
+
             </div>
         </section>
 
-        <section id="examples" class="mb-12 pt-16 -mt-16">
-            <h2 class="text-3xl font-bold text-stone-700 mb-6 border-b-2 border-sky-500 pb-2">4. אתנו-סימבוליזם בפועל: דוגמאות מאירות</h2>
-            <div class="space-y-4 bg-white p-6 rounded-lg shadow">
-                <p class="text-lg leading-relaxed mb-6">כיצד התיאוריה האתנו-סימבולית באה לידי ביטוי במציאות ההיסטורית? חלק זה מציג דוגמאות קונקרטיות שממחישות את עקרונות התיאוריה, כגון המשכיות היסטורית, סוגי קהילות אתניות, טרנספורמציה של אתניות ומיתוסי בחירה.</p>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-stone-50 p-4 rounded-lg shadow-sm border border-stone-200">
-                        <h4 class="text-xl font-semibold text-sky-600 mb-2">היוונים</h4>
-                        <p class="text-sm leading-relaxed">דוגמה להמשכיות מבוססת. למרות תקופות שקיעה, שמות, שפה ונופים אתניים התמידו ואפשרו הופעה מחדש של זהות יוונית.</p>
-                    </div>
-                    <div class="bg-stone-50 p-4 rounded-lg shadow-sm border border-stone-200">
-                        <h4 class="text-xl font-semibold text-sky-600 mb-2">הנורמנים</h4>
-                        <p class="text-sm leading-relaxed">דוגמה לאתניה לרוחב (אריסטוקרטית). זהותם התבססה על מיתוסי מוצא והישגי דוכסיהם, והייתה מוגבלת למעמדות הגבוהים.</p>
-                    </div>
-                    <div class="bg-stone-50 p-4 rounded-lg shadow-sm border border-stone-200">
-                        <h4 class="text-xl font-semibold text-sky-600 mb-2">הקהילה הישראלית (הקדומה)</h4>
-                        <p class="text-sm leading-relaxed">דוגמה לאתניה לאורך (דמוטית). איחדה קבוצות חברתיות שונות באמצעות מסורות דתיות והיסטוריות משותפות.</p>
-                    </div>
-                    <div class="bg-stone-50 p-4 rounded-lg shadow-sm border border-stone-200">
-                        <h4 class="text-xl font-semibold text-sky-600 mb-2">אנגליה</h4>
-                        <p class="text-sm leading-relaxed">דוגמה לטרנספורמציה של אתניה לרוחב באמצעות 'התאגדות בירוקרטית', הפצת מיתוסים וערכים של ליבה אתנית דומיננטית, ושילוב תרבויות פריפריאליות.</p>
-                    </div>
-                    <div class="bg-stone-50 p-4 rounded-lg shadow-sm border border-stone-200">
-                        <h4 class="text-xl font-semibold text-sky-600 mb-2">הצארים הרוסים</h4>
-                        <p class="text-sm leading-relaxed">דוגמה למיתוס בחירה ("רומא השלישית") שסיפק נרטיב של ייעוד מקודש לאומה הרוסית המתהווה.</p>
-                    </div>
-                     <div class="bg-stone-50 p-4 rounded-lg shadow-sm border border-stone-200">
-                        <h4 class="text-xl font-semibold text-sky-600 mb-2">יישום רחב</h4>
-                        <p class="text-sm leading-relaxed">הגישה יושמה לניתוח מגוון מצבים היסטוריים ועכשוויים ברחבי העולם, אך ייתכן שפחות מתאימה להקשרים מסוימים באפריקה ודרום אסיה, שם המודרניזם עשוי להסביר טוב יותר.</p>
+        <section id="testing-section" class="main-section" data-section-name="testing">
+            <h2 class="main-section-title">8. בדיקות בטון (לפי ת"י 26, ת"י 466 ועוד)</h2>
+            <p class="mb-4">בקרת איכות הבטון היא שלב קריטי להבטחת בטיחות ועמידות המבנים. התקנים הישראליים, ובראשם ת"י 26 (בטון: בדיקות) ות"י 466 (חוקת הבטון), מגדירים את הבדיקות הנדרשות לבטון ולמרכיביו בשלבים השונים – החל מחומרי הגלם, דרך הבטון הטרי ועד לבטון הקשוי.</p>
+
+            <div class="info-card mb-8 p-4">
+                <h3><em><ins>8.1 בדיקות על מרכיבי הבטון (לפני הערבוב)</ins></em></h3>
+                <p class="mb-2">איכות הבטון מתחילה באיכות מרכיביו. לכן, קיימות בדיקות תקניות לאגרגטים, לצמנט, למים ולמוספים.</p>
+                <div class="test-card" style="border-left-color: #fb7185;">
+                    <h4>8.1.1 בדיקות אגרגטים (לפי ת"י 3)</h4>
+                    <p>כוללות בדיקת דירוג (אנליזה גרנולומטרית באמצעות נפות), ניקיון (תכולת חומרים מזיקים, חרסית, חומרים אורגניים), ספיגות מים, איתנות (עמידות לתנאי סביבה), צורת גרגרים (אחוז פחוסים/מוארכים) ושחיקה (מבחן לוס אנג'לס). 
+                        <br><strong class="text-amber-300">הערה: נושא דירוג אגרגטים נלמד בהרחבה בתרגול בקורס "קרקע וביסוס".</strong></p>
+                    <button class="expand-button-small" onclick="toggleExpand('aggregates-ti466-req')">דרישות גודל גרגר מרבי (ת"י 466)</button>
+                    <div id="aggregates-ti466-req" class="expanded-content">
+                        <p>ת"י 466 קובע, בין היתר, כי גודל הגרגר המרבי באגרגט לא יהיה גדול מהקטן מבין הערכים הבאים: 1/5 מהמידה המינימלית בין פני הטפסות; 1/3 מעובי תקרות מקשיות; 3/4 מהמרווח הפנוי בין מוטות זיון או עובי כיסוי הבטון הצדי לזיון. באישור מתכנן, ניתן לחרוג מהגבלות אלו בתנאים מסוימים.</p>
                     </div>
                 </div>
-                <button class="summarize-button" onclick="summarizeSection('examples')">
-                    <span id="examples-spinner" class="hidden loading-spinner"></span>
-                    <span id="examples-button-text">✨ סכם קטע זה</span>
-                </button>
-                <div id="examples-summary-output" class="mt-4 summary-output hidden"></div>
-            </div>
-        </section>
-
-        <section id="comparison" class="mb-12 pt-16 -mt-16">
-            <h2 class="text-3xl font-bold text-stone-700 mb-6 border-b-2 border-sky-500 pb-2">5. ניתוח השוואתי: אתנו-סימבוליזם מול תיאוריות מתחרות</h2>
-            <div class="bg-white p-6 rounded-lg shadow">
-                 <p class="text-lg leading-relaxed mb-6">הבנת ייחודה של התיאוריה האתנו-סימבולית דורשת השוואה לגישות מרכזיות אחרות בחקר הלאומיות. חלק זה מציג טבלת השוואה מקיפה, בוחן לעומק את ההבדלים והדמיון בין אתנו-סימבוליזם לבין מודרניזם, פרימורדיאליזם, קונסטרוקטיביזם ופרניאליזם, ומציע תרשים מושגי שממחיש את מיקומן היחסי.</p>
-
-                <div class="mb-8">
-                    <div class="flex border-b border-stone-300">
-                        <button class="tab-button py-2 px-4 text-stone-600 hover:text-sky-600 focus:outline-none active-tab" onclick="openTab(event, 'comparison-table')">טבלת השוואה</button>
-                        <button class="tab-button py-2 px-4 text-stone-600 hover:text-sky-600 focus:outline-none" onclick="openTab(event, 'modernism')">מודרניזם</button>
-                        <button class="tab-button py-2 px-4 text-stone-600 hover:text-sky-600 focus:outline-none" onclick="openTab(event, 'primordialism')">פרימורדיאליזם</button>
-                        <button class="tab-button py-2 px-4 text-stone-600 hover:text-sky-600 focus:outline-none" onclick="openTab(event, 'constructivism')">קונסטרוקטיביזם</button>
-                        <button class="tab-button py-2 px-4 text-stone-600 hover:text-sky-600 focus:outline-none" onclick="openTab(event, 'perennialism')">פרניאליזם</button>
-                        <button class="tab-button py-2 px-4 text-stone-600 hover:text-sky-600 focus:outline-none" onclick="openTab(event, 'conceptual-diagram')">תרשים מושגי</button>
+                <div class="test-card mt-4" style="border-left-color: #fb7185;">
+                    <h4>8.1.2 בדיקות צמנט (לפי ת"י 1)</h4> 
+                    <p class="mb-2">תקן ישראלי ת"י 1 ("צמנט: צמנט רגיל") מגדיר את הדרישות עבור סוגי צמנט שונים.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('cement-storage-req')">אחסון ודרישות מצמנט</button>
+                    <div id="cement-storage-req" class="expanded-content">
+                        <p><strong>אחסון צמנט:</strong> יש לאחסן צמנט בתנאים יבשים למניעת הידרציה מוקדמת. צמנט בשקים יאוחסן על משטחים מוגבהים ובכיסוי. צמנט בתפזורת מאוחסן בסילואים אטומים. אחסון ממושך (מעל 3 חודשים או כשזמן האחסון לא ידוע) מחייב בדיקת איכות. בדיקה נפוצה היא "הפסד בקליה" (חימום ל-1000 מעלות צלזיוס) לבדיקת כמות מי הידרציה; צמנט מקולקל יראה הפסד של יותר מ-5% ממשקל הצמנט.
+                        <br><strong>דרישות עיקריות מצמנט (ת"י 1):</strong> התקן מפרט דרישות להרכב כימי (למשל, תכולת גופרית תלת-חמצנית, מגנזיום אוקסיד, כלורידים, אלקלים), דרישות פיזיקליות (זמן התקשרות ראשוני וסופי, יציבות נפח, דקות טחינה) ודרישות חוזק (לחיצה בגילאים שונים, בהתאם לדרגת החוזק של הצמנט – 32.5, 42.5, 52.5, וסיווג חוזק מוקדם N, R, L).</p>
                     </div>
+                </div>
+                 <div class="test-card mt-4" style="border-left-color: #fb7185;">
+                    <h4>8.1.3 בדיקות מים (לפי ת"י 466)</h4> 
+                    <p class="mb-2">מים המשמשים לייצור בטון צריכים להיות נקיים מחומרים מזיקים. מי שתייה בישראל נחשבים בדרך כלל מתאימים. מים ממקורות אחרים (כגון מים ממוחזרים מתעשיית הבטון) דורשים בדיקות.</p>
+                    <button class="expand-button-small" onclick="toggleExpand('water-harmful-substances')">חומרים מזיקים במים והשפעתם</button>
+                    <div id="water-harmful-substances" class="expanded-content">
+                        <p><strong>חומרים מזיקים נפוצים והשפעתם:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>כלורידים:</strong> בריכוז גבוה, עלולים לגרום לקורוזיה של פלדת הזיון.</li>
+                            <li><strong>סולפטים:</strong> עלולים להגיב עם הצמנט ולגרום להתפשטות והרס הבטון.</li>
+                            <li><strong>אלקלים:</strong> עלולים לתרום לתגובת אלקלי-אגרגט.</li>
+                            <li><strong>חומרים אורגניים (סוכרים, שמנים):</strong> עלולים לעכב הידרציה ולפגוע בחוזק.</li>
+                        </ul>
+                         <img src="https://i.postimg.cc/DyKvDJpp/2025-05-30-012825.png" alt="דרישות איכות מים לבטון לפי ת"י 466" class="mx-auto max-w-md w-full h-auto rounded-md shadow-md mt-2 zoomable-image">
+                         <p class="text-xs text-slate-400 mt-1">קטע מת"י 466 המתייחס לאיכות המים לערבוב בטון.</p>
+                    </div>
+                </div>
+                 <div class="test-card mt-4" style="border-left-color: #fb7185;">
+                    <h4>8.1.4 בדיקות מוספים</h4>
+                    <p>אימות התאמה לדרישות התקן הרלוונטי (למשל, ת"י 895 למוספים כימיים) ולמפרט הפרויקט.</p>
+                </div>
+            </div>
+            
+            <div class="info-card mb-8 p-4">
+                 <h3><em><ins>8.2 בדיקות על בטון טרי</ins></em></h3>
+                 <div class="test-card">
+                    <h4>8.2.1 מבחן חמיטה (Slump Test) 🍦</h4>
+                    <p><strong>מטרה:</strong> הערכת עבידות וסומך הבטון הטרי. זוהי הבדיקה הנפוצה ביותר באתר לבקרת עקביות הבטון.</p>
+                    <div class="grid md:grid-cols-2 gap-4 items-center my-3">
+                        <img src="https://i.postimg.cc/GtbQWfJM/concrete-slump-test-illustration.jpg" alt="איור מהלך בדיקת חמיטה" class="w-full h-auto rounded-md shadow-md zoomable-image">
+                        <img src="https://i.postimg.cc/Hn32dt6T/Concrete-Slump-test-sadatbeton-com-2-min.jpg" alt="מדידת שקיעה במבחן חמיטה באתר" class="w-full h-auto rounded-md shadow-md zoomable-image">
+                    </div>
+                    <button class="expand-button-small mt-2" onclick="toggleExpand('slump-test-procedure')">הליך ביצוע ופירוש תוצאות</button>
+                    <div id="slump-test-procedure" class="expanded-content">
+                        <p><strong>ציוד:</strong> חרוט אברמס (קונוס חמיטה) תקני (גובה 300 מ"מ, קוטר תחתון 200 מ"מ, קוטר עליון 100 מ"מ), מוט דחיסה תקני (קוטר 16 מ"מ, אורך כ-600 מ"מ, קצה מעוגל), משטח ישר, קשיח, לח ולא סופג, סרגל מדידה.</p>
+                        <strong>סדר פעולות:</strong>
+                        <ol class="list-decimal list-inside">
+                            <li>הרכבת הקונוס על המשטח הלח והנקי.</li>
+                            <li>מילוי הקונוס בבטון טרי בשלוש שכבות שוות ב<strong>גובהן</strong> (בערך 1/3 גובה הקונוס כל שכבה).</li>
+                            <li>דחיסת כל שכבה 25 פעמים באמצעות מוט הדחיסה, באופן אחיד על פני כל שטח השכבה. עבור השכבה התחתונה, יש להטות מעט את המוט בחלק מההקשות כדי להבטיח דחיסה גם בשוליים. עבור השכבות העליונות, המוט צריך לחדור מעט לשכבה שמתחתיה.</li>
+                            <li>לאחר דחיסת השכבה העליונה, יש להוסיף בטון במידת הצורך כך שהקונוס יהיה מלא עד גדותיו, וליישר את פני הבטון עם שפת הקונוס באמצעות תנועת ניסור של מוט הדחיסה.</li>
+                            <li>ניקוי עודפי בטון מבסיס הקונוס.</li>
+                            <li>הרמת הקונוס אנכית, באיטיות ובאופן רציף, תוך כ-5 עד 10 שניות, ללא תנועות סיבוביות או צדיות.</li>
+                            <li>הנחת הקונוס ההפוך לצד הבטון ששקע, והנחת מוט הדחיסה על פני הקונוס. מדידת ההפרש האנכי בין תחתית מוט הדחיסה לבין הנקודה הגבוהה ביותר במרכז הבטון ששקע. ערך זה הוא ה"ירד" או ה"חמיטה" (Slump).</li>
+                        </ol>
+                        <p><strong>פירוש תוצאות:</strong> ערך החמיטה (במ"מ) מושווה לדרגות הסומך המוגדרות בתקן (S1-S8) ולדרישות המפרט. סוג השקיעה (אמיתית, גזירה, קריסה) נרשם גם הוא.</p>
+                    </div>
+                </div>
 
-                    <div id="comparison-table" class="tab-content py-4">
-                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">טבלה 1: סקירה השוואתית של תיאוריות מרכזיות של לאומיות</h3>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full bg-white border border-stone-200">
-                                <thead class="bg-stone-100">
-                                    <tr>
-                                        <th class="py-3 px-4 border-b text-right font-semibold">קטגוריה / תיאוריה</th>
-                                        <th class="py-3 px-4 border-b text-right font-semibold">אתנו-סימבוליזם</th>
-                                        <th class="py-3 px-4 border-b text-right font-semibold">מודרניזם</th>
-                                        <th class="py-3 px-4 border-b text-right font-semibold">פרימורדיאליזם</th>
-                                        <th class="py-3 px-4 border-b text-right font-semibold">קונסטרוקטיביזם / אינסטרומנטליזם</th>
-                                        <th class="py-3 px-4 border-b text-right font-semibold">פרניאליזם</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="hover:bg-stone-50">
-                                        <td class="py-3 px-4 border-b"><strong>אמונת ליבה / טבע האומה</strong></td>
-                                        <td class="py-3 px-4 border-b">תופעה מודרנית עם שורשים היסטוריים עמוקים בקהילות אתניות קדם-מודרניות.</td>
-                                        <td class="py-3 px-4 border-b">תופעה מודרנית, יצירה חברתית.</td>
-                                        <td class="py-3 px-4 border-b">טבעית, אורגנית, אוניברסלית, קדמונית למין האנושי.</td>
-                                        <td class="py-3 px-4 border-b">נבנית חברתית, גמישה, מבוססת אינטרסים.</td>
-                                        <td class="py-3 px-4 border-b">אידיאולוגיה לאומית מודרנית, אך אומות קיימות מאז ימי הביניים לפחות.</td>
-                                    </tr>
-                                    <tr class="hover:bg-stone-50">
-                                        <td class="py-3 px-4 border-b"><strong>הופעה / ציר זמן</strong></td>
-                                        <td class="py-3 px-4 border-b">מודרנית, אך מושרשת באתניות קדם-מודרניות.</td>
-                                        <td class="py-3 px-4 border-b">סוף המאה ה-18 / המאה ה-19.</td>
-                                        <td class="py-3 px-4 border-b">עתיקה / פרהיסטורית.</td>
-                                        <td class="py-3 px-4 border-b">מודרנית.</td>
-                                        <td class="py-3 px-4 border-b">אידיאולוגיה לאומית מודרנית, אומות קדם-ימי הביניים.</td>
-                                    </tr>
-                                    <tr class="hover:bg-stone-50">
-                                        <td class="py-3 px-4 border-b"><strong>מניעים / מנגנונים מרכזיים</strong></td>
-                                        <td class="py-3 px-4 border-b">מיתוסים, סמלים, זיכרונות, מסורות, משאבים תרבותיים.</td>
-                                        <td class="py-3 px-4 border-b">תיעוש, קפיטליזם דפוס, בניית מדינה, חינוך המוני.</td>
-                                        <td class="py-3 px-4 border-b">פסיכולוגיה אבולוציונית אנושית, קשר משפחתי.</td>
-                                        <td class="py-3 px-4 border-b">אינטרסים פוליטיים / כלכליים, מניפולציה אליטיסטית.</td>
-                                        <td class="py-3 px-4 border-b">המשכיות היסטורית, זהויות קולקטיביות קדם-מודרניות.</td>
-                                    </tr>
-                                    <tr class="hover:bg-stone-50">
-                                        <td class="py-3 px-4 border-b"><strong>הוגי דעות בולטים</strong></td>
-                                        <td class="py-3 px-4 border-b">אנתוני ד. סמית', ג'ון א. ארמסטרונג.</td>
-                                        <td class="py-3 px-4 border-b">בנדיקט אנדרסון, ארנסט גלנר, אריק הובסבאום.</td>
-                                        <td class="py-3 px-4 border-b">ווקר קונור, פייר ואן דן ברגה.</td>
-                                        <td class="py-3 px-4 border-b">ג'ון ברוילי, אלי כדורי.</td>
-                                        <td class="py-3 px-4 border-b">ג'ון האצ'ינסון.</td>
-                                    </tr>
-                                    <tr class="hover:bg-stone-50">
-                                        <td class="py-3 px-4 border-b"><strong>יחס לקדם-מודרניות</strong></td>
-                                        <td class="py-3 px-4 border-b">המשכיות חזקה עם אתניות קדם-מודרניות.</td>
-                                        <td class="py-3 px-4 border-b">אין צורות אומה קדם-מודרניות משמעותיות.</td>
-                                        <td class="py-3 px-4 border-b">אומות התקיימו לפני המודרניות.</td>
-                                        <td class="py-3 px-4 border-b">צורות זהות קדם-מודרניות אך לא "אומות".</td>
-                                        <td class="py-3 px-4 border-b">אומות התקיימו לפני המודרניות, לעיתים קרובות כ"אתניות" או פרוטו-אומות.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="test-card">
+                    <h4>8.2.2 בדיקת תכולת אוויר (Air Content Test) 🌬️</h4>
+                    <p><strong>מטרה:</strong> מדידת אחוז נפח האוויר (הן אוויר כלוא והן אוויר מכוון, אם הוסף) בבטון הטרי. קריטי לבטונים החשופים למחזורי קפיאה והפשרה.</p>
+                     <img src="https://i.postimg.cc/sgt7kSX8/0025874-gilson-concrete-air-meters.jpg" alt="מכשיר למדידת תכולת אוויר בבטון (מד לחץ Type B)" class="mx-auto max-w-xs w-full h-auto rounded-md shadow-md zoomable-image">
+                    <button class="expand-button-small mt-2" onclick="toggleExpand('air-content-procedure')">שיטות והליך ביצוע (מד לחץ)</button>
+                    <div id="air-content-procedure" class="expanded-content">
+                        <p><strong>שיטות עיקריות:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>מד לחץ (Pressure Meter - Type B):</strong> השיטה הנפוצה ביותר לבטון רגיל. מבוססת על חוק בויל (הקשר בין לחץ לנפח גז).</li>
+                            <li><strong>מד נפחי (Volumetric Meter - Type A):</strong> מתאים גם לבטון קל או בטון עם אגרגטים נקבוביים מאוד. מודד ישירות את נפח האוויר על ידי החלפתו במים.</li>
+                            <li><strong>מד כבידתי (Gravimetric Method):</strong> חישוב תכולת האוויר על סמך השוואת הצפיפות הנמדדת של הבטון הטרי לצפיפות התיאורטית נטולת האוויר. פחות מדויק.</li>
+                        </ul>
+                        <p><strong>סדר פעולות (מד לחץ Type B):</strong></p>
+                        <ol class="list-decimal list-inside">
+                            <li>מילוי מיכל המדידה של המכשיר בבטון טרי בשלוש שכבות שוות, תוך דחיסת כל שכבה (בדומה למבחן חמיטה או באמצעות ריטוט קל).</li>
+                            <li>יישור פני הבטון עם שפת המיכל.</li>
+                            <li>ניקוי שפות המיכל והמכסה, והרכבת המכסה האטום של המכשיר.</li>
+                            <li>הזרמת מים לתוך החלל שבין המכסה לפני הבטון, עד להוצאת כל האוויר הכלוא בחלל זה.</li>
+                            <li>סגירת שסתומי האוויר והמים, והפעלת לחץ אוויר ידוע (לחץ עבודה) על הדגימה באמצעות משאבת המכשיר.</li>
+                            <li>לאחר התייצבות הלחץ, שחרור הלחץ לתוך מיכל הדגימה. הלחץ גורם לדחיסת בועות האוויר בבטון.</li>
+                            <li>קריאת אחוז האוויר ישירות מסקאלת המכשיר, המכוילת להציג את הירידה בנפח כתוצאה מדחיסת האוויר.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="info-card mb-8 p-4">
+                <h3><em><ins>8.3 הכנת דגמי בדיקה לחוזק ובדיקות בטון קשוי</ins></em></h3>
+                <p class="mb-2">בדיקות על בטון קשוי נועדו לקבוע את תכונותיו המכאניות והפיזיקליות לאחר שהתקשה, ולוודא שהוא עומד בדרישות התכנון והתקנים.</p>
+                <div class="test-card">
+                    <h4>8.3.1 הכנת דגמי בדיקה (לפי ת"י 26)</h4>
+                    <p><strong>מטרה:</strong> יצירת דגמים סטנדרטיים ואחידים של בטון לבדיקות חוזק במעבדה.</p>
+                    <img src="https://i.postimg.cc/Kjw81Pdh/image.webp" alt="דגמי בטון (קוביות וגלילים) מוכנים לבדיקה" class="mx-auto max-w-sm w-full h-auto rounded-md shadow-md zoomable-image">
+                    <button class="expand-button-small mt-2" onclick="toggleExpand('specimen-prep-details')">סוגי דגמים, דגימה, ציפוף ואשפרה</button>
+                    <div id="specimen-prep-details" class="expanded-content">
+                        <p><strong>סוגי דגמים נפוצים:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>קוביות:</strong> לרוב במידות 150x150x150 מ"מ או 100x100x100 מ"מ. נפוצות יותר באירופה ובישראל.</li>
+                            <li><strong>גלילים:</strong> לרוב בקוטר 150 מ"מ וגובה 300 מ"מ, או קוטר 100 מ"מ וגובה 200 מ"מ. נפוצים יותר בצפון אמריקה.</li>
+                        </ul>
+                        <p><strong>אופן הדגימה (לפי ת"י 26, חלק 1):</strong> יש לקחת דגימות בטון מייצגות מהערבול (מערבל נייח או משאית ערבל) או ממקום היציקה.
+                        <br><strong>טבלאות מת"י 26, חלק 1 - תדירות נטילת דגימות ומספר דגמים:</strong></p>
+                        <div class="grid md:grid-cols-2 gap-4 my-3">
+                            <img src="https://i.postimg.cc/T1dDjv2q/2025-05-31-133408.png" alt="טבלה 1 מת"י 26 - תדירות נטילת דגימות בטון" class="mx-auto w-full h-auto rounded-md shadow-md zoomable-image">
+                            <img src="https://i.postimg.cc/KzrTg8b8/2025-05-31-133448.png" alt="טבלה 2 מת"י 26 - מספר דגמים מינימלי בכל דגימה" class="mx-auto w-full h-auto rounded-md shadow-md zoomable-image">
                         </div>
-                    </div>
-
-                    <div id="modernism" class="tab-content py-4 hidden">
-                        <h3 class="text-2xl font-semibold text-stone-700 mb-3">אתנו-סימבוליזם מול מודרניזם</h3>
-                        <p class="mb-2">המודרניזם רואה בלאומיות תופעה מודרנית, תוצר של תיעוש, קפיטליזם דפוס ובניית מדינה. הוגים כמו אנדרסון (קהילות מדומיינות), גלנר (תיעוש) והובסבאום (מסורות מומצאות) מדגישים את היותה המצאה חדשה.</p>
-                        <p class="mb-2"><strong>ניגוד:</strong> אתנו-סימבוליסטים טוענים שהלאומיות אינה המצאה מודרנית גרידא, אלא נשענת על קשרים אתניים ותרבותיים קדם-מודרניים. הם מבקרים את המודרניזם על הזנחת הממדים התרבותיים וההיסטוריים העמוקים.</p>
-                        <p><strong>התכנסות:</strong> שתי הגישות מסכימות שהלאומיות כתופעה המונית ומדינת הלאום הן מודרניות, ושזהויות לאומיות נבנות חברתית במידה מסוימת, אך נבדלות באופי "חומרי הגלם".</p>
-                    </div>
-
-                    <div id="primordialism" class="tab-content py-4 hidden">
-                        <h3 class="text-2xl font-semibold text-stone-700 mb-3">אתנו-סימבוליזם מול פרימורדיאליזם</h3>
-                        <p class="mb-2">הפרימורדיאליזם גורס שאומות הן טבעיות, אורגניות וקדמוניות, מושרשות בפסיכולוגיה אבולוציונית וקשרי משפחה (ווקר קונור, פייר ואן דן ברגה).</p>
-                        <p class="mb-2"><strong>ניגוד:</strong> אתנו-סימבוליזם דוחה את התפיסה שאומות הן "טבעיות" או "מולדות". הוא רואה באתניות תצורות תרבותיות והיסטוריות הנתונות לשינוי, ולא נתונים ביולוגיים. הוא מסכים עם מודרניסטים שהלאומיות כצורתה המוכרת היא מודרנית.</p>
-                    </div>
-                    
-                    <div id="constructivism" class="tab-content py-4 hidden">
-                        <h3 class="text-2xl font-semibold text-stone-700 mb-3">אתנו-סימבוליזם מול קונסטרוקטיביזם / אינסטרומנטליזם</h3>
-                        <p class="mb-2">הקונסטרוקטיביזם טוען שאתניות ואומות הן מבנים חברתיים גמישים, מבוססי אינטרסים פוליטיים וכלכליים. אינסטרומנטליסטים מדגישים ניצול אתניות לרווח.</p>
-                        <p class="mb-2"><strong>ניואנס והתאמה:</strong> אתנו-סימבוליזם מסכים שזהויות נבנות חברתית, אך מתנגד ל"קונסטרוקטיביזם רדיקלי" (המצאה יש מאין). סמית' טוען שאליטות "בוחרות ומתאימות אלמנטים תרבותיים קיימים מראש". הבנייה מוגבלת על ידי משאבים היסטוריים ואינה גמישה לאין שיעור. זהו "קונסטרוקטיביזם סימבוליסטי" המכיר בכוח המגביל של מורשת תרבותית.</p>
-                    </div>
-
-                    <div id="perennialism" class="tab-content py-4 hidden">
-                        <h3 class="text-2xl font-semibold text-stone-700 mb-3">אתנו-סימבוליזם מול פרניאליזם</h3>
-                        <p class="mb-2">הפרניאליזם טוען שבעוד האידיאולוגיה הלאומית מודרנית, אומות (או פרוטו-אומות) קיימות מימי הביניים או קודם.</p>
-                        <p class="mb-2"><strong>חפיפה:</strong> שתי הגישות מכירות בקיום זהויות קולקטיביות קדם-מודרניות ובחשיבות המשכיות היסטורית. הן בוחנות טענות לקדמוניות באופן אמפירי.</p>
-                        <p><strong>ניואנס ייחודי:</strong> אתנו-סימבוליזם מספק מנגנון מפורט יותר ל*אופן* שבו קשרים אתניים ומשאבים תרבותיים קיימים משתנים ומנוצלים ביצירת האומה המודרנית, תוך הדגשת תפקיד הסמלים, המיתוסים והזיכרונות.</p>
-                    </div>
-                    <div id="conceptual-diagram" class="tab-content py-4 hidden">
-                        <h3 class="text-2xl font-semibold text-stone-700 mb-3">תרשים מושגי: מיקום התיאוריות</h3>
-                        <p class="mb-4 text-center">תרשים זה ממחיש באופן סכמטי את הקשר בין התיאוריות השונות על ציר של זמן ומידת ה"בנייה" מול "טבעיות".</p>
-                        <div class="chart-container flex flex-col items-center justify-center p-4">
-                            <div class="text-sm text-stone-600 w-full text-center mb-2">ציר: מ"טבעי/קדום" (ימין) ל"נבנה/מודרני" (שמאל)</div>
-                            <div class="w-full h-1 bg-stone-300 my-4 relative">
-                                <div class="absolute text-xs -top-6" style="right: 0%;">פרימורדיאליזם</div>
-                                <div class="absolute text-xs -top-6" style="right: 20%;">פרניאליזם</div>
-                                <div class="absolute text-xs font-bold text-sky-700 -top-8 text-center" style="left: 50%; transform: translateX(-50%);">אתנו-סימבוליזם<br>(גשר)</div>
-                                <div class="absolute text-xs -top-6" style="left: 20%;">קונסטרוקטיביזם</div>
-                                <div class="absolute text-xs -top-6" style="left: 0%;">מודרניזם (קיצוני)</div>
-                            </div>
-                            <div class="flex justify-around w-full mt-8">
-                                <div class="theory-box border-red-400 text-red-600">פרימורדיאליזם<br>(טבעי, קדום)</div>
-                                <div class="theory-box border-orange-400 text-orange-600">פרניאליזם<br>(קיים מזמן)</div>
-                                <div class="theory-box border-sky-500 text-sky-700 font-bold">אתנו-סימבוליזם<br>(מודרני עם שורשים עמוקים)</div>
-                                <div class="theory-box border-purple-400 text-purple-600">קונסטרוקטיביזם<br>(נבנה חברתית)</div>
-                                <div class="theory-box border-teal-400 text-teal-600">מודרניזם<br>(המצאה מודרנית)</div>
-                            </div>
-                            <p class="mt-6 text-sm text-stone-700">האתנו-סימבוליזם ממוקם כגישה המכירה במודרניות של הלאומיות אך מדגישה את חשיבות השורשים האתניים הקדם-מודרניים, ובכך מגשרת בין תפיסות הרואות בלאומיות תופעה עתיקה לבין אלו הרואות בה המצאה חדשה.</p>
-                        </div>
+                         <p class="text-xs text-slate-400 mt-1">טבלאות 1 ו-2 מת"י 26 חלק 1: תדירות נטילת דגימות ומספר דגמים מינימלי בכל דגימה.</p>
+                        <p><strong>מילוי התבניות וציפוף:</strong> התבניות (נקיות ומשומנות קלות) ממולאות בבטון טרי בשכבות (לרוב שתיים או שלוש, תלוי בגודל הדגם). כל שכבה נדחסת היטב באמצעות מוט דחיסה תקני (מספר הקשות מוגדר) או באמצעות ריטוט על שולחן רוטט, כדי להוציא אוויר כלוא ולהבטיח צפיפות מרבית.</p>
+                        <p><strong>אשפרה ראשונית באתר:</strong> לאחר היישור, הדגמים נשמרים בתבניותיהם, מכוסים (למשל ביריעת פלסטיק או בד יוטה לח) למשך 16 עד 72 שעות (בדרך כלל 24 שעות) בתנאי טמפרטורה ולחות מבוקרים (למשל, 20±5 מעלות צלזיוס והגנה מהתייבשות), כדי למנוע אובדן מים מוקדם ולאפשר התקשרות ראשונית.</p>
+                        <p><strong>הובלה למעבדה ואשפרה סטנדרטית:</strong> לאחר פירוק התבניות (demoulding), הדגמים מסומנים ומובלים בזהירות למעבדה מוסמכת. במעבדה, הם מאושפרים בתנאים סטנדרטיים – לרוב בבריכות מים בטמפרטורה של 20±2 מעלות צלזיוס או בחדר לחות בעל לחות יחסית של לפחות 95% וטמפרטורה מבוקרת – עד למועד הבדיקה (לרוב בגיל 7 ו-28 יום, ולעיתים גם בגילאים אחרים).</p>
                     </div>
                 </div>
-                <button class="summarize-button" onclick="summarizeSection('comparison')">
-                    <span id="comparison-spinner" class="hidden loading-spinner"></span>
-                    <span id="comparison-button-text">✨ סכם קטע זה</span>
-                </button>
-                <div id="comparison-summary-output" class="mt-4 summary-output hidden"></div>
+                
+                <div class="test-card">
+                    <h4 class="text-lg text-pink-300">8.3.2 בדיקת חוזק לחיצה (לפי ת"י 26, חלק 1)</h4>
+                    <p>זוהי הבדיקה הנפוצה והחשובה ביותר לבטון קשוי, ומשמשת כבסיס לסיווג הבטון ולקביעת התאמתו לדרישות התכנון.</p>
+                     <img src="https://i.postimg.cc/PxfqTSB3/images.jpg" alt="בדיקת לחיצה של קוביית בטון" class="mx-auto max-w-sm w-full h-auto rounded-md shadow-md zoomable-image">
+                    <button class="expand-button-small mt-2" onclick="toggleExpand('compressive-test-details-hardened')">הליך ביצוע וחישוב תוצאות</button>
+                    <div id="compressive-test-details-hardened" class="expanded-content">
+                        <p><strong>ציוד:</strong> מכונת לחיצה מכוילת בעלת יכולת העמסה מתאימה וקצב העמסה מבוקר.</p>
+                        <p><strong>הליך ביצוע:</strong></p>
+                        <ol class="list-decimal list-inside">
+                            <li>הוצאת הדגם מהאשפרה וניגוב עודפי מים.</li>
+                            <li>מדידת מידות הדגם (לחישוב שטח החתך).</li>
+                            <li>הצבת הדגם במרכז לוחות הלחיצה של המכונה.</li>
+                            <li>הפעלת עומס לחיצה בקצב קבוע ורציף (לפי דרישות התקן, למשל 0.2-1.0 מגה-פסקל לשנייה) עד לכשל (שבירה) של הדגם.</li>
+                            <li>רישום העומס המרבי שהדגם נשא.</li>
+                        </ol>
+                        <p><strong>חישוב חוזק הלחיצה:</strong> חוזק הלחיצה שווה לעומס המרבי חלקי שטח החתך של הדגם הניצב לכיוון העומס.</p>
+                        <p><strong>מספר דגימות ותוצאה ממוצעת:</strong> בדרך כלל בודקים 2-3 דגמים מאותה נגלה ובאותו גיל. תוצאת הבדיקה היא לרוב ממוצע החוזקים של הדגמים, בתנאי שהפיזור ביניהם אינו חורג מהמותר בתקן. התאמת הבטון לדרישות החוזק נקבעת על פי קריטריונים סטטיסטיים המוגדרים בת"י 118 ובת"י 466.</p>
+                    </div>
+                </div>
+                 </div>
+            <div class="mt-6 p-4 border border-slate-600 rounded-lg">
+                <h4 class="text-xl text-rose-400 mb-2">הרחבה: ת"י 118 - בטון: דרישות, תפקוד וייצור</h4>
+                <p class="mb-2">תקן זה מהווה מסמך מרכזי בתעשיית הבטון בישראל, וקובע דרישות מקיפות לגבי תכונות הבטון, תהליכי הייצור שלו, בקרת האיכות וההתאמה לתקן. מומלץ לעיין בו להבנה מעמיקה של הדרישות הרגולטוריות.</p>
+                <div class="video-container" style="padding-bottom: 75%; max-height: 600px;"> <iframe src="https://drive.google.com/file/d/1Znr3XD_H7eCB2pAVLIcke409VrykvXmx/preview" width="100%" height="600" allow="autoplay"></iframe>
+                </div>
             </div>
         </section>
+        
+        <section id="reinforced-concrete-principles-section" class="main-section" data-section-name="reinforced-concrete">
+            <h2>9. עקרונות הבטון המזוין (רקע כללי)</h2>
+            <p class="mb-4">פרק זה נועד לספק רקע כללי על עקרונות הבטון המזוין. חשוב לציין כי נושא זה נלמד בהרחבה ובפירוט רב בקורס ייעודי "קורס בטון". כאן נציג את היסודות להבנת השילוב בין בטון לפלדה.</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="info-card" style="border-left-color: #0891b2;">
+                    <h3><em><ins>9.1 הרקע לשימוש בבטון מזוין</ins></em></h3>
+                    <p>הבטון, כפי שלמדנו, הוא חומר בעל חוזק לחיצה גבוה מאוד, אך חוזק מתיחה נמוך יחסית (כ-10% מחוזק הלחיצה). במבנים רבים, אלמנטים כגון קורות ותקרות נתונים למאמצי כפיפה, הגורמים למאמצי לחיצה באזור אחד של החתך ולמאמצי מתיחה באזור אחר. ללא חיזוק מתאים, הבטון באזור המתיחה ייסדק ויישבר במהירות תחת עומסים נמוכים יחסית. מכאן נולד הצורך לשלב בבטון חומר נוסף שיישא את מאמצי המתיחה – פלדה.</p>
+                    <img src="https://i.postimg.cc/gJ9gFnJN/Fundamental-Assumptions-for-reinforced-concrete-behaviour.webp" alt="הנחות יסוד להתנהגות בטון מזוין - חתך קורה בכפיפה" class="mx-auto max-w-md w-full h-auto rounded-md shadow-md mt-2 zoomable-image">
+                    <p class="text-xs text-center text-slate-400 mt-1">איור: הנחות יסוד להתנהגות בטון מזוין - חתך קורה בכפיפה.</p>
+                    <button class="expand-button-small mt-3" onclick="toggleExpand('rc-why-combine')">מדוע משלבים דווקא בטון ופלדה?</button>
+                    <div id="rc-why-combine" class="expanded-content">
+                        <p>השילוב בין בטון לפלדה הוא מוצלח במיוחד מכמה סיבות:</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><strong>השלמה הדדית של תכונות מכאניות:</strong> הבטון נושא את מאמצי הלחיצה, והפלדה נושאת את מאמצי המתיחה.</li>
+                            <li><strong>הידבקות טובה:</strong> קיימת הידבקות (bond) טובה בין הבטון למוטות הפלדה (במיוחד מוטות מצולעים), המאפשרת העברת מאמצים יעילה ביניהם.</li>
+                            <li><strong>הגנה על הפלדה:</strong> הבטון מספק לפלדה הגנה מפני קורוזיה (בזכות הבסיסיות שלו) ומפני אש (בזכות מוליכות החום הנמוכה שלו).</li>
+                            <li><strong>מקדמי התפשטות תרמית דומים:</strong> לבטון ולפלדה מקדמי התפשטות תרמית דומים יחסית, מה שמפחית מאמצים פנימיים הנובעים משינויי טמפרטורה.</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <section id="critiques" class="mb-12 pt-16 -mt-16">
-            <h2 class="text-3xl font-bold text-stone-700 mb-6 border-b-2 border-sky-500 pb-2">6. ביקורות ומגבלות</h2>
-            <div class="space-y-4 bg-white p-6 rounded-lg shadow">
-                <p class="text-lg leading-relaxed mb-6">למרות תרומתה המשמעותית, התיאוריה האתנו-סימבולית אינה חפה מביקורת. חלק זה סוקר את הביקורות העיקריות שהופנו כלפיה, כולל טענות על "המצאה" היסטורית, הדגשת יתר של גורמים תרבותיים, ועמימות בנוגע לסוכנות קולקטיבית.</p>
-                <ul class="list-disc list-inside space-y-3 text-base leading-relaxed">
-                    <li><strong>"המצאה" היסטורית וסלקטיביות:</strong> מבקרים טוענים שלאומנים ממציאים מיתוסים או מתעלמים מעדויות סותרות. תנועות לאומיות רבות צמחו ללא היסטוריה אתנית עשירה. יש הטוענים שאומות מוגדרות על ידי לאומנים ה"בונים" אתניות רטרוספקטיבית.</li>
-                    <li><strong>הדגשת יתר של גורמים תרבותיים (ביקורת "אידיאליסטית"):</strong> נטען שהגישה מפחיתה מחשיבות גורמים כלכליים ופוליטיים, ומתעלמת ממניעים חומריים ומהפעלת זהויות על ידי אליטות. עם זאת, סמית' הכיר בתפקיד הכלכלי והפוליטי של האומה, וקשר סמלים לטענות על טריטוריה ומשאבים, מה שממתן ביקורת זו.</li>
-                    <li><strong>עמימות בסוכנות קולקטיבית:</strong> לעיתים מיטשטשת ההבחנה בין טענות של יחידים *בשם* קבוצה לבין אמונות קולקטיביות של *כל* חברי הקבוצה.</li>
+                <div class="info-card" style="border-left-color: #0891b2;">
+                    <h3><em><ins>9.2 היקף השימוש והיבטים כלכליים</ins></em></h3>
+                    <p>הבטון המזוין הוא חומר הבנייה הנפוץ ביותר בעולם למבנים הנדסיים, החל מבנייני מגורים ומשרדים, דרך גשרים ומנהרות, ועד למבנים תעשייתיים ומאגרי מים. בישראל, רוב מוחלט של המבנים נבנים מבטון מזוין, בין אם ביציקה באתר או באמצעות אלמנטים טרומיים.</p>
+                    <button class="expand-button-small mt-3" onclick="toggleExpand('rc-economics')">יתרונות כלכליים ואתגרים</button>
+                    <div id="rc-economics" class="expanded-content">
+                        <p><strong>יתרונות כלכליים:</strong></p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li>זמינות ועלות נמוכה יחסית של חומרי הגלם (אגרגטים, צמנט).</li>
+                            <li>אורך חיים גבוה ועמידות טובה (כאשר מתוכנן ומבוצע כראוי), המפחיתים עלויות תחזוקה לטווח ארוך.</li>
+                            <li>גמישות תכנונית המאפשרת יצירת מגוון רחב של צורות מבניות.</li>
+                        </ul>
+                        <p><strong>אתגרים:</strong></p>
+                         <ul class="list-disc list-inside ml-4">
+                            <li>משקל עצמי גבוה של הבטון, המשפיע על תכנון היסודות ועל עלויות השינוע.</li>
+                            <li>תהליך בנייה הדורש זמן להתקשות ואשפרה.</li>
+                            <li>רגישות לקורוזיה של פלדת הזיון אם הכיסוי אינו מספק או אם הבטון חשוף לסביבה אגרסיבית.</li>
+                            <li>הצורך בבקרת איכות קפדנית בכל שלבי הייצור והביצוע.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-card mt-6" style="border-left-color: #0891b2;">
+                 <h3><em><ins>9.3 תקינה ישראלית: ת"י 466 – חוקת הבטון</ins></em></h3>
+                <p>התקן הישראלי המרכזי לתכנון קונסטרוקציות בטון הוא <strong>ת"י 466 - חוקת הבטון</strong>. תקן זה מגדיר את השימוש, היישום והתכנון עם בטון על פי התקן הישראלי. הוא מבוסס במידה רבה על התקן האירופאי Eurocode 2 (כפי שניתן לראות במסמכים הזרים המאוזכרים בנספחי התקן, למשל DD ENV 1992-1-1), ועבר התאמות לתנאים ולפרקטיקה המקומית. </p>
+                <img src="https://i.postimg.cc/7L1GZJSp/image-7bb6c9.png" alt="מקורות ת"י 466 - Eurocode 2" class="mx-auto max-w-lg w-full h-auto rounded-md shadow-md my-3 zoomable-image">
+                <p class="text-xs text-center text-slate-400 mt-1 mb-3">איור: דוגמה למסמכים זרים (Eurocode 2) המשמשים כבסיס לת"י 466 (מתוך נספח לתקן).</p>
+                <p>ת"י 466 מורכב מחמישה חלקים עיקריים, כאשר כל חלק דן בהיבט אחר של תכנון וביצוע מבני בטון (כפי שמוצג בתמונה מטה):</p>
+                 <img src="https://i.postimg.cc/s2W37GqR/image-71afd0.png" alt="חלקי ת"י 466" class="mx-auto max-w-lg w-full h-auto rounded-md shadow-md my-3 zoomable-image">
+                <p class="text-xs text-center text-slate-400 mt-1 mb-3">איור: חלקי ת"י 466 העיקריים.</p>
+                <ul class="list-disc list-inside ml-4 my-2">
+                    <li><strong>ת"י 466 חלק 1: חוקת הבטון - עקרונות כלליים.</strong> חלק זה כולל את "חלק 1.1: כללים לתכנון מבנים מבטון (כללים כלליים וכללים למבנים)" ו-"חלק 1.2: תכנון מבנים מבטון לעמידות באש". הוא מפרט את עקרונות התכנון, דרישות החומרים, מצבי גבול של הרס ושירות, וכללים לחישוב ותכנון אלמנטים שונים.</li>
+                    <li><strong>ת"י 466 חלק 2: חוקת הבטון - רכיבים.</strong> חלק זה מקיף ומהווה חומר משלים ומרחיב לחלק 1 של התקן, וכן לתקן ישראלי ת"י 413 (תכן עמידות מבנים ברעידות אדמה). הוא עוסק בתכנון מפורט של רכיבי בטון מזוין שונים.</li>
+                    <li><strong>ת"י 466 חלק 3: חוקת הבטון - בטון דרוך.</strong></li>
+                    <li><strong>ת"י 466 חלק 4: חוקת הבטון - אלמנטים ומערכות מבטון טרום.</strong></li>
+                    <li><strong>ת"י 466 חלק 5: חוקת הבטון - תקרות מטבלות חלולות טרומות דרוכות.</strong></li>
                 </ul>
-                <button class="summarize-button" onclick="summarizeSection('critiques')">
-                    <span id="critiques-spinner" class="hidden loading-spinner"></span>
-                    <span id="critiques-button-text">✨ סכם קטע זה</span>
-                </button>
-                <div id="critiques-summary-output" class="mt-4 summary-output hidden"></div>
+                <p>תקנים אלו מספקים את הבסיס ההנדסי לחישובים, לדרישות החומרים, לפרטי זיון, ולבדיקות הנדרשות להבטחת בטיחותם ועמידותם של מבני בטון מזוין. ההיכרות עם ת"י 466 היא חובה לכל העוסקים בתכנון וביצוע קונסטרוקציות בטון.</p>
             </div>
         </section>
 
-        <section id="conclusion" class="pt-16 -mt-16">
-            <h2 class="text-3xl font-bold text-stone-700 mb-6 border-b-2 border-sky-500 pb-2">7. מסקנות</h2>
-            <div class="space-y-4 text-lg leading-relaxed bg-white p-6 rounded-lg shadow">
-                <p>חלק זה מסכם את הדיון בתיאוריה האתנו-סימבולית. נדגיש את תרומתה המרכזית להבנת הלאומיות כתופעה המשלבת עומק היסטורי עם תהליכי בנייה מודרניים, את חשיבות חקר הנרטיבים והסמלים, ואת מקומה בדיון האקדמי הרחב יותר על לאומיות.</p>
-                <p>התיאוריה האתנו-סימבולית, בעיקר דרך עבודתו של אנתוני ד. סמית', מציעה גישה מגשרת המכירה בשורשים ההיסטוריים והתרבותיים של אומות מודרניות. היא מדגישה את תפקיד הסמלים, המיתוסים והזיכרונות בעיצוב הזהות הלאומית. התיאוריה רואה ב"אתניה" ליבה תרבותית קדם-מודרנית, ומסבירה כיצד אומות נבנות על בסיס חומרי גלם קיימים, במסגרת "קונסטרוקטיביזם סימבוליסטי". למרות ביקורות על הדגשת יתר של תרבות או סלקטיביות היסטורית, הגישה מספקת מסגרת עשירה להבנת הלאומיות כתופעה רב-ממדית וכוחה המתמשך בעולם.</p>
-                <button class="summarize-button" onclick="summarizeSection('conclusion')">
-                    <span id="conclusion-spinner" class="hidden loading-spinner"></span>
-                    <span id="conclusion-button-text">✨ סכם קטע זה</span>
-                </button>
-                <div id="conclusion-summary-output" class="mt-4 summary-output hidden"></div>
+
+        <section id="summary-part2-section" class="main-section" data-section-name="summary">
+            <h2 class="text-red-500 mb-6 border-b-2 border-red-500 pb-2">📜 סיכום חלק ב': בטון קשוי, שימושים ובדיקות</h2>
+            <p class="mb-4">בחלק זה של הקורס, התמקדנו בתכונות הבטון לאחר התקשותו, בשימושיו המגוונים בתעשיית הבנייה, השווינו אותו לחומרי בנייה מרכזיים אחרים, וסקרנו את הבדיקות החיוניות להבטחת איכותו ועמידתו בדרישות התקן. כמו כן, הצגנו רקע כללי לעקרונות הבטון המזוין.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="text-red-400 mb-3">🌟 תובנות מפתח עיקריות מהפרק</h4>
+                    <ul class="list-none space-y-2">
+                        <li class="flex items-start summary-list-item"><span class="text-violet-400 mr-2 text-xl">💪</span><span><strong>תכונות הבטון הקשוי:</strong> למדנו על חוזק (לחיצה, מתיחה, כפיפה), מודול אלסטיות, צפיפות, חדירות והיותו חומר הטרוגני וסדוק מטבעו.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-purple-400 mr-2 text-xl">📈</span><span><strong>התנהגות מכאנית:</strong> הבנו את משמעות עקומת מאמץ-עיבור, התפתחות הכשל בבטון, ואת ההבחנה בין מצבי גבול של הרס ושירות.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-fuchsia-400 mr-2 text-xl">🆚</span><span><strong>השוואה לחומרים אחרים:</strong> דנו ביתרונות ובחסרונות של בטון מול פלדה, עץ ולבנים, וכן בהשוואה בין מיסעות בטון ואספלט.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-pink-400 mr-2 text-xl">🌍</span><span><strong>שימושים מגוונים:</strong> סקרנו את היישומים הרבים של בטון ביסודות, שלדי מבנים, תשתיות, אלמנטים טרומיים ובטון אדריכלי.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-rose-400 mr-2 text-xl">🔬</span><span><strong>בדיקות איכות:</strong> הכרנו את הבדיקות המרכזיות למרכיבי הבטון, לבטון הטרי (חמיטה, תכולת אוויר) ולבטון הקשוי (חוזק לחיצה, הכנת דגמים).</span></li>
+                         <li class="flex items-start summary-list-item"><span class="text-cyan-400 mr-2 text-xl">🔗</span><span><strong>בטון מזוין:</strong> נחשפנו לרקע ולעקרונות הבסיסיים של שילוב בטון ופלדה, ולהתייחסות התקינה הישראלית.</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-red-400 mb-3">🚀 המלצות ליישום והמשך למידה</h4>
+                     <ul class="list-none space-y-2">
+                        <li class="flex items-start summary-list-item"><span class="text-violet-400 mr-2 text-xl">🧠</span><span><strong>הבנה מעמיקה של תכונות:</strong> חשוב להבין כיצד כל תכונה של הבטון הקשוי משפיעה על תכנון המבנה ועמידותו.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-purple-400 mr-2 text-xl">📊</span><span><strong>ניתוח נתונים:</strong> היכולת לפרש תוצאות בדיקות מעבדה ושדה היא מיומנות קריטית לעוסקים בניהול וביצוע של פרויקטי בנייה.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-fuchsia-400 mr-2 text-xl">💡</span><span><strong>בחירת חומרים מושכלת:</strong> יש לשקול את כלל הגורמים (תכונות, עלות, קיימות, יישום) בבחירת חומר הבנייה המתאים ביותר לכל פרויקט.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-pink-400 mr-2 text-xl">🛠️</span><span><strong>יישום נכון:</strong> הקפדה על נהלי יציקה, ציפוף ואשפרה נכונים היא חיונית למיצוי הפוטנציאל של הבטון.</span></li>
+                        <li class="flex items-start summary-list-item"><span class="text-rose-400 mr-2 text-xl">📚</span><span><strong>המשך התעדכנות:</strong> בשיעורים הבאים נלמד על חומרי בנייה אחרים והרקע ההנדסי והמושגים שלמדנו בשני החלקים הללו ילוו אותנו.</span></li>
+                    </ul>
+                </div>
             </div>
         </section>
-    </main>
 
-    <footer class="bg-stone-800 text-stone-300 text-center p-6 mt-12">
-        <p>&copy; 2024 אפליקציה לחקר התיאוריה האתנו-סימבולית. נוצר לצורך הדגמה.</p>
-    </footer>
+        <footer class="text-center mt-12 py-6 border-t border-slate-700">
+            <p class="text-sm text-slate-400">דו"ח מקורי, עריכה והגשה: שלומי שאול</p>
+            <p class="text-xs text-slate-500">כל הזכויות על תוכן הדו"ח המקורי שמורות לשלומי שאול.</p>
+        </footer>
 
-    <script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Calculate offset for fixed header
-                    const headerOffset = document.querySelector('header').offsetHeight;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-    
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                    
-                    // Update active nav item
-                    document.querySelectorAll('nav ul li a').forEach(navLink => {
-                        navLink.classList.remove('active-nav');
-                    });
-                    this.classList.add('active-nav');
+    </div>
+
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal" onclick="document.getElementById('imageModal').style.display='none'">×</span>
+        <img class="modal-content-image" id="modalImageContent">
+        <div id="modalCaption" class="text-center text-lg p-4 text-white"></div>
+    </div>
+
+    <div id="definitionModalOverlay" class="definition-modal-overlay">
+        <div class="definition-modal-content">
+            <span class="definition-modal-close" onclick="closeDefinitionModal()">×</span>
+            <h4 id="definitionModalTitle" class="text-xl"></h4>
+            <img id="definitionModalImage" src="" alt="המחשת המושג" class="hidden mx-auto mb-4 max-h-60">
+            <p id="definitionModalText"></p>
+        </div>
+    </div>
+
+
+<script>
+    function toggleExpand(elementId) {
+        const content = document.getElementById(elementId);
+        if (content) {
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                if(content.classList.contains('expanded-content')) {
+                    void content.offsetWidth; 
+                    content.classList.add('visible'); 
                 }
-            });
+            } else {
+                if(content.classList.contains('expanded-content')) {
+                    content.classList.remove('visible');
+                    content.addEventListener('transitionend', () => {
+                        if (!content.classList.contains('visible')) { 
+                            content.style.display = 'none';
+                        }
+                    }, { once: true });
+                } else {
+                     content.style.display = 'none';
+                }
+            }
+        }
+    }
+    
+    const defaultChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                labels: {
+                    color: '#cbd5e1', 
+                    font: { size: 12 }
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: '#94a3b8', font: {size: 10} }, 
+                grid: { color: 'rgba(100, 116, 139, 0.2)' },
+                title: { display: true, text: 'גיל הבטון (ימים)', color: '#94a3b8'}
+            },
+            y: {
+                ticks: { color: '#94a3b8', callback: function(value) { return value + '%' } },
+                grid: { color: 'rgba(100, 116, 139, 0.2)' },
+                title: { display: true, text: 'אחוז מהחוזק האופייני (fck) בגיל 28 יום', color: '#94a3b8'}
+            }
+        }
+    };
+    
+    const definitions = {
+        strength: {
+            title: "חוזק (Strength)",
+            text: "היכולת של חומר להתנגד למאמצים (כוחות) הפועלים עליו מבלי להישבר או לעבור שינוי צורה בלתי הפיך. בבטון, החוזק העיקרי הנבדק והמתוכנן הוא חוזק לחיצה, אך גם לחוזק מתיחה, כפיפה וגזירה יש חשיבות ביישומים מסוימים.",
+            image: "https://i.postimg.cc/pLwbGw1K/streghntcheck.png"
+        },
+        elasticity: {
+            title: "מודול אלסטיות (Modulus of Elasticity)",
+            text: "מדד לקשיחות של חומר, המבטא את היחס בין מאמץ לעיבור (שינוי צורה יחסי) בתחום האלסטי בו החומר חוזר לצורתו המקורית לאחר הסרת העומס. ערך גבוה מצביע על חומר קשיח יותר, כלומר דרוש מאמץ גדול יותר כדי לגרום לו לעיבור נתון. עבור בטון, מודול האלסטיות מושפע מחוזק הלחיצה שלו, סוג האגרגטים וגיל הבטון. הוא לרוב מחושב על פי נוסחאות אמפיריות המופיעות בתקנים (כגון ת\"י 466).",
+            image: "https://i.postimg.cc/fLx9SQ1C/Stress-strain-ductile-svg.png"
+        },
+        density: {
+            title: "צפיפות (Density)",
+            text: "מסה ליחידת נפח. בבטון, הצפיפות מושפעת בעיקר מצפיפות האגרגטים, כמות הצמנט והמים, ומידת הציפוף של התערובת (המשפיעה על כמות חללי האוויר הכלואים). בטון רגיל הוא בעל צפיפות של כ-2300-2400 ק\"ג/מ\"ק.",
+            image: "https://i.postimg.cc/BZBFqsTQ/densityconcrete.png"
+        },
+        permeability: {
+            title: "חדירות (Permeability)",
+            text: "היכולת של חומר לאפשר לנוזלים או גזים לעבור דרכו דרך רשת הנקבים המחוברים שלו. בבטון, חדירות נמוכה רצויה מאוד, שכן היא מקטינה את חדירת חומרים מזיקים (כמו כלורידים, סולפטים, פחמן דו-חמצני) העלולים לגרום לקורוזיה של הזיון ולהידרדרות הבטון.",
+            image: "https://i.postimg.cc/Bb41xw00/Failure-of-concrete-during-probe-penetration.png"
+        },
+        heterogeneous: {
+            title: "חומר הטרוגני (Heterogeneous Material)",
+            text: "חומר המורכב ממספר פאזות או מרכיבים שונים, שאינם מפוזרים באופן אחיד לחלוטין ברמה המיקרוסקופית, ותכונותיו עשויות להשתנות מנקודה לנקודה. בטון הוא דוגמה קלאסית, המורכב מעיסה צמנטית (תוצרי הידרציה ונקבים), אגרגטים בגדלים שונים, ואזור מעבר בין-מופעי (ITZ) ביניהם.",
+            image: "" 
+        }
+    };
+
+    function openDefinitionModal(definitionKey) {
+        const modalOverlay = document.getElementById("definitionModalOverlay");
+        const modalTitle = document.getElementById("definitionModalTitle");
+        const modalText = document.getElementById("definitionModalText");
+        const modalImage = document.getElementById("definitionModalImage");
+
+        if (definitions[definitionKey]) {
+            modalTitle.textContent = definitions[definitionKey].title;
+            modalText.textContent = definitions[definitionKey].text;
+            if (definitions[definitionKey].image && definitions[definitionKey].image !== "") {
+                modalImage.src = definitions[definitionKey].image;
+                modalImage.alt = definitions[definitionKey].title; 
+                modalImage.classList.remove('hidden');
+            } else {
+                modalImage.classList.add('hidden');
+                modalImage.src = ""; 
+            }
+            modalOverlay.style.display = "flex";
+        }
+    }
+
+    function closeDefinitionModal() {
+        document.getElementById("definitionModalOverlay").style.display = "none";
+    }
+    
+    document.getElementById("definitionModalOverlay").onclick = function(event) {
+        if (event.target === this) {
+            closeDefinitionModal();
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Image Modal Logic for general zoomable images
+        const imageModal = document.getElementById("imageModal");
+        const modalImageContent = document.getElementById("modalImageContent");
+        const modalCaption = document.getElementById("modalCaption");
+        const zoomableImages = document.querySelectorAll(".zoomable-image");
+
+        zoomableImages.forEach(img => {
+            img.onclick = function(event){
+                event.stopPropagation(); 
+                imageModal.style.display = "flex"; 
+                modalImageContent.src = this.src;
+                modalCaption.innerHTML = this.alt || "תמונה מוגדלת"; 
+            }
         });
 
-        // Tab functionality for comparison section
-        function openTab(event, tabName) {
-            let i, tabcontent, tabbuttons;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.add("hidden");
-                tabcontent[i].classList.remove("block");
-
-
+        const closeModalSpan = document.querySelector(".close-modal");
+        if(closeModalSpan) {
+            closeModalSpan.onclick = function() {
+                imageModal.style.display = "none";
             }
-            tabbuttons = document.getElementsByClassName("tab-button");
-            for (i = 0; i < tabbuttons.length; i++) {
-                tabbuttons[i].classList.remove("active-tab");
+        }
+        if(imageModal){
+            imageModal.onclick = function(event) {
+                if (event.target === imageModal || event.target === modalImageContent) { 
+                    imageModal.style.display = "none";
+                }
             }
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.remove("hidden");
-            document.getElementById(tabName).classList.add("block");
-            event.currentTarget.classList.add("active-tab");
         }
 
-        // Set default active tab and nav item
-        window.onload = () => {
-            document.querySelector('.tab-button').click(); // Click the first tab
-            // Set active nav based on initial view or hash
-            const currentHash = window.location.hash || '#introduction';
-            const activeLink = document.querySelector(`nav ul li a[href="${currentHash}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active-nav');
-            } else {
-                 const firstNavLink = document.querySelector('nav ul li a');
-                 if(firstNavLink) firstNavLink.classList.add('active-nav');
-            }
+        // Strength Development Chart TI466
+        const chartElement = document.getElementById('strengthDevelopmentChartTI466');
+        let strengthChart; 
+
+        const chartData = {
+            labels: ['3', '7', '14', '28', '90'], 
+            datasets: [
+                {
+                    label: 'צמנט 42.5',
+                    data: [0.40, 0.65, 0.80, 1.00, 1.10].map(d => d*100),
+                    borderColor: 'rgba(56, 189, 248, 1)', 
+                    backgroundColor: 'rgba(56, 189, 248, 0.2)',
+                    fill: false,
+                    tension: 0.1,
+                    animation: {
+                        duration: 7000, 
+                        delay: 0 
+                    }
+                },
+                {
+                    label: 'צמנט 52.5',
+                    data: [0.45, 0.70, 0.85, 1.00, 1.05].map(d => d*100),
+                    borderColor: 'rgba(245, 158, 11, 1)', 
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                    fill: false,
+                    tension: 0.1,
+                     animation: {
+                        duration: 7000, 
+                        delay: 7000 
+                    }
+                },
+                {
+                    label: 'צמנט 42.5 עם אפר פחם',
+                    data: [0.30, 0.55, 0.75, 1.00, 1.15].map(d => d*100),
+                    borderColor: 'rgba(16, 185, 129, 1)', 
+                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    fill: false,
+                    tension: 0.1,
+                    animation: {
+                        duration: 7000, 
+                        delay: 14000 
+                    }
+                }
+            ]
+        };
+        
+        const chartOptions = JSON.parse(JSON.stringify(defaultChartOptions)); 
+        chartOptions.animation = false; 
+
+        const observerCallback = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (chartElement && !strengthChart) { 
+                         strengthChart = new Chart(chartElement.getContext('2d'), {
+                            type: 'line',
+                            data: chartData, 
+                            options: {
+                                ...chartOptions,
+                                animation: { 
+                                    duration: 2000, 
+                                    easing: 'easeInOutQuart',
+                                     onProgress: function(animation) {
+                                    },
+                                    onComplete: function() {
+                                    }
+                                }
+                            }
+                        });
+                    }
+                    observer.unobserve(entry.target); 
+                }
+            });
         };
 
-        // Update active nav on scroll
-        const sections = document.querySelectorAll('main section');
-        const navLi = document.querySelectorAll('nav ul li a');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const headerOffset = document.querySelector('header').offsetHeight + 20; // Added buffer
+        const chartObserver = new IntersectionObserver(observerCallback, { threshold: 0.5 });
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - headerOffset;
-                if (pageYOffset >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            navLi.forEach(a => {
-                a.classList.remove('active-nav');
-                if (a.getAttribute('href') === `#${current}`) {
-                    a.classList.add('active-nav');
-                }
-            });
-             // If no section is "current" (e.g., at the very top or bottom out of section range),
-             // ensure the first one is active or handle as preferred.
-            if (!current && navLi.length > 0) {
-                 let foundActive = false;
-                 navLi.forEach(a => { if(a.classList.contains('active-nav')) foundActive = true; });
-                 if(!foundActive && window.pageYOffset < sections[0].offsetTop - headerOffset) {
-                    navLi[0].classList.add('active-nav');
-                 }
-            }
-        });
-
-        // Gemini API integration for summarizing sections
-        async function summarizeSection(sectionId) {
-            const sectionElement = document.getElementById(sectionId);
-            const summaryOutput = document.getElementById(`${sectionId}-summary-output`);
-            const spinner = document.getElementById(`${sectionId}-spinner`);
-            const buttonText = document.getElementById(`${sectionId}-button-text`);
-
-            // Show loading state
-            summaryOutput.classList.add('hidden');
-            summaryOutput.innerHTML = '';
-            spinner.classList.remove('hidden');
-            buttonText.textContent = 'מסכם...';
-            buttonText.disabled = true;
-
-            // Extract text content from the section, excluding the button itself and summary output
-            const paragraphs = Array.from(sectionElement.querySelectorAll('p, li, h3, h4')).map(el => el.textContent).join('\n');
-            const prompt = `Summarize the following text in Hebrew, focusing on the main points and key takeaways. Keep the summary concise and easy to understand for an academic audience. Text: ${paragraphs}`;
-
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-            const payload = { contents: chatHistory };
-            const apiKey = ""; // If you want to use models other than gemini-2.0-flash or imagen-3.0-generate-002, provide an API key here. Otherwise, leave this as-is.
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    summaryOutput.innerHTML = `<p>${text}</p>`;
-                    summaryOutput.classList.remove('hidden');
-                } else {
-                    summaryOutput.innerHTML = '<p class="text-red-600">שגיאה: לא ניתן לסכם את הקטע. אנא נסה שוב.</p>';
-                    summaryOutput.classList.remove('hidden');
-                }
-            } catch (error) {
-                console.error('Error summarizing section:', error);
-                summaryOutput.innerHTML = '<p class="text-red-600">שגיאה בסיכום: אנא בדוק את חיבור האינטרנט שלך ונסה שוב.</p>';
-                summaryOutput.classList.remove('hidden');
-            } finally {
-                // Hide loading state
-                spinner.classList.add('hidden');
-                buttonText.textContent = '✨ סכם קטע זה';
-                buttonText.disabled = false;
-            }
+        if (chartElement) {
+            chartObserver.observe(chartElement);
         }
-    </script>
 
+
+        // Tensile vs Compressive Strength Chart
+        const ctxTensileVsCompressive = document.getElementById('tensileVsCompressiveChart')?.getContext('2d');
+        if (ctxTensileVsCompressive) {
+            new Chart(ctxTensileVsCompressive, {
+                type: 'bar',
+                data: {
+                    labels: ['חוזק לחיצה', 'חוזק מתיחה'],
+                    datasets: [{
+                        label: 'חוזק אופייני (MPa)',
+                        data: [30, 3], 
+                        backgroundColor: [
+                            'rgba(56, 189, 248, 0.7)', 
+                            'rgba(244, 63, 94, 0.7)'    
+                        ],
+                        borderColor: [
+                            'rgba(56, 189, 248, 1)',
+                            'rgba(244, 63, 94, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', 
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'חוזק (MPa)', color: '#94a3b8' },
+                            ticks: { color: '#94a3b8', font: {size: 12} },
+                            grid: { color: 'rgba(100, 116, 139, 0.2)' }
+                        },
+                        y: {
+                            ticks: { color: '#cbd5e1', font: {size: 14} }, 
+                            grid: { color: 'rgba(100, 116, 139, 0.2)' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }, 
+                        title: {
+                            display: true,
+                            text: 'השוואת חוזק לחיצה ומתיחה בבטון',
+                            color: '#e2e8f0',
+                            font: { size: 16 }
+                        }
+                    }
+                }
+            });
+        }
+         // Section title underline animation on scroll
+        const sectionTitlesObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                } else {
+                    entry.target.classList.remove('is-visible'); 
+                }
+            });
+        }, { threshold: 0.1 }); 
+
+        document.querySelectorAll('.main-section').forEach(section => {
+            sectionTitlesObserver.observe(section);
+        });
+    });
+
+</script>
 </body>
 </html>
