@@ -8,73 +8,100 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         html {
-            scroll-behavior: smooth; 
+            scroll-behavior: smooth;
         }
         body {
-            font-family: 'Arial', sans-serif; 
-            background-color: #0f172a; 
-            color: #e2e8f0; 
-            line-height: 1.7; 
-            font-size: 1.125rem; 
+            font-family: 'Arial', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+            font-size: 1.125rem;
         }
-        .main-section { 
-            background-color: #1e293b; 
-            padding: 1.5rem; 
-            border-radius: 0.5rem; 
-            box-shadow: 0 12px 25px -8px rgba(0,0,0,0.3), 0 5px 8px -3px rgba(0,0,0,0.15); 
-            margin-bottom: 2.5rem; 
-            border-width: 2px; 
-            border-color: #334155; 
+        .main-section {
+            background-color: #1e293b;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 12px 25px -8px rgba(0,0,0,0.3), 0 5px 8px -3px rgba(0,0,0,0.15);
+            margin-bottom: 2.5rem;
+            border-width: 2px;
+            border-color: #334155;
         }
         h1, h2, h3, h4, h5 {
             font-weight: bold;
         }
-        
+
+        /* On-Scroll Animations */
+        .anim-initial-hidden {
+            opacity: 0;
+        }
+        .animate-fadeInUp {
+            animation: fadeInUpAnimation 0.7s 0.2s ease-out forwards;
+        }
+        .animate-fadeInRightRtl {
+            animation: fadeInRightRtlAnimation 0.7s 0.2s ease-out forwards;
+        }
+        .animate-scaleUpSubtle {
+            animation: scaleUpSubtleAnimation 0.6s 0.2s ease-out forwards;
+        }
+
+        @keyframes fadeInUpAnimation {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRightRtlAnimation {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes scaleUpSubtleAnimation {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         /* Header Styling */
         .animated-header {
-            position: relative; 
-            padding-bottom: 1.5rem; 
+            position: relative;
+            padding-bottom: 1.5rem;
         }
         .animated-header h1 {
-            font-size: 4rem; 
-            font-weight: 900; 
-            background-image: linear-gradient(to right, #c026d3, #9333ea, #7c3aed); 
+            font-size: 4rem;
+            font-weight: 900;
+            background-image: linear-gradient(to right, #c026d3, #9333ea, #7c3aed);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             animation: fadeInSlideUp 1.5s ease-out forwards, subtlePulseText 6s infinite alternate 2s;
-            opacity: 0; 
-            position: relative; 
-            display: inline-block; 
-            margin-bottom: 0.75rem; 
+            opacity: 0;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.75rem;
         }
 
-        .animated-header h1::after { 
+        .animated-header h1::after {
             content: '';
             position: absolute;
-            width: 0%; 
-            height: 5px; 
-            bottom: -15px; 
-            right: 0; 
+            width: 0%;
+            height: 5px;
+            bottom: -15px;
+            right: 0;
             background: linear-gradient(to left, #a855f7 40%, rgba(168, 85, 247, 0.5) 70%, transparent 100%);
             border-radius: 3px;
-            animation: expandUnderline 2.5s ease-out 1.2s forwards; 
+            animation: expandUnderline 2.5s ease-out 1.2s forwards;
         }
 
 
         .animated-header .subtitle {
-            font-size: 1.6rem; 
-            color: #d1d5db; 
-            letter-spacing: 0.06em; 
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.6); 
-            animation: fadeIn 2s ease-out 1s forwards; 
+            font-size: 1.6rem;
+            color: #d1d5db;
+            letter-spacing: 0.06em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            animation: fadeIn 2s ease-out 1s forwards;
             opacity: 0;
             margin-bottom: 0.35rem;
         }
          .animated-header .author {
-            font-size: 1.2rem; 
-            color: #a1a1aa; 
-            animation: fadeIn 2s ease-out 1.5s forwards; 
+            font-size: 1.2rem;
+            color: #a1a1aa;
+            animation: fadeIn 2s ease-out 1.5s forwards;
             opacity: 0;
         }
 
@@ -82,14 +109,14 @@
         @keyframes fadeInSlideUp {
             0% {
                 opacity: 0;
-                transform: translateY(35px); 
+                transform: translateY(35px);
             }
             100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -99,7 +126,7 @@
             }
         }
 
-        @keyframes subtlePulseText { 
+        @keyframes subtlePulseText {
             0% {
                 text-shadow: 0 0 2px rgba(192, 38, 211, 0.15), 0 0 4px rgba(192, 38, 211, 0.1);
             }
@@ -107,7 +134,7 @@
                 text-shadow: 0 0 5px rgba(124, 58, 237, 0.25), 0 0 10px rgba(124, 58, 237, 0.15);
             }
         }
-        
+
         @keyframes expandUnderline {
             0% {
                 width: 0%;
@@ -119,166 +146,172 @@
 
         /* General Section Title Styling (H2) */
         .main-section > h2 {
-            font-size: 2.5rem; 
-            margin-bottom: 1.5rem; 
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
             position: relative;
-            display: inline-block; 
-            padding-bottom: 0.75rem; 
+            display: inline-block;
+            padding-bottom: 0.75rem;
         }
 
         .main-section > h2::after {
             content: '';
             position: absolute;
-            width: 0%; 
-            height: 4px; 
+            width: 0%;
+            height: 4px;
             bottom: 0;
             right: 0;
             border-radius: 2px;
         }
-        .main-section.is-visible > h2::after { 
+        .main-section.is-visible > h2::after {
              animation: expandUnderline 2s ease-out 0.5s forwards;
         }
 
 
         /* Specific H2 colors and underline gradients based on section top border */
-        #hardened-concrete-section > h2 { color: #a78bfa; } 
+        #hardened-concrete-section > h2 { color: #a78bfa; }
         #hardened-concrete-section > h2::after { background: linear-gradient(to left, #a78bfa 50%, transparent 100%); }
-        
-        #mechanical-properties-section > h2 { color: #c084fc; } 
+
+        #mechanical-properties-section > h2 { color: #c084fc; }
         #mechanical-properties-section > h2::after { background: linear-gradient(to left, #c084fc 50%, transparent 100%); }
 
-        #comparison-section > h2 { color: #f472b6; } 
+        #comparison-section > h2 { color: #f472b6; }
         #comparison-section > h2::after { background: linear-gradient(to left, #f472b6 50%, transparent 100%); }
 
-        #applications-section > h2 { color: #f472b6; } 
+        #applications-section > h2 { color: #f472b6; }
         #applications-section > h2::after { background: linear-gradient(to left, #f472b6 50%, transparent 100%); }
-        
-        #testing-section > h2 { color: #fb7185; } 
+
+        #testing-section > h2 { color: #fb7185; }
         #testing-section > h2::after { background: linear-gradient(to left, #fb7185 50%, transparent 100%); }
 
-        #reinforced-concrete-principles-section > h2 { color: #67e8f9; } /* Cyan for new section */
+        #reinforced-concrete-principles-section > h2 { color: #67e8f9; }
         #reinforced-concrete-principles-section > h2::after { background: linear-gradient(to left, #67e8f9 50%, transparent 100%); }
 
-        #summary-part2-section > h2 { color: #f87171; } 
+        #summary-part2-section > h2 { color: #f87171; }
         #summary-part2-section > h2::after { background: linear-gradient(to left, #f87171 50%, transparent 100%); }
 
 
         /* Sub-headers H3 and H4 styling */
         .main-section h3 {
-            font-size: 1.6rem; 
-            font-style: italic;
+            font-size: 1.6rem;
             text-decoration: underline;
-            text-decoration-color: rgba(147, 197, 253, 0.5); 
+            text-decoration-color: rgba(100, 150, 220, 0.5);
             text-underline-offset: 4px;
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #e2e8f0;
         }
          .main-section h4 {
-            font-size: 1.4rem; 
-            font-style: italic;
+            font-size: 1.4rem;
             text-decoration: underline;
-            text-decoration-color: rgba(147, 197, 253, 0.4); 
+            text-decoration-color: rgba(120, 170, 240, 0.4);
             text-underline-offset: 3px;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #cbd5e1;
         }
-        .info-card { 
-            background-color: #27374D; 
+        .info-card {
+            background-color: #1e293b;
             border-radius: 0.5rem;
             padding: 1.25rem;
             margin-bottom: 1.5rem;
-            border: 1px solid #475569; 
+            border: 1px solid #334155;
         }
-        .info-card h3 { 
-            color: #a78bfa; 
+        .info-card h3 {
+            color: #7dd3fc;
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-style: normal;
+            text-decoration: none;
         }
-         .info-card h4 { 
-            color: #c084fc; 
+         .info-card h4 {
+            color: #38bdf8;
             margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            font-style: normal;
+            text-decoration: none;
         }
-        .info-card p, .info-card ul, .info-card li {
-            font-size: 1.125rem; 
-        }
-        #reinforced-concrete-principles-section .info-card h3 { color: #22d3ee; } 
-        #reinforced-concrete-principles-section .info-card h4 { color: #67e8f9; }
-
+        /* .info-card p, .info-card ul, .info-card li {
+            font-size: 1.125rem; /* Redundant if body text-lg (1.125rem) is inherited */
+        } */
 
         /* Specific top borders for visual separation and color progression for Part B */
-        #hardened-concrete-section { border-top: 7px solid #7c3aed; } 
-        #mechanical-properties-section { border-top: 7px solid #9333ea; } 
-        #comparison-section { border-top: 7px solid #c026d3; } 
-        #applications-section { border-top: 7px solid #db2777; } 
-        #testing-section { border-top: 7px solid #e11d48; } 
-        #reinforced-concrete-principles-section { border-top: 7px solid #0891b2; } 
-        #summary-part2-section { border-top: 7px solid #dc2626; } 
+        #hardened-concrete-section { border-top: 7px solid #7c3aed; }
+        #mechanical-properties-section { border-top: 7px solid #9333ea; }
+        #comparison-section { border-top: 7px solid #c026d3; }
+        #applications-section { border-top: 7px solid #db2777; }
+        #testing-section { border-top: 7px solid #e11d48; }
+        #reinforced-concrete-principles-section { border-top: 7px solid #0891b2; }
+        #summary-part2-section { border-top: 7px solid #dc2626; }
 
         .expand-button {
-            background-color: #38bdf8; 
+            background-color: #0ea5e9;
             color: white;
-            padding: 7px 14px; 
-            border-radius: 6px;
+            padding: 8px 16px;
+            border-radius: 0.375rem;
             cursor: pointer;
             transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
             display: inline-block;
-            margin-top: 8px; 
-            font-size: 0.95rem; 
-            border: 1px solid #0ea5e9; 
+            margin-top: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1px solid #0284c7;
         }
         .expand-button:hover {
-            background-color: #0ea5e9; 
+            background-color: #0284c7;
             transform: translateY(-1px);
         }
-        .expand-button-small { 
-            padding: 6px 12px; 
-            font-size: 0.95rem; 
-            margin-top: 8px; 
-            margin-right: 0px; 
-            background-color: #475569; 
-            border: 1px solid #6b7280; 
-            color: #e5e7eb; 
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2); 
+        .expand-button-small {
+            background-color: #64748b;
+            color: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 8px;
+            margin-right: 0px;
+            border: 1px solid #475569;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .expand-button-small:hover {
-            background-color: #525f76; 
-            border-color: #9ca3af; 
+            background-color: #475569;
+            border-color: #334155;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
-        .expanded-content { 
+        .expanded-content {
             display: none;
-            margin-top: 10px; 
-            padding: 12px; 
-            background-color: #334155; 
+            margin-top: 10px;
+            padding: 12px;
+            background-color: #334155;
             border-radius: 8px;
-            border: 1px solid #475569; 
+            border: 1px solid #475569;
             opacity: 0;
             transition: opacity 0.4s ease-out;
         }
-        .expanded-content.visible { 
+        .expanded-content.visible {
             display: block;
             opacity: 1;
         }
         .expanded-content p, .expanded-content ul, .expanded-content ol, .expanded-content td, .expanded-content th {
-            font-size: 1.15rem; 
+            font-size: 1.15rem;
             margin-bottom: 0.5rem;
         }
          .definition-modal-content p, .definition-modal-content ul, .definition-modal-content ol {
-            font-size: 1.2rem; 
+            font-size: 1.2rem;
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 700px; 
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            height: 350px; 
-            max-height: 450px; 
+            height: 350px;
+            max-height: 450px;
         }
-        .strength-comparison-chart-container { 
+        .strength-comparison-chart-container {
             height: 250px;
             max-width: 400px;
         }
-        .image-modal { 
+        .image-modal {
             display: none;
             position: fixed;
             z-index: 1000;
@@ -291,6 +324,7 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            animation: fadeInModalOverlay 0.3s ease-out;
         }
         .modal-content-image {
             margin: auto;
@@ -300,11 +334,15 @@
             animation-name: zoom;
             animation-duration: 0.4s;
         }
+        @keyframes fadeInModalOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         #modalCaption {
             margin-top: 15px;
             color: #ccc;
             text-align: center;
-            font-size: 1.2rem; 
+            font-size: 1.2rem;
             padding: 10px;
             width: 80%;
             max-width: 700px;
@@ -315,63 +353,76 @@
         }
         .close-modal {
             position: absolute;
-            top: 20px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
+            top: 15px;
+            right: 25px;
+            color: #ccc;
+            font-size: 28px;
+            font-weight: normal;
             transition: 0.3s;
             cursor: pointer;
+            line-height: 1;
         }
         .close-modal:hover,
         .close-modal:focus {
-            color: #bbb;
+            color: #fff;
             text-decoration: none;
             cursor: pointer;
         }
          .clickable-definition {
             text-decoration: underline;
             cursor: pointer;
-            color: #93c5fd; 
+            color: #93c5fd;
         }
         .clickable-definition:hover {
             color: #60a5fa;
         }
 
         .definition-modal-overlay {
-            display: none; 
+            display: none;
             position: fixed;
-            z-index: 1001; 
+            z-index: 1001;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.7); 
+            background-color: rgba(0,0,0,0.7);
             align-items: center;
             justify-content: center;
+            animation: fadeInModalOverlay 0.3s ease-out;
         }
         .definition-modal-content {
-            background-color: #27374D; 
+            background-color: #1e293b;
             margin: auto;
-            padding: 20px;
-            border: 1px solid #475569; 
+            padding: 25px;
+            border: 1px solid #334155;
             border-radius: 8px;
             width: 90%;
-            max-width: 650px; 
+            max-width: 650px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            position: relative; 
-            color: #e2e8f0; 
+            position: relative;
+            color: #e2e8f0;
+            animation: fadeInScaleUp 0.4s ease-out forwards;
+        }
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         .definition-modal-content h4 {
-            color: #f59e0b; 
+            color: #f59e0b;
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
         .definition-modal-content img {
             max-width: 100%;
             height: auto;
-            max-height: 300px; 
+            max-height: 300px;
             object-fit: contain;
             border-radius: 4px;
             margin-top: 0.5rem;
@@ -379,22 +430,23 @@
             border: 2px solid #475569;
         }
         .definition-modal-close {
-            color: #aaa;
+            color: #bbb;
             position: absolute;
-            top: 10px;
-            left: 20px; 
-            font-size: 28px;
-            font-weight: bold;
+            top: 15px;
+            left: 15px;
+            font-size: 24px;
+            font-weight: normal;
+            line-height: 1;
         }
         .definition-modal-close:hover,
         .definition-modal-close:focus {
-            color: #e2e8f0;
+            color: #fff;
             text-decoration: none;
             cursor: pointer;
         }
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; 
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             max-width: 100%;
@@ -414,57 +466,57 @@
             width: 100%;
             margin-top: 1.5rem;
             border-collapse: collapse;
-            font-size: 1rem; 
+            font-size: 1rem;
         }
         .comparison-table th, .comparison-table td {
-            border: 1px solid #4b5563; 
-            padding: 0.6rem 0.8rem; 
+            border: 1px solid #4b5563;
+            padding: 0.6rem 0.8rem;
             text-align: center;
         }
         .comparison-table th {
-            background-color: #334155; 
-            color: #f0f9ff; 
+            background-color: #334155;
+            color: #f0f9ff;
         }
         .comparison-table td {
-            background-color: #27374D; 
+            background-color: #27374D;
         }
         .comparison-table .clickable-cell {
             cursor: pointer;
-            color: #93c5fd; 
+            color: #93c5fd;
             text-decoration: underline;
         }
         .comparison-table .clickable-cell:hover {
-            color: #60a5fa; 
+            color: #60a5fa;
         }
         .faq-bubble {
             background-color: #475569;
-            padding: 0.6rem 0.85rem; 
+            padding: 0.6rem 0.85rem;
             border-radius: 1rem;
-            margin-bottom: 0.6rem; 
+            margin-bottom: 0.6rem;
             cursor: pointer;
-            font-size: 1rem; 
+            font-size: 1rem;
         }
         .faq-bubble:hover {
             background-color: #525f76;
         }
         .faq-bubble .expanded-content {
             background-color: #334155;
-            font-size: 1.1rem; 
+            font-size: 1.1rem;
         }
         .road-comparison-table-container {
             margin-top: 1.5rem;
-            border-radius: 0.5rem; 
-            overflow: hidden; 
+            border-radius: 0.5rem;
+            overflow: hidden;
         }
-        .road-comparison-image-wrapper { 
+        .road-comparison-image-wrapper {
             text-align: center;
             margin-bottom: 1rem;
         }
         .road-comparison-image-wrapper img {
             max-width: 100%;
             height: auto;
-            max-height: 300px; 
-            border-radius: 0.375rem; 
+            max-height: 300px;
+            border-radius: 0.375rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .road-comparison-table {
@@ -472,100 +524,105 @@
             border-collapse: collapse;
         }
         .road-comparison-table th, .road-comparison-table td {
-            border: 1px solid #64748b; 
+            border: 1px solid #64748b;
             padding: 0.75rem;
             text-align: center;
-            background-color: rgba(30, 41, 59, 0.9); 
+            background-color: rgba(30, 41, 59, 0.9);
         }
         .road-comparison-table th {
-            background-color: rgba(51, 65, 85, 0.95); 
+            background-color: rgba(51, 65, 85, 0.95);
             color: #f0f9ff;
         }
         .application-card {
-            background-color: #27374d; 
+            background-color: #1e293b;
             border-radius: 0.5rem;
-            padding: 1rem;
+            padding: 1.25rem;
             margin-bottom: 1rem;
-            border-left: 4px solid #db2777; 
+            border-left: 4px solid #db2777;
         }
         .application-card img {
-            max-width: 100%; 
-            height: 150px; 
+            max-width: 100%;
+            height: 150px;
             object-fit: cover;
             border-radius: 0.375rem;
-            margin-bottom: 0.75rem; 
+            margin-bottom: 0.75rem;
         }
          .application-card h4 {
-            min-height: 2.5em; 
+            min-height: 2.5em;
         }
         .test-procedure-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 1.5rem; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
         .test-procedure-step {
-            background-color: #334155; 
-            padding: 1rem; 
-            border-radius: 0.5rem; 
-            border: 1px solid #475569; 
+            background-color: #334155;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #475569;
         }
         .test-procedure-step strong {
-            color: #60a5fa; 
-            display: block; 
+            color: #60a5fa;
+            display: block;
             margin-bottom: 0.5rem;
         }
         .test-procedure-step ol {
             list-style-type: decimal;
-            margin-right: 1.5rem; 
+            margin-right: 1.5rem;
         }
         .test-procedure-step li {
             margin-bottom: 0.25rem;
         }
-        .test-card { 
-            background-color: #27374D; 
+        .test-card {
+            background-color: #1e293b;
             border-radius: 0.5rem;
-            padding: 1.25rem; 
-            margin-bottom: 1.5rem; 
-            border: 1px solid #4b5563; 
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #334155;
         }
-        .test-card h3 { 
-            color: #a78bfa; 
+        .test-card h3 {
+            color: #7dd3fc;
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-style: normal;
+            text-decoration: none;
         }
-         .test-card h4 { 
-            color: #c084fc; 
+         .test-card h4 {
+            color: #38bdf8;
             margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            font-style: normal;
+            text-decoration: none;
         }
-        .test-card p, .test-card ul, .test-card li {
-            font-size: 1.125rem; 
-        }
-        #testing-section .test-card h3 { 
+        /* .test-card p, .test-card ul, .test-card li {
+            font-size: 1.125rem; /* Redundant if body text-lg (1.125rem) is inherited */
+        } */
+        #testing-section .test-card h3 {
              color: #fb7185;
         }
-         #testing-section .test-card h4 { 
+         #testing-section .test-card h4 {
              color: #fda4af;
         }
 
-
-        #testing-section .main-section-title { 
-            font-size: 2rem; 
-        }
-      
          .summary-list-item {
-            font-size: 1.2rem; 
+            font-size: 1.2rem;
             margin-bottom: 0.6rem;
         }
-         .summary-list-item span.text-xl { 
-            font-size: 1.5rem; 
+         .summary-list-item span.text-xl {
+            font-size: 1.5rem;
         }
-
-
     </style>
 </head>
-<body class="leading-relaxed"> 
-    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
+<body class="leading-relaxed">
+    <nav id="side-navigation" class="fixed top-24 right-5 h-[calc(100vh-7rem)] overflow-y-auto p-4 bg-slate-800/80 backdrop-blur-md text-slate-200 w-60 rounded-lg shadow-xl z-50 hidden md:block">
+        <h3 class="text-lg font-semibold mb-3 text-purple-400 border-b border-purple-500 pb-2">ניווט מהיר</h3>
+        <ul id="side-navigation-links" class="space-y-1.5">
+            <!-- Links will be populated by JavaScript -->
+        </ul>
+    </nav>
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl md:mr-[calc(240px+2rem)]">
 
-        <header class="text-center mb-12 main-section animated-header"> 
+        <header class="text-center mb-12 main-section animated-header">
             <h1>בטון לבנייה - חלק ב'</h1>
             <p class="subtitle">תכונות הבטון הקשוי, שימושים, השוואות ובדיקות</p>
             <p class="author">הכין, ערך ומגיש: שלומי שאול</p>
@@ -574,18 +631,18 @@
         <section id="hardened-concrete-section" class="main-section" data-section-name="hardened">
             <h2>4. תכונות הבטון הקשוי</h2>
             <p class="mb-4">
-                לאחר שהבטון הטרי מתקשר ומתקשה, הוא מפתח תכונות מכאניות ופיזיקליות המגדירות את התנהגותו כחומר מבני. תכונות אלו, כגון 
-                <span class="clickable-definition" onclick="openDefinitionModal('strength')">חוזק</span>, 
-                <span class="clickable-definition" onclick="openDefinitionModal('elasticity')">מודול אלסטיות</span>, 
-                הצטמקות, זחילה, 
+                לאחר שהבטון הטרי מתקשר ומתקשה, הוא מפתח תכונות מכאניות ופיזיקליות המגדירות את התנהגותו כחומר מבני. תכונות אלו, כגון
+                <span class="clickable-definition" onclick="openDefinitionModal('strength')">חוזק</span>,
+                <span class="clickable-definition" onclick="openDefinitionModal('elasticity')">מודול אלסטיות</span>,
+                הצטמקות, זחילה,
                 <span class="clickable-definition" onclick="openDefinitionModal('density')">צפיפות</span> ו
-                <span class="clickable-definition" onclick="openDefinitionModal('permeability')">חדירות</span>, 
-                הן קריטיות לתכנון מבנים בטוחים ועמידים לאורך זמן. הבנת הגורמים המשפיעים על כל אחת מתכונות אלו מאפשרת למהנדס לבחור או לתכנן תערובת בטון שתענה על דרישות הפרויקט הספציפיות, בין אם מדובר בגשר רחב ידיים, בניין רב קומות או רצפה תעשייתית. חשוב לזכור שהבטון הוא 
-                <span class="clickable-definition" onclick="openDefinitionModal('heterogeneous')">חומר הטרוגני</span>, 
+                <span class="clickable-definition" onclick="openDefinitionModal('permeability')">חדירות</span>,
+                הן קריטיות לתכנון מבנים בטוחים ועמידים לאורך זמן. הבנת הגורמים המשפיעים על כל אחת מתכונות אלו מאפשרת למהנדס לבחור או לתכנן תערובת בטון שתענה על דרישות הפרויקט הספציפיות, בין אם מדובר בגשר רחב ידיים, בניין רב קומות או רצפה תעשייתית. חשוב לזכור שהבטון הוא
+                <span class="clickable-definition" onclick="openDefinitionModal('heterogeneous')">חומר הטרוגני</span>,
                 ותכונותיו מושפעות מהאינטראקציה המורכבת בין מרכיביו ומתנאי הייצור, היציקה והאשפרה.
             </p>
             <p class="mb-4">חשוב להבין שבטון קשוי, גם כאשר הוא מתוכנן ומיושם כהלכה, אינו חומר מושלם. ברמת המיקרו-מבנה, הוא מכיל באופן טבעי סדקים זעירים (מיקרו-סדקים) ופגמים קטנים (כגון חללי אוויר כלואים או נקבים נימיים), הנובעים מתהליכי ההידרציה, הצטמקות הייבוש, והאינטראקציה בין העיסה הצמנטית לאגרגטים. סדקים אלו, יחד עם נקבוביות החומר, משפיעים על תכונותיו המכאניות (במיוחד חוזק מתיחה נמוך) ועל עמידותו לאורך זמן (חדירות). התכנון ההנדסי לוקח בחשבון את אופיו הסדוק של הבטון, ובמיוחד את חוזקו הנמוך במתיחה, ולכן משלבים בו פלדת זיון הנושאת את מאמצי המתיחה.</p>
-            
+
             <div class="mt-6">
                 <h4 class="text-purple-400 mb-2">התפתחות חוזק לחיצה של בטון רגיל (ללא מוספים) לפי סוג הצמנט (ת"י 466)</h4>
                 <div class="chart-container">
@@ -636,7 +693,7 @@
                 </div>
                  <p class="text-xs text-slate-400 mt-3">הערה: צורת ודרך הבדיקה של חוזק לחיצה יילמדו בהרחבה בסעיף 8 (בדיקות בטון).</p>
             </div>
-            
+
             <div class="mb-8 p-4 border border-slate-700 rounded-lg">
                 <h3>5.2 חוזק מתיחה (Tensile Strength)</h3>
                 <p class="mb-3">חוזק המתיחה של בטון נמוך משמעותית מחוזק הלחיצה שלו, ונע בדרך כלל בטווח של 8% עד 15% מחוזק הלחיצה. בשל כך, בתכנון מבני בטון, לרוב לא מסתמכים על יכולת הבטון לשאת מאמצי מתיחה ישירים, ואת תפקיד זה ממלאת פלדת הזיון. עם זאת, לחוזק המתיחה יש חשיבות בהבנת התנהגות הבטון בפני סדיקה והתפתחות סדקים.</p>
@@ -674,7 +731,7 @@
                     <p><strong>גורמים משפיעים:</strong> בדומה לחוזק הלחיצה, גם חוזק הכפיפה מושפע מיחס מים-צמנט, איכות החומרים, אשפרה וגיל הבטון. גודל וצורת האגרגטים משפיעים גם הם.</p>
                 </div>
             </div>
-            
+
             <div class="mb-8 p-4 border border-slate-700 rounded-lg">
                 <h3>5.4 עקומת מאמץ-עיבור (Stress-Strain Curve)</h3>
                 <p class="mb-3">עקומת מאמץ-עיבור מתארת את הקשר בין המאמץ המופעל על דגם בטון לבין העיבור (שינוי הצורה היחסי) שהוא עובר. היא מספקת מידע חשוב על התנהגות הבטון תחת עומס, כולל קשיחותו, חוזקו ומידת הפריכות שלו.</p>
@@ -727,7 +784,7 @@
                     </div>
                 </div>
             </div>
-             <div class="info-card">
+             <div class="info-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                 <h3><em><ins>5.5 התפתחות הכשל בבטון, חוזק אופייני ומבנה הבטון</ins></em></h3>
                 <p class="mb-3">הבטון, בהיותו <span class="clickable-definition" onclick="openDefinitionModal('heterogeneous')">חומר הטרוגני</span>, מכיל מיקרו-סדקים ופגמים עוד לפני העמסתו. **אזור המעבר הבין-מופעי (Interfacial Transition Zone - ITZ)**, הממשק הדק (בעובי של כ-20-50 מיקרון) בין האגרגטים הגסים לעיסה הצמנטית, הוא אזור חלש יחסית בבטון. הוא מאופיין בנקבוביות גבוהה יותר, ריכוז גבוה יותר של גבישי קלציום הידרוקסיד (פורטלנדיט) גדולים ופחות ג'ל סידן-סיליקט-הידרט (C-S-H) צפוף, ונוכחות מיקרו-סדקים הנוצרים מהצטמקות או ממאמצים תרמיים. ה-ITZ הוא אזור בעל חשיבות מכרעת, שכן תכונותיו משפיעות על חוזק ההדבקה בין האגרגט לעיסה, על חדירות הבטון ועל התפתחות סדקים. תחת עומס לחיצה, סדקים אלו ב-ITZ מתחילים להתפתח ולהתחבר. עם הגדלת העומס, הסדקים מתפשטים דרך העיסה הצמנטית, מחברים בין אגרגטים סמוכים, וגורמים לבסוף לכשל פריך של הבטון. חוזק אופייני של בטון רגיל נע בין 20 ל-50 מגה-פסקל (MPa), אך ניתן להגיע לחוזקים גבוהים בהרבה (מעל 100 MPa) בבטונים בעלי ביצועים גבוהים (HPC) או אולטרה-גבוהים (UHPC), באמצעות תכנון קפדני של התערובת, יחס מים-צמנט נמוך מאוד, ושימוש במוספים מתקדמים המשפרים את ה-ITZ ואת צפיפות העיסה.</p>
                 <button class="expand-button-small" onclick="toggleExpand('itz-details')">קרא עוד על אזור המעבר (ITZ)</button>
@@ -748,7 +805,7 @@
                     </ul>
                 </p>
             </div>
-            <div class="info-card"> 
+            <div class="info-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                 <h3 class="text-purple-400 mb-3"><em><ins>5.6 סיווג חוזק בטון בישראל, הזמנת בטון ות"י 466</ins></em></h3>
                 <p class="mb-3">בישראל, בטונים מסווגים לפי חוזק הלחיצה האופייני שלהם בגיל 28 יום. הסימון הנפוץ הוא "ב-" ואחריו ערך החוזק במגה-פסקל (לדוגמה, ב-30 מציין בטון עם חוזק לחיצה אופייני של 30 MPa). דרגות חוזק נפוצות כוללות ב-20, ב-25, ב-30, ב-40, ב-50 וכו'.</p>
                 <button class="expand-button-small" onclick="toggleExpand('concrete-ordering-details')">פרטים על הזמנת בטון ותקינה</button>
@@ -770,7 +827,7 @@
         <section id="comparison-section" class="main-section" data-section-name="comparison">
             <h2>6. השוואת בטון לחומרים אחרים</h2>
             <p class="mb-4">כדי להעריך נכונה את מקומו של הבטון בעולם הבנייה, חשוב להשוות את תכונותיו המרכזיות לאלו של חומרי בנייה נפוצים אחרים. הבחירה בחומר בנייה מסוים תלויה במגוון רחב של גורמים, כולל דרישות מבניות, תנאי סביבה, אסתטיקה, עלות ושיקולי קיימות.</p>
-            
+
             <div class="overflow-x-auto">
                 <table class="comparison-table">
                     <thead>
@@ -850,7 +907,7 @@
                 <div id="compFireSteel" class="expanded-content"><p><strong>פלדה - עמידות באש:</strong> מאבדת מחוזקה באופן משמעותי בטמפרטורות גבוהות (מעל 500-600°C) ודורשת הגנה (ציפויים, בטון).</p></div>
                 <div id="compFireWood" class="expanded-content"><p><strong>עץ - עמידות באש:</strong> חומר דליק. קצב השריפה תלוי בצפיפות ובמידות. ניתן לשפר עמידות באמצעות טיפולים מעכבי בעירה או שימוש באלמנטים מסיביים.</p></div>
                 <div id="compFireBrick" class="expanded-content"><p><strong>לבנים/בלוקים - עמידות באש:</strong> חומרים קרמיים לרוב בעלי עמידות טובה מאוד לאש.</p></div>
-                
+
                 <div id="compInsulationConcrete" class="expanded-content"><p><strong>בטון - בידוד:</strong> בידוד תרמי בינוני (מוליכות תרמית גבוהה יחסית, אך מסה תרמית טובה). בידוד אקוסטי טוב בזכות המסה הגבוהה, במיוחד לתדרים נמוכים.</p></div>
                 <div id="compInsulationSteel" class="expanded-content"><p><strong>פלדה - בידוד:</strong> בידוד תרמי ואקוסטי נמוכים מאוד (מוליך טוב של חום וקול).</p></div>
                 <div id="compInsulationWood" class="expanded-content"><p><strong>עץ - בידוד:</strong> בידוד תרמי טבעי טוב. בידוד אקוסטי בינוני, תלוי בצפיפות ובמבנה.</p></div>
@@ -949,7 +1006,7 @@
             <p class="mb-4">הרבגוניות של הבטון, יחד עם תכונותיו המכאניות והפיזיקליות הניתנות להתאמה, מאפשרות את שימושו במגוון עצום של יישומים בתחום ההנדסה האזרחית והבנייה. החל ממבנים מונומנטליים ועד לאלמנטים יומיומיים, הבטון הוא חומר יסוד בתשתית המודרנית.</p>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="application-card">
+                <div class="application-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🏗️</span>7.1.1 יסודות</h4>
                     <img src="https://i.postimg.cc/yxxVRwNt/1.webp" alt="יציקת יסודות בטון באתר בנייה" class="zoomable-image w-full">
                     <p>הבטון הוא החומר הנבחר ליסודות מבנים בזכות חוזקו בלחיצה ויכולתו להעביר עומסים מהמבנה לקרקע. סוגי יסודות נפוצים כוללים כלונסאות, רפסודות, ויסודות בודדים או משולבים.</p>
@@ -961,7 +1018,7 @@
                     </div>
                 </div>
 
-                <div class="application-card">
+                <div class="application-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🏢</span>7.1.2 שלד המבנה</h4>
                      <img src="https://i.postimg.cc/1t9Rmg19/2.jpg" alt="שלד בניין מבטון מזוין בשלבי הקמה" class="zoomable-image w-full">
                     <p>בטון מזוין ובטון דרוך הם חומרי היסוד לבניית שלדי מבנים, כולל עמודים, קורות, תקרות וקירות נושאים. הם מאפשרים גמישות תכנונית ועמידות גבוהה.</p>
@@ -973,7 +1030,7 @@
                     </div>
                 </div>
 
-                 <div class="application-card">
+                 <div class="application-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🛣️</span>7.2.1 כבישים ומיסעות</h4>
                     <img src="https://i.postimg.cc/wMr9Q0yv/3.jpg" alt="כביש בטון מהיר עם תנועה" class="zoomable-image w-full">
                     <p>מיסעות בטון (PCCP - Portland Cement Concrete Pavement) משמשות לכבישים, מסלולי שדות תעופה ומשטחים תעשייתיים בזכות עמידותן הגבוהה לעומסים כבדים ולאורך חיים ארוך.</p>
@@ -982,8 +1039,8 @@
                         <p>מיסעות בטון מציעות יתרונות כגון אורך חיים ארוך (20-40 שנים ויותר), עלויות תחזוקה נמוכות יחסית, ועמידות טובה בפני דלקים ושמנים. צבען הבהיר תורם לנראות טובה יותר בלילה ומפחית את אפקט "אי החום העירוני". חסרונותיהן כוללים עלות הקמה ראשונית גבוהה יותר וזמן יישום ארוך יותר מאספלט.</p>
                     </div>
                 </div>
-                
-                <div class="application-card">
+
+                <div class="application-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🌉</span>7.2.2 גשרים ומנהרות</h4>
                     <img src="https://i.postimg.cc/50n46xf8/4.jpg" alt="גשר בטון מרשים מעל עמק" class="zoomable-image w-full">
                     <p>בטון מזוין ובטון דרוך הם חומרים מרכזיים בבניית גשרים ומנהרות, המאפשרים יצירת מבנים מורכבים בעלי מפתחים גדולים ועמידות גבוהה לתנאי סביבה מאתגרים.</p>
@@ -994,7 +1051,7 @@
                     </div>
                 </div>
 
-                 <div class="application-card">
+                 <div class="application-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🏭</span>7.3 אלמנטים טרומיים</h4>
                     <img src="https://i.postimg.cc/pX9WLb4n/5.jpg" alt="מפעל לייצור אלמנטים טרומיים מבטון" class="zoomable-image w-full">
                     <p>ייצור אלמנטים מבטון במפעל (טרום-יציקה) מאפשר בקרת איכות גבוהה, מהירות בנייה באתר, וגימור מדויק. כולל קירות, תקרות, קורות, עמודים ואלמנטים אדריכליים.</p>
@@ -1005,7 +1062,7 @@
                     </div>
                 </div>
 
-                <div class="application-card">
+                <div class="application-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h4 class="text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">🎨</span>7.4 בטון אדריכלי</h4>
                     <img src="https://i.postimg.cc/mZpZ42Xs/6.jpg" alt="מבנה עם חזית בטון חשוף אדריכלי" class="zoomable-image w-full">
                     <p>בטון המשמש לא רק למטרות מבניות אלא גם כאלמנט עיצובי ואסתטי. כולל בטון חשוף, בטון צבעוני, בטון מוטבע, בטון מלוטש (טרצו) ועוד.</p>
@@ -1015,8 +1072,8 @@
                         <br><strong>יישומים:</strong> חזיתות מבנים, קירות פנים, ריצופים, אלמנטים פיסוליים, ריהוט אורבני.</p>
                     </div>
                 </div>
-                
-                <div class="application-card md:col-span-2 lg:col-span-3">
+
+                <div class="application-card md:col-span-2 lg:col-span-3 hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                     <h4 class="text-xl text-pink-400 mb-2 flex items-center"><span class="text-2xl mr-2">✨</span>7.5 שימושים מיוחדים נוספים</h4>
                     <p>מעבר ליישומים הנפוצים, הבטון משמש גם למטרות ספציפיות הדורשות תכונות מיוחדות:</p>
                     <button class="expand-button-small" onclick="toggleExpand('special-uses-details')">פירוט על שימושים מיוחדים</button>
@@ -1039,20 +1096,20 @@
             <h2 class="main-section-title">8. בדיקות בטון (לפי ת"י 26, ת"י 466 ועוד)</h2>
             <p class="mb-4">בקרת איכות הבטון היא שלב קריטי להבטחת בטיחות ועמידות המבנים. התקנים הישראליים, ובראשם ת"י 26 (בטון: בדיקות) ות"י 466 (חוקת הבטון), מגדירים את הבדיקות הנדרשות לבטון ולמרכיביו בשלבים השונים – החל מחומרי הגלם, דרך הבטון הטרי ועד לבטון הקשוי.</p>
 
-            <div class="info-card mb-8 p-4">
+            <div class="info-card mb-8 p-4 hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                 <h3><em><ins>8.1 בדיקות על מרכיבי הבטון (לפני הערבוב)</ins></em></h3>
                 <p class="mb-2">איכות הבטון מתחילה באיכות מרכיביו. לכן, קיימות בדיקות תקניות לאגרגטים, לצמנט, למים ולמוספים.</p>
-                <div class="test-card" style="border-left-color: #fb7185;">
+                <div class="test-card hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out" style="border-left-color: #fb7185;">
                     <h4>8.1.1 בדיקות אגרגטים (לפי ת"י 3)</h4>
-                    <p>כוללות בדיקת דירוג (אנליזה גרנולומטרית באמצעות נפות), ניקיון (תכולת חומרים מזיקים, חרסית, חומרים אורגניים), ספיגות מים, איתנות (עמידות לתנאי סביבה), צורת גרגרים (אחוז פחוסים/מוארכים) ושחיקה (מבחן לוס אנג'לס). 
+                    <p>כוללות בדיקת דירוג (אנליזה גרנולומטרית באמצעות נפות), ניקיון (תכולת חומרים מזיקים, חרסית, חומרים אורגניים), ספיגות מים, איתנות (עמידות לתנאי סביבה), צורת גרגרים (אחוז פחוסים/מוארכים) ושחיקה (מבחן לוס אנג'לס).
                         <br><strong class="text-amber-300">הערה: נושא דירוג אגרגטים נלמד בהרחבה בתרגול בקורס "קרקע וביסוס".</strong></p>
                     <button class="expand-button-small" onclick="toggleExpand('aggregates-ti466-req')">דרישות גודל גרגר מרבי (ת"י 466)</button>
                     <div id="aggregates-ti466-req" class="expanded-content">
                         <p>ת"י 466 קובע, בין היתר, כי גודל הגרגר המרבי באגרגט לא יהיה גדול מהקטן מבין הערכים הבאים: 1/5 מהמידה המינימלית בין פני הטפסות; 1/3 מעובי תקרות מקשיות; 3/4 מהמרווח הפנוי בין מוטות זיון או עובי כיסוי הבטון הצדי לזיון. באישור מתכנן, ניתן לחרוג מהגבלות אלו בתנאים מסוימים.</p>
                     </div>
                 </div>
-                <div class="test-card mt-4" style="border-left-color: #fb7185;">
-                    <h4>8.1.2 בדיקות צמנט (לפי ת"י 1)</h4> 
+                <div class="test-card mt-4 hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out" style="border-left-color: #fb7185;">
+                    <h4>8.1.2 בדיקות צמנט (לפי ת"י 1)</h4>
                     <p class="mb-2">תקן ישראלי ת"י 1 ("צמנט: צמנט רגיל") מגדיר את הדרישות עבור סוגי צמנט שונים.</p>
                     <button class="expand-button-small" onclick="toggleExpand('cement-storage-req')">אחסון ודרישות מצמנט</button>
                     <div id="cement-storage-req" class="expanded-content">
@@ -1060,8 +1117,8 @@
                         <br><strong>דרישות עיקריות מצמנט (ת"י 1):</strong> התקן מפרט דרישות להרכב כימי (למשל, תכולת גופרית תלת-חמצנית, מגנזיום אוקסיד, כלורידים, אלקלים), דרישות פיזיקליות (זמן התקשרות ראשוני וסופי, יציבות נפח, דקות טחינה) ודרישות חוזק (לחיצה בגילאים שונים, בהתאם לדרגת החוזק של הצמנט – 32.5, 42.5, 52.5, וסיווג חוזק מוקדם N, R, L).</p>
                     </div>
                 </div>
-                 <div class="test-card mt-4" style="border-left-color: #fb7185;">
-                    <h4>8.1.3 בדיקות מים (לפי ת"י 466)</h4> 
+                 <div class="test-card mt-4 hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out" style="border-left-color: #fb7185;">
+                    <h4>8.1.3 בדיקות מים (לפי ת"י 466)</h4>
                     <p class="mb-2">מים המשמשים לייצור בטון צריכים להיות נקיים מחומרים מזיקים. מי שתייה בישראל נחשבים בדרך כלל מתאימים. מים ממקורות אחרים (כגון מים ממוחזרים מתעשיית הבטון) דורשים בדיקות.</p>
                     <button class="expand-button-small" onclick="toggleExpand('water-harmful-substances')">חומרים מזיקים במים והשפעתם</button>
                     <div id="water-harmful-substances" class="expanded-content">
@@ -1076,15 +1133,15 @@
                          <p class="text-xs text-slate-400 mt-1">קטע מת"י 466 המתייחס לאיכות המים לערבוב בטון.</p>
                     </div>
                 </div>
-                 <div class="test-card mt-4" style="border-left-color: #fb7185;">
+                 <div class="test-card mt-4 hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out" style="border-left-color: #fb7185;">
                     <h4>8.1.4 בדיקות מוספים</h4>
                     <p>אימות התאמה לדרישות התקן הרלוונטי (למשל, ת"י 895 למוספים כימיים) ולמפרט הפרויקט.</p>
                 </div>
             </div>
-            
-            <div class="info-card mb-8 p-4">
+
+            <div class="info-card mb-8 p-4 hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                  <h3><em><ins>8.2 בדיקות על בטון טרי</ins></em></h3>
-                 <div class="test-card">
+                 <div class="test-card hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out">
                     <h4>8.2.1 מבחן חמיטה (Slump Test) 🍦</h4>
                     <p><strong>מטרה:</strong> הערכת עבידות וסומך הבטון הטרי. זוהי הבדיקה הנפוצה ביותר באתר לבקרת עקביות הבטון.</p>
                     <div class="grid md:grid-cols-2 gap-4 items-center my-3">
@@ -1108,7 +1165,7 @@
                     </div>
                 </div>
 
-                <div class="test-card">
+                <div class="test-card hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out">
                     <h4>8.2.2 בדיקת תכולת אוויר (Air Content Test) 🌬️</h4>
                     <p><strong>מטרה:</strong> מדידת אחוז נפח האוויר (הן אוויר כלוא והן אוויר מכוון, אם הוסף) בבטון הטרי. קריטי לבטונים החשופים למחזורי קפיאה והפשרה.</p>
                      <img src="https://i.postimg.cc/sgt7kSX8/0025874-gilson-concrete-air-meters.jpg" alt="מכשיר למדידת תכולת אוויר בבטון (מד לחץ Type B)" class="mx-auto max-w-xs w-full h-auto rounded-md shadow-md zoomable-image">
@@ -1133,10 +1190,10 @@
                     </div>
                 </div>
             </div>
-            <div class="info-card mb-8 p-4">
+            <div class="info-card mb-8 p-4 hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out">
                 <h3><em><ins>8.3 הכנת דגמי בדיקה לחוזק ובדיקות בטון קשוי</ins></em></h3>
                 <p class="mb-2">בדיקות על בטון קשוי נועדו לקבוע את תכונותיו המכאניות והפיזיקליות לאחר שהתקשה, ולוודא שהוא עומד בדרישות התכנון והתקנים.</p>
-                <div class="test-card">
+                <div class="test-card hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out">
                     <h4>8.3.1 הכנת דגמי בדיקה (לפי ת"י 26)</h4>
                     <p><strong>מטרה:</strong> יצירת דגמים סטנדרטיים ואחידים של בטון לבדיקות חוזק במעבדה.</p>
                     <img src="https://i.postimg.cc/Kjw81Pdh/image.webp" alt="דגמי בטון (קוביות וגלילים) מוכנים לבדיקה" class="mx-auto max-w-sm w-full h-auto rounded-md shadow-md zoomable-image">
@@ -1159,8 +1216,8 @@
                         <p><strong>הובלה למעבדה ואשפרה סטנדרטית:</strong> לאחר פירוק התבניות (demoulding), הדגמים מסומנים ומובלים בזהירות למעבדה מוסמכת. במעבדה, הם מאושפרים בתנאים סטנדרטיים – לרוב בבריכות מים בטמפרטורה של 20±2 מעלות צלזיוס או בחדר לחות בעל לחות יחסית של לפחות 95% וטמפרטורה מבוקרת – עד למועד הבדיקה (לרוב בגיל 7 ו-28 יום, ולעיתים גם בגילאים אחרים).</p>
                     </div>
                 </div>
-                
-                <div class="test-card">
+
+                <div class="test-card hover:shadow-lg hover:transform hover:-translate-y-px transition-all duration-200 ease-out">
                     <h4 class="text-lg text-pink-300">8.3.2 בדיקת חוזק לחיצה (לפי ת"י 26, חלק 1)</h4>
                     <p>זוהי הבדיקה הנפוצה והחשובה ביותר לבטון קשוי, ומשמשת כבסיס לסיווג הבטון ולקביעת התאמתו לדרישות התכנון.</p>
                      <img src="https://i.postimg.cc/PxfqTSB3/images.jpg" alt="בדיקת לחיצה של קוביית בטון" class="mx-auto max-w-sm w-full h-auto rounded-md shadow-md zoomable-image">
@@ -1187,13 +1244,13 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="reinforced-concrete-principles-section" class="main-section" data-section-name="reinforced-concrete">
             <h2>9. עקרונות הבטון המזוין (רקע כללי)</h2>
             <p class="mb-4">פרק זה נועד לספק רקע כללי על עקרונות הבטון המזוין. חשוב לציין כי נושא זה נלמד בהרחבה ובפירוט רב בקורס ייעודי "קורס בטון". כאן נציג את היסודות להבנת השילוב בין בטון לפלדה.</p>
-            
+
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="info-card" style="border-left-color: #0891b2;">
+                <div class="info-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out" style="border-left-color: #0891b2;">
                     <h3><em><ins>9.1 הרקע לשימוש בבטון מזוין</ins></em></h3>
                     <p>הבטון, כפי שלמדנו, הוא חומר בעל חוזק לחיצה גבוה מאוד, אך חוזק מתיחה נמוך יחסית (כ-10% מחוזק הלחיצה). במבנים רבים, אלמנטים כגון קורות ותקרות נתונים למאמצי כפיפה, הגורמים למאמצי לחיצה באזור אחד של החתך ולמאמצי מתיחה באזור אחר. ללא חיזוק מתאים, הבטון באזור המתיחה ייסדק ויישבר במהירות תחת עומסים נמוכים יחסית. מכאן נולד הצורך לשלב בבטון חומר נוסף שיישא את מאמצי המתיחה – פלדה.</p>
                     <img src="https://i.postimg.cc/gJ9gFnJN/Fundamental-Assumptions-for-reinforced-concrete-behaviour.webp" alt="הנחות יסוד להתנהגות בטון מזוין - חתך קורה בכפיפה" class="mx-auto max-w-md w-full h-auto rounded-md shadow-md mt-2 zoomable-image">
@@ -1210,7 +1267,7 @@
                     </div>
                 </div>
 
-                <div class="info-card" style="border-left-color: #0891b2;">
+                <div class="info-card hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out" style="border-left-color: #0891b2;">
                     <h3><em><ins>9.2 היקף השימוש והיבטים כלכליים</ins></em></h3>
                     <p>הבטון המזוין הוא חומר הבנייה הנפוץ ביותר בעולם למבנים הנדסיים, החל מבנייני מגורים ומשרדים, דרך גשרים ומנהרות, ועד למבנים תעשייתיים ומאגרי מים. בישראל, רוב מוחלט של המבנים נבנים מבטון מזוין, בין אם ביציקה באתר או באמצעות אלמנטים טרומיים.</p>
                     <button class="expand-button-small mt-3" onclick="toggleExpand('rc-economics')">יתרונות כלכליים ואתגרים</button>
@@ -1232,7 +1289,7 @@
                 </div>
             </div>
 
-            <div class="info-card mt-6" style="border-left-color: #0891b2;">
+            <div class="info-card mt-6 hover:shadow-xl hover:transform hover:-translate-y-1 transition-all duration-300 ease-out" style="border-left-color: #0891b2;">
                  <h3><em><ins>9.3 תקינה ישראלית: ת"י 466 – חוקת הבטון</ins></em></h3>
                 <p>התקן הישראלי המרכזי לתכנון קונסטרוקציות בטון הוא <strong>ת"י 466 - חוקת הבטון</strong>. תקן זה מגדיר את השימוש, היישום והתכנון עם בטון על פי התקן הישראלי. הוא מבוסס במידה רבה על התקן האירופאי Eurocode 2 (כפי שניתן לראות במסמכים הזרים המאוזכרים בנספחי התקן, למשל DD ENV 1992-1-1), ועבר התאמות לתנאים ולפרקטיקה המקומית. </p>
                 <img src="https://i.postimg.cc/7L1GZJSp/image-7bb6c9.png" alt="מקורות ת"י 466 - Eurocode 2" class="mx-auto max-w-lg w-full h-auto rounded-md shadow-md my-3 zoomable-image">
@@ -1259,22 +1316,22 @@
                 <div>
                     <h4 class="text-red-400 mb-3">🌟 תובנות מפתח עיקריות מהפרק</h4>
                     <ul class="list-none space-y-2">
-                        <li class="flex items-start summary-list-item"><span class="text-violet-400 mr-2 text-xl">💪</span><span><strong>תכונות הבטון הקשוי:</strong> למדנו על חוזק (לחיצה, מתיחה, כפיפה), מודול אלסטיות, צפיפות, חדירות והיותו חומר הטרוגני וסדוק מטבעו.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-purple-400 mr-2 text-xl">📈</span><span><strong>התנהגות מכאנית:</strong> הבנו את משמעות עקומת מאמץ-עיבור, התפתחות הכשל בבטון, ואת ההבחנה בין מצבי גבול של הרס ושירות.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-fuchsia-400 mr-2 text-xl">🆚</span><span><strong>השוואה לחומרים אחרים:</strong> דנו ביתרונות ובחסרונות של בטון מול פלדה, עץ ולבנים, וכן בהשוואה בין מיסעות בטון ואספלט.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-pink-400 mr-2 text-xl">🌍</span><span><strong>שימושים מגוונים:</strong> סקרנו את היישומים הרבים של בטון ביסודות, שלדי מבנים, תשתיות, אלמנטים טרומיים ובטון אדריכלי.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-rose-400 mr-2 text-xl">🔬</span><span><strong>בדיקות איכות:</strong> הכרנו את הבדיקות המרכזיות למרכיבי הבטון, לבטון הטרי (חמיטה, תכולת אוויר) ולבטון הקשוי (חוזק לחיצה, הכנת דגמים).</span></li>
-                         <li class="flex items-start summary-list-item"><span class="text-cyan-400 mr-2 text-xl">🔗</span><span><strong>בטון מזוין:</strong> נחשפנו לרקע ולעקרונות הבסיסיים של שילוב בטון ופלדה, ולהתייחסות התקינה הישראלית.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-violet-400 mr-2 text-xl">💪</span><span><strong>תכונות הבטון הקשוי:</strong> למדנו על חוזק (לחיצה, מתיחה, כפיפה), מודול אלסטיות, צפיפות, חדירות והיותו חומר הטרוגני וסדוק מטבעו.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-purple-400 mr-2 text-xl">📈</span><span><strong>התנהגות מכאנית:</strong> הבנו את משמעות עקומת מאמץ-עיבור, התפתחות הכשל בבטון, ואת ההבחנה בין מצבי גבול של הרס ושירות.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-fuchsia-400 mr-2 text-xl">🆚</span><span><strong>השוואה לחומרים אחרים:</strong> דנו ביתרונות ובחסרונות של בטון מול פלדה, עץ ולבנים, וכן בהשוואה בין מיסעות בטון ואספלט.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-pink-400 mr-2 text-xl">🌍</span><span><strong>שימושים מגוונים:</strong> סקרנו את היישומים הרבים של בטון ביסודות, שלדי מבנים, תשתיות, אלמנטים טרומיים ובטון אדריכלי.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-rose-400 mr-2 text-xl">🔬</span><span><strong>בדיקות איכות:</strong> הכרנו את הבדיקות המרכזיות למרכיבי הבטון, לבטון הטרי (חמיטה, תכולת אוויר) ולבטון הקשוי (חוזק לחיצה, הכנת דגמים).</span></li>
+                         <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-cyan-400 mr-2 text-xl">🔗</span><span><strong>בטון מזוין:</strong> נחשפנו לרקע ולעקרונות הבסיסיים של שילוב בטון ופלדה, ולהתייחסות התקינה הישראלית.</span></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="text-red-400 mb-3">🚀 המלצות ליישום והמשך למידה</h4>
                      <ul class="list-none space-y-2">
-                        <li class="flex items-start summary-list-item"><span class="text-violet-400 mr-2 text-xl">🧠</span><span><strong>הבנה מעמיקה של תכונות:</strong> חשוב להבין כיצד כל תכונה של הבטון הקשוי משפיעה על תכנון המבנה ועמידותו.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-purple-400 mr-2 text-xl">📊</span><span><strong>ניתוח נתונים:</strong> היכולת לפרש תוצאות בדיקות מעבדה ושדה היא מיומנות קריטית לעוסקים בניהול וביצוע של פרויקטי בנייה.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-fuchsia-400 mr-2 text-xl">💡</span><span><strong>בחירת חומרים מושכלת:</strong> יש לשקול את כלל הגורמים (תכונות, עלות, קיימות, יישום) בבחירת חומר הבנייה המתאים ביותר לכל פרויקט.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-pink-400 mr-2 text-xl">🛠️</span><span><strong>יישום נכון:</strong> הקפדה על נהלי יציקה, ציפוף ואשפרה נכונים היא חיונית למיצוי הפוטנציאל של הבטון.</span></li>
-                        <li class="flex items-start summary-list-item"><span class="text-rose-400 mr-2 text-xl">📚</span><span><strong>המשך התעדכנות:</strong> בשיעורים הבאים נלמד על חומרי בנייה אחרים והרקע ההנדסי והמושגים שלמדנו בשני החלקים הללו ילוו אותנו.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-violet-400 mr-2 text-xl">🧠</span><span><strong>הבנה מעמיקה של תכונות:</strong> חשוב להבין כיצד כל תכונה של הבטון הקשוי משפיעה על תכנון המבנה ועמידותו.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-purple-400 mr-2 text-xl">📊</span><span><strong>ניתוח נתונים:</strong> היכולת לפרש תוצאות בדיקות מעבדה ושדה היא מיומנות קריטית לעוסקים בניהול וביצוע של פרויקטי בנייה.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-fuchsia-400 mr-2 text-xl">💡</span><span><strong>בחירת חומרים מושכלת:</strong> יש לשקול את כלל הגורמים (תכונות, עלות, קיימות, יישום) בבחירת חומר הבנייה המתאים ביותר לכל פרויקט.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-pink-400 mr-2 text-xl">🛠️</span><span><strong>יישום נכון:</strong> הקפדה על נהלי יציקה, ציפוף ואשפרה נכונים היא חיונית למיצוי הפוטנציאל של הבטון.</span></li>
+                        <li class="summary-list-item flex items-start hover:bg-slate-700 rounded-md transition-colors duration-150 cursor-default p-2"><span class="text-rose-400 mr-2 text-xl">📚</span><span><strong>המשך התעדכנות:</strong> בשיעורים הבאים נלמד על חומרי בנייה אחרים והרקע ההנדסי והמושגים שלמדנו בשני החלקים הללו ילוו אותנו.</span></li>
                     </ul>
                 </div>
             </div>
@@ -1286,6 +1343,10 @@
         </footer>
 
     </div>
+
+    <button id="scrollToTopBtn" class="fixed bottom-6 right-6 bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-all duration-300 opacity-0 transform scale-90 z-50 focus:outline-none focus:ring-2 focus:ring-purple-400">
+        ▲
+    </button>
 
     <div id="imageModal" class="image-modal">
         <span class="close-modal" onclick="document.getElementById('imageModal').style.display='none'">×</span>
@@ -1310,14 +1371,14 @@
             if (content.style.display === 'none' || content.style.display === '') {
                 content.style.display = 'block';
                 if(content.classList.contains('expanded-content')) {
-                    void content.offsetWidth; 
-                    content.classList.add('visible'); 
+                    void content.offsetWidth;
+                    content.classList.add('visible');
                 }
             } else {
                 if(content.classList.contains('expanded-content')) {
                     content.classList.remove('visible');
                     content.addEventListener('transitionend', () => {
-                        if (!content.classList.contains('visible')) { 
+                        if (!content.classList.contains('visible')) {
                             content.style.display = 'none';
                         }
                     }, { once: true });
@@ -1327,14 +1388,14 @@
             }
         }
     }
-    
+
     const defaultChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
             legend: {
                 labels: {
-                    color: '#cbd5e1', 
+                    color: '#cbd5e1',
                     font: { size: 12 }
                 }
             },
@@ -1354,7 +1415,7 @@
         },
         scales: {
             x: {
-                ticks: { color: '#94a3b8', font: {size: 10} }, 
+                ticks: { color: '#94a3b8', font: {size: 10} },
                 grid: { color: 'rgba(100, 116, 139, 0.2)' },
                 title: { display: true, text: 'גיל הבטון (ימים)', color: '#94a3b8'}
             },
@@ -1365,7 +1426,7 @@
             }
         }
     };
-    
+
     const definitions = {
         strength: {
             title: "חוזק (Strength)",
@@ -1390,7 +1451,7 @@
         heterogeneous: {
             title: "חומר הטרוגני (Heterogeneous Material)",
             text: "חומר המורכב ממספר פאזות או מרכיבים שונים, שאינם מפוזרים באופן אחיד לחלוטין ברמה המיקרוסקופית, ותכונותיו עשויות להשתנות מנקודה לנקודה. בטון הוא דוגמה קלאסית, המורכב מעיסה צמנטית (תוצרי הידרציה ונקבים), אגרגטים בגדלים שונים, ואזור מעבר בין-מופעי (ITZ) ביניהם.",
-            image: "" 
+            image: ""
         }
     };
 
@@ -1405,11 +1466,11 @@
             modalText.textContent = definitions[definitionKey].text;
             if (definitions[definitionKey].image && definitions[definitionKey].image !== "") {
                 modalImage.src = definitions[definitionKey].image;
-                modalImage.alt = definitions[definitionKey].title; 
+                modalImage.alt = definitions[definitionKey].title;
                 modalImage.classList.remove('hidden');
             } else {
                 modalImage.classList.add('hidden');
-                modalImage.src = ""; 
+                modalImage.src = "";
             }
             modalOverlay.style.display = "flex";
         }
@@ -1418,7 +1479,7 @@
     function closeDefinitionModal() {
         document.getElementById("definitionModalOverlay").style.display = "none";
     }
-    
+
     document.getElementById("definitionModalOverlay").onclick = function(event) {
         if (event.target === this) {
             closeDefinitionModal();
@@ -1435,10 +1496,10 @@
 
         zoomableImages.forEach(img => {
             img.onclick = function(event){
-                event.stopPropagation(); 
-                imageModal.style.display = "flex"; 
+                event.stopPropagation();
+                imageModal.style.display = "flex";
                 modalImageContent.src = this.src;
-                modalCaption.innerHTML = this.alt || "תמונה מוגדלת"; 
+                modalCaption.innerHTML = this.alt || "תמונה מוגדלת";
             }
         });
 
@@ -1450,7 +1511,7 @@
         }
         if(imageModal){
             imageModal.onclick = function(event) {
-                if (event.target === imageModal || event.target === modalImageContent) { 
+                if (event.target === imageModal || event.target === modalImageContent) {
                     imageModal.style.display = "none";
                 }
             }
@@ -1458,64 +1519,64 @@
 
         // Strength Development Chart TI466
         const chartElement = document.getElementById('strengthDevelopmentChartTI466');
-        let strengthChart; 
+        let strengthChart;
 
         const chartData = {
-            labels: ['3', '7', '14', '28', '90'], 
+            labels: ['3', '7', '14', '28', '90'],
             datasets: [
                 {
                     label: 'צמנט 42.5',
                     data: [0.40, 0.65, 0.80, 1.00, 1.10].map(d => d*100),
-                    borderColor: 'rgba(56, 189, 248, 1)', 
+                    borderColor: 'rgba(56, 189, 248, 1)',
                     backgroundColor: 'rgba(56, 189, 248, 0.2)',
                     fill: false,
                     tension: 0.1,
                     animation: {
-                        duration: 7000, 
-                        delay: 0 
+                        duration: 7000,
+                        delay: 0
                     }
                 },
                 {
                     label: 'צמנט 52.5',
                     data: [0.45, 0.70, 0.85, 1.00, 1.05].map(d => d*100),
-                    borderColor: 'rgba(245, 158, 11, 1)', 
+                    borderColor: 'rgba(245, 158, 11, 1)',
                     backgroundColor: 'rgba(245, 158, 11, 0.2)',
                     fill: false,
                     tension: 0.1,
                      animation: {
-                        duration: 7000, 
-                        delay: 7000 
+                        duration: 7000,
+                        delay: 7000
                     }
                 },
                 {
                     label: 'צמנט 42.5 עם אפר פחם',
                     data: [0.30, 0.55, 0.75, 1.00, 1.15].map(d => d*100),
-                    borderColor: 'rgba(16, 185, 129, 1)', 
+                    borderColor: 'rgba(16, 185, 129, 1)',
                     backgroundColor: 'rgba(16, 185, 129, 0.2)',
                     fill: false,
                     tension: 0.1,
                     animation: {
-                        duration: 7000, 
-                        delay: 14000 
+                        duration: 7000,
+                        delay: 14000
                     }
                 }
             ]
         };
-        
-        const chartOptions = JSON.parse(JSON.stringify(defaultChartOptions)); 
-        chartOptions.animation = false; 
+
+        const chartOptions = JSON.parse(JSON.stringify(defaultChartOptions));
+        chartOptions.animation = false;
 
         const observerCallback = (entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    if (chartElement && !strengthChart) { 
+                    if (chartElement && !strengthChart) {
                          strengthChart = new Chart(chartElement.getContext('2d'), {
                             type: 'line',
-                            data: chartData, 
+                            data: chartData,
                             options: {
                                 ...chartOptions,
-                                animation: { 
-                                    duration: 2000, 
+                                animation: {
+                                    duration: 2000,
                                     easing: 'easeInOutQuart',
                                      onProgress: function(animation) {
                                     },
@@ -1525,7 +1586,7 @@
                             }
                         });
                     }
-                    observer.unobserve(entry.target); 
+                    observer.unobserve(entry.target);
                 }
             });
         };
@@ -1546,10 +1607,10 @@
                     labels: ['חוזק לחיצה', 'חוזק מתיחה'],
                     datasets: [{
                         label: 'חוזק אופייני (MPa)',
-                        data: [30, 3], 
+                        data: [30, 3],
                         backgroundColor: [
-                            'rgba(56, 189, 248, 0.7)', 
-                            'rgba(244, 63, 94, 0.7)'    
+                            'rgba(56, 189, 248, 0.7)',
+                            'rgba(244, 63, 94, 0.7)'
                         ],
                         borderColor: [
                             'rgba(56, 189, 248, 1)',
@@ -1561,7 +1622,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', 
+                    indexAxis: 'y',
                     scales: {
                         x: {
                             beginAtZero: true,
@@ -1570,12 +1631,12 @@
                             grid: { color: 'rgba(100, 116, 139, 0.2)' }
                         },
                         y: {
-                            ticks: { color: '#cbd5e1', font: {size: 14} }, 
+                            ticks: { color: '#cbd5e1', font: {size: 14} },
                             grid: { color: 'rgba(100, 116, 139, 0.2)' }
                         }
                     },
                     plugins: {
-                        legend: { display: false }, 
+                        legend: { display: false },
                         title: {
                             display: true,
                             text: 'השוואת חוזק לחיצה ומתיחה בבטון',
@@ -1592,13 +1653,219 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
                 } else {
-                    entry.target.classList.remove('is-visible'); 
+                    entry.target.classList.remove('is-visible');
                 }
             });
-        }, { threshold: 0.1 }); 
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.main-section').forEach(section => {
             sectionTitlesObserver.observe(section);
+        });
+
+        // New Side Navigation and Scroll to Top Logic
+        const sideNav = document.getElementById('side-navigation');
+        const sideNavLinksContainer = document.getElementById('side-navigation-links');
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        const mainContentContainer = document.querySelector('.container.mx-auto');
+        const sections = Array.from(document.querySelectorAll('section.main-section[id]'));
+
+        // Populate side navigation
+        if (sideNav && sideNavLinksContainer && sections.length > 0) {
+            sections.forEach(section => {
+                const sectionId = section.id;
+                const sectionTitleTag = section.querySelector('h2');
+                if (sectionTitleTag) {
+                    let sectionTitle = sectionTitleTag.textContent.trim();
+                    sectionTitle = sectionTitle.replace(/^[\d\.]+\s*/, '');
+
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = `#${sectionId}`;
+                    link.textContent = sectionTitle;
+                    link.classList.add('block', 'py-1.5', 'px-2.5', 'rounded-md', 'hover:bg-slate-700', 'transition-colors', 'duration-150', 'text-sm', 'cursor-pointer', 'text-slate-300', 'hover:text-white');
+                    link.setAttribute('data-nav-for', sectionId);
+                    listItem.appendChild(link);
+                    sideNavLinksContainer.appendChild(listItem);
+                }
+            });
+
+            if (window.matchMedia('(min-width: 768px)').matches) {
+                 if (mainContentContainer) {
+                    mainContentContainer.style.marginRight = 'calc(240px + 2rem)';
+                 }
+            }
+             window.addEventListener('resize', () => {
+                if (window.matchMedia('(min-width: 768px)').matches) {
+                    if (mainContentContainer) {
+                        mainContentContainer.style.marginRight = 'calc(240px + 2rem)';
+                    }
+                } else {
+                    if (mainContentContainer) {
+                        mainContentContainer.style.marginRight = '';
+                    }
+                }
+            });
+
+
+        } else {
+            if(sideNav) sideNav.style.display = 'none';
+        }
+
+        if (scrollToTopBtn) {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.style.opacity = '1';
+                    scrollToTopBtn.style.transform = 'scale(1)';
+                    scrollToTopBtn.style.pointerEvents = 'auto';
+                } else {
+                    scrollToTopBtn.style.opacity = '0';
+                    scrollToTopBtn.style.transform = 'scale(0.9)';
+                    scrollToTopBtn.style.pointerEvents = 'none';
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        const navLinks = sideNavLinksContainer ? Array.from(sideNavLinksContainer.querySelectorAll('a[data-nav-for]')) : [];
+
+        if (navLinks.length > 0) {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -65% 0px',
+                threshold: 0
+            };
+
+            const activateLink = (sectionId) => {
+                let linkActivated = false;
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-nav-for') === sectionId) {
+                        link.classList.add('bg-purple-600', 'text-white', 'font-semibold', 'shadow-lg');
+                        link.classList.remove('hover:bg-slate-700', 'text-slate-300', 'hover:text-white');
+                        linkActivated = true;
+                    } else {
+                        link.classList.remove('bg-purple-600', 'text-white', 'font-semibold', 'shadow-lg');
+                        link.classList.add('hover:bg-slate-700', 'text-slate-300', 'hover:text-white');
+                    }
+                });
+                return linkActivated;
+            };
+
+            let lastActiveSectionId = null;
+
+            const intersectionCallback = (entries) => {
+                let currentTopEntry = null;
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        if (!currentTopEntry || entry.boundingClientRect.top < currentTopEntry.boundingClientRect.top) {
+                            currentTopEntry = entry;
+                        }
+                    }
+                }
+
+                if (currentTopEntry) {
+                    lastActiveSectionId = currentTopEntry.target.id;
+                    activateLink(lastActiveSectionId);
+                } else {
+                    let bestCandidate = null;
+                    let smallestDistance = Infinity;
+                    const idealViewportPosition = window.innerHeight * 0.15;
+
+                    sections.forEach(section => {
+                        const rect = section.getBoundingClientRect();
+                        const distance = Math.abs(rect.top - idealViewportPosition);
+
+                        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                            if (distance < smallestDistance) {
+                                smallestDistance = distance;
+                                bestCandidate = section.id;
+                            }
+                        }
+                    });
+                    if (bestCandidate) {
+                        lastActiveSectionId = bestCandidate;
+                        activateLink(lastActiveSectionId);
+                    }
+                }
+            };
+
+            const sectionObserver = new IntersectionObserver(intersectionCallback, observerOptions);
+            sections.forEach(section => sectionObserver.observe(section));
+
+            setTimeout(() => {
+                let initialSectionId = null;
+                if (window.location.hash) {
+                    const hashId = window.location.hash.substring(1);
+                    if (sections.find(s => s.id === hashId)) {
+                         initialSectionId = hashId;
+                    }
+                }
+
+                if (initialSectionId) {
+                    if(activateLink(initialSectionId)){
+                        lastActiveSectionId = initialSectionId;
+                    }
+                } else {
+                    const initialEntries = [];
+                    sections.forEach(s => {
+                        const boundingClientRect = s.getBoundingClientRect();
+                        const isIntersecting = boundingClientRect.top < window.innerHeight && boundingClientRect.bottom > 0 &&
+                                             boundingClientRect.top < (window.innerHeight * (1-0.65));
+                        initialEntries.push({
+                            target: s,
+                            isIntersecting: isIntersecting,
+                            boundingClientRect: boundingClientRect
+                        });
+                    });
+                    intersectionCallback(initialEntries);
+
+                    if (!lastActiveSectionId && sections.length > 0) {
+                        const firstSectionRect = sections[0].getBoundingClientRect();
+                        if (firstSectionRect.top >=0 && firstSectionRect.top < window.innerHeight) {
+                           if (activateLink(sections[0].id)) {
+                                lastActiveSectionId = sections[0].id;
+                           }
+                        }
+                    }
+                }
+            }, 200);
+        }
+
+        const animatedElements = document.querySelectorAll(
+            '.main-section, .info-card, .application-card, .test-card, .chart-container, .road-comparison-table-container, .animated-header, .video-container, .test-procedure-grid > .test-procedure-step'
+        );
+
+        animatedElements.forEach(el => {
+            el.classList.add('anim-initial-hidden');
+        });
+
+        const observerOptionsAnimate = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const animateOnScrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.remove('anim-initial-hidden');
+
+                    if (entry.target.classList.contains('main-section') || entry.target.classList.contains('animated-header') || entry.target.classList.contains('road-comparison-table-container')) {
+                        entry.target.classList.add('animate-fadeInUp');
+                    } else if (entry.target.classList.contains('info-card') || entry.target.classList.contains('application-card') || entry.target.classList.contains('test-card') || entry.target.classList.contains('chart-container') || entry.target.classList.contains('video-container') || entry.target.classList.contains('test-procedure-step')) {
+                        entry.target.classList.add('animate-scaleUpSubtle');
+                    } else {
+                         entry.target.classList.add('animate-fadeInUp');
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptionsAnimate);
+
+        animatedElements.forEach(el => {
+            animateOnScrollObserver.observe(el);
         });
     });
 
